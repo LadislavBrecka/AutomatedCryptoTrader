@@ -4,8 +4,8 @@ import datetime as dt
 import pandas as pd
 import matplotlib.pyplot as plt
 import mplfinance as mpf
+from services import Services
 import matplotlib.dates as mdates
-import talib
 # pd.options.display.float_format = "{:,.2f}".format
 
 
@@ -74,7 +74,10 @@ class OhlcHandler:
         ax[2, 0].grid(True)
         ax[2, 0].legend(loc="lower right")
 
-        ax[1, 1].plot(self.dataset['Vwap'], 'b', label='Vwap')  # row=1, col=1
+        input_data = self.dataset['Close']
+        output = Services.fft_filter(input_data,60)
+
+        ax[1, 1].plot(self.dataset.index, output, 'b', label='Filtered')  # row=1, col=1
         ax[1, 1].grid(True)
         ax[1, 1].legend(loc="lower right")
 

@@ -1,9 +1,8 @@
 from sklearn.preprocessing import MinMaxScaler
-from BinanceOhlcHandler import BinanceOhlcHandler
-from CoinMarketCapHandler import CoinMarketCapHandler
-from OhlcHandler import OhlcHandler
-import pandas as pd
 import numpy as np
+
+
+
 
 
 class Services:
@@ -17,6 +16,19 @@ class Services:
 
     def unnormalize(self, data_to_unnormalize):
         return self.scaler.inverse_transform(data_to_unnormalize)
+
+    @staticmethod
+    def fft_filter(input_data: list, filter_const):
+        furrier_transform = np.fft.fft(input_data)
+        shifted_furrier_transform = np.fft.fftshift(furrier_transform)
+        HP_filter = np.zeros(len(shifted_furrier_transform), dtype=int)
+        n = int(len(HP_filter))
+        HP_filter[int(n / 2) - filter_const: int(n / 2) + filter_const] = 1
+        output = shifted_furrier_transform * HP_filter
+        output = abs(np.fft.ifft(output))
+
+        return output
+
     #
     # def get_data_for_ui(self, dataset, coinmarket):
     #
