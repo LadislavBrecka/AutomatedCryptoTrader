@@ -49,24 +49,24 @@ def generate_buy_sell_signal(dataset: pd.DataFrame) -> tuple:
     print(min_peaks_ind)
     print(max_peaks_ind)
 
-    sigPriceBuy = []
-    sigPriceSell = []
+    sig_price_buy = []
+    sig_price_sell = []
     flag = -1
 
     for i in range(0, len(dataset)):
         if i in max_peaks_ind and dataset['Rsi'][i] > 40:
-            sigPriceBuy.append(np.nan)
-            sigPriceSell.append(dataset['Close'][i])
+            sig_price_buy.append(np.nan)
+            sig_price_sell.append(dataset['Close'][i])
 
         elif i in min_peaks_ind and dataset['Rsi'][i] < 60:
-            sigPriceSell.append(np.nan)
-            sigPriceBuy.append(dataset['Close'][i])
+            sig_price_sell.append(np.nan)
+            sig_price_buy.append(dataset['Close'][i])
 
         else:  # Handling nan values
-            sigPriceBuy.append(np.nan)
-            sigPriceSell.append(np.nan)
+            sig_price_buy.append(np.nan)
+            sig_price_sell.append(np.nan)
 
-    return sigPriceBuy, sigPriceSell
+    return sig_price_buy, sig_price_sell
 
     # ind_list = list(dataset)
     # matching = [s for s in ind_list if "Ema" in s]
