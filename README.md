@@ -3,5 +3,5 @@ Bakalarska praca
 
 TODO :
 
-Rozdelenie dat na TRAIN a TEST
+Rozdelenie dat na TRAIN a TEST\
 Nakonfigurovanie NS
