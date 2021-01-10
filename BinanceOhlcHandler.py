@@ -16,7 +16,7 @@ class BinanceOhlcHandler(OhlcHandler):
     binance_client = Client(api_key, api_secret)
     #####
 
-    def __init__(self, pair, interval='1m'):
+    def __init__(self, pair, interval='5m'):
         super(BinanceOhlcHandler, self).__init__(pair)
 
         if interval == '1m':
@@ -32,7 +32,7 @@ class BinanceOhlcHandler(OhlcHandler):
         if self.interval == '1':
             raw_data = self.binance_client.get_historical_klines(self.pair, Client.KLINE_INTERVAL_1MINUTE, "12 hours ago UTC")
         elif self.interval == '5':
-            raw_data = self.binance_client.get_historical_klines(self.pair, Client.KLINE_INTERVAL_5MINUTE, "5 hours ago UTC")
+            raw_data = self.binance_client.get_historical_klines(self.pair, Client.KLINE_INTERVAL_5MINUTE, "240 hours ago UTC")
         elif self.interval == '60':
             raw_data = self.binance_client.get_historical_klines(self.pair, Client.KLINE_INTERVAL_1HOUR, "1440 hours ago UTC")
         else:

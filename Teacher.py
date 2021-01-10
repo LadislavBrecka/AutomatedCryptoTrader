@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
-from scipy.signal import find_peaks
 from services import Services
+import peakdetect
+
 
 # Vygeneruje target list pre vstup trenovania ns
 def get_target(look_back: int, look_future: int, dataset: pd.DataFrame) -> list:
@@ -29,25 +30,34 @@ def get_target(look_back: int, look_future: int, dataset: pd.DataFrame) -> list:
     return targets
 
 
-# Vygeneruje buy/sell signaly podla MACD RSI EMA a nahladnutia do buducnosti
 def generate_buy_sell_signal(dataset: pd.DataFrame) -> tuple:
-    filtered_price = Services.fft_filter(dataset['Close'], 55)
-    peaks, _ = find_peaks(filtered_price, distance=20)
-    print(peaks)
+    filtered_price = Services.fft_filter(dataset['Close'], 25)
+    # peaks, _ = find_peaks(filtered_price, distance=20)
+
+    peaks = peakdetect.peakdetect(np.array(filtered_price), lookahead=10, delta=10)
+
+    max_peaks_ind = []
+    for l in peaks[0]:
+        max_peaks_ind.append(l[0])
+    min_peaks_ind = []
+    for l in peaks[1]:
+        min_peaks_ind.append(l[0])
+
+    print(min_peaks_ind)
+    print(max_peaks_ind)
 
     sigPriceBuy = []
     sigPriceSell = []
     flag = -1
 
     for i in range(0, len(dataset)):
-        # if MACD > signal line  then buy else sell
-        if i in peaks:
-            sigPriceBuy.append(dataset['Close'][i])
-            sigPriceSell.append(np.nan)
-
-        elif peaks[1] == -100:
-            sigPriceSell.append(dataset['Close'][i])
+        if i in max_peaks_ind and dataset['Rsi'][i] > 40:
             sigPriceBuy.append(np.nan)
+            sigPriceSell.append(dataset['Close'][i])
+
+        elif i in min_peaks_ind and dataset['Rsi'][i] < 60:
+            sigPriceSell.append(np.nan)
+            sigPriceBuy.append(dataset['Close'][i])
 
         else:  # Handling nan values
             sigPriceBuy.append(np.nan)

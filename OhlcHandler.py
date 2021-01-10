@@ -74,8 +74,9 @@ class OhlcHandler:
         ax[2, 0].grid(True)
         ax[2, 0].legend(loc="lower right")
 
+        # Namiesto VWAP vykreslujem filtrovanu cenu, len pre znazornenie
         input_data = self.dataset['Close']
-        output = Services.fft_filter(input_data,60)
+        output = Services.fft_filter(input_data, 25)
 
         ax[1, 1].plot(self.dataset.index, output, 'b', label='Filtered')  # row=1, col=1
         ax[1, 1].grid(True)
