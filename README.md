@@ -1,0 +1,2 @@
+# AutomatedCryptoTrader
+Bakalarska praca
