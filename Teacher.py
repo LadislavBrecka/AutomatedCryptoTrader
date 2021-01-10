@@ -5,34 +5,37 @@ import peakdetect
 
 
 # Vygeneruje target list pre vstup trenovania ns
-def get_target(look_back: int, look_future: int, dataset: pd.DataFrame) -> list:
+# [1 0.01 0.01] - buy
+# [0.01 1 0.01] - sell
+# [0.01 0.01 1] - hold
+
+
+def get_target(dataset: pd.DataFrame, buy_sell: tuple) -> list:
     targets = []
 
-    for i in range(1, len(dataset) - look_future, look_back):
-        # Logika vyhodnocovania spravneho momentu pre kupu
+    for i in range(len(dataset)):
 
-        current = dataset.iloc[i]
-        # step_back = dataset.index[i-1]
-        future = dataset.iloc[i + look_future]
-        if current['Close'] < future['Close'] + 10.0:
-            ans = 0.6
-        elif current['Close'] < future['Close'] + 50.0:
-            ans = 0.7
-        elif current['Close'] < future['Close'] + 100.0:
-            ans = 0.85
-        elif current['Close'] < future['Close'] + 200.0:
-            ans = 1.0
+        desire_output = []
+        if not pd.isnull(buy_sell[0][i]):
+            desire_output.append(1)
+            desire_output.append(0.01)
+            desire_output.append(0.01)
+        elif not pd.isnull(buy_sell[1][i]):
+            desire_output.append(0.01)
+            desire_output.append(1)
+            desire_output.append(0.01)
         else:
-            ans = 0.01
+            desire_output.append(0.01)
+            desire_output.append(0.01)
+            desire_output.append(1)
 
-        targets.append(ans)
+        targets.append(desire_output)
 
     return targets
 
 
 def generate_buy_sell_signal(dataset: pd.DataFrame) -> tuple:
     filtered_price = Services.fft_filter(dataset['Close'], 25)
-    # peaks, _ = find_peaks(filtered_price, distance=20)
 
     peaks = peakdetect.peakdetect(np.array(filtered_price), lookahead=10, delta=10)
 
