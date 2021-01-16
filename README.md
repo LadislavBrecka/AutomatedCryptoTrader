@@ -3,13 +3,17 @@ Bakalarska praca
 
 DONE : 
 
-Urcenie buy/sell signalov
-Dostatocne vyladenie buy/sell signalov
+Urcenie a vyladenie buy/sell signalov\
+Nahlad:
 ![Screenshot](screens/buy_sell.jpg)
 ![Screenshot](screens/buy_sell_zoom.jpg)
+
+Grafy priebehov:
+![Screenshot](screens/candlestick.jpg)
+![Screenshot](screens/indicators.jpg)
 
 
 TODO :
 
-Rozdelenie dat na TRAIN a TEST  - pracuje sa
+Rozdelenie dat na TRAIN a TEST  - pracuje sa\
 Nakonfigurovanie NS
