@@ -6,9 +6,6 @@ import numpy as np
 import NeuralNetwork_2_hidden as nn_2_hidden
 import NeuralNetwork_2_hidden as nn_1_hidden
 
-# Debug constants
-PLOT = True
-
 
 '''
 Setting and getting dataset
@@ -29,21 +26,22 @@ print(coinmarket.actual)
 
 look_back = 2
 epochs = 10
+filter_const = 100      # 100 alebo 25, podla toho kolko moc operacii chceme vykonat
 
 '''
 Finding and setting buy/sell signals
 '''
-x = Teacher.generate_buy_sell_signal(binance.dataset)
+x = Teacher.generate_buy_sell_signal(binance.dataset, filter_const)
 targets = Teacher.get_target(binance.dataset, x)
 
-# binance.dataset['Target'] = targets
-
+binance.dataset['Buy'] = x[0]
+binance.dataset['Sell'] = x[1]
+binance.dataset['Target'] = targets
 '''
 Plotting and printing
 '''
 
-if PLOT:
-    binance.plot_candlestick(indicators=True, buy_sell=x)
+binance.plot_candlestick(indicators=True, buy_sell=x, filter_const=filter_const)
 
 binance.print_to_file('out1.txt')
 
@@ -63,26 +61,26 @@ Pushing new samples and the end of dataset
 Feed Forward neural network
 '''
 
-for e in range(epochs):
-    for i in range(len(binance.dataset)):
-        t = binance.dataset.iloc[i]
-        tm1 = binance.dataset.iloc[i-1]
-        del t['Date']
-        del tm1['Date']
-        t = t.values
-        tm1 = tm1.values
-
-        inputs = np.concatenate([t, tm1])
-        inputs = inputs.reshape(-1, 1)
-        inputs = services.normalize(inputs)
-        inputs = inputs.reshape(28, )
-        inputs = inputs * 0.99 + 0.01
-        #
-        # print("Input value -> index {}\n value {}".format(i, inputs))
-        # print("Target value -> index {}\n value {}".format(i, targets[i]))
-
-        nn.train(inputs, targets[i])
-        print(i, e)
+# for e in range(epochs):
+#     for i in range(len(binance.dataset)):
+#         t = binance.dataset.iloc[i]
+#         tm1 = binance.dataset.iloc[i-1]
+#         del t['Date']
+#         del tm1['Date']
+#         t = t.values
+#         tm1 = tm1.values
+#
+#         inputs = np.concatenate([t, tm1])
+#         inputs = inputs.reshape(-1, 1)
+#         inputs = services.normalize(inputs)
+#         inputs = inputs.reshape(28, )
+#         inputs = inputs * 0.99 + 0.01
+#         #
+#         # print("Input value -> index {}\n value {}".format(i, inputs))
+#         # print("Target value -> index {}\n value {}".format(i, targets[i]))
+#
+#         nn.train(inputs, targets[i])
+#         print(i, e)
 
 
 # k = binance.dataset.iloc[45]

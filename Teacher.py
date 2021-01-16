@@ -34,8 +34,8 @@ def get_target(dataset: pd.DataFrame, buy_sell: tuple) -> list:
     return targets
 
 
-def generate_buy_sell_signal(dataset: pd.DataFrame) -> tuple:
-    filtered_price = Services.fft_filter(dataset['Close'], 25)
+def generate_buy_sell_signal(dataset: pd.DataFrame, filter_const: int) -> tuple:
+    filtered_price = Services.fft_filter(dataset['Close'], filter_const)
 
     peaks = peakdetect.peakdetect(np.array(filtered_price), lookahead=10, delta=10)
 
@@ -55,12 +55,22 @@ def generate_buy_sell_signal(dataset: pd.DataFrame) -> tuple:
 
     for i in range(0, len(dataset)):
         if i in max_peaks_ind and dataset['Rsi'][i] > 40:
-            sig_price_buy.append(np.nan)
-            sig_price_sell.append(dataset['Close'][i])
+            if flag != 1:
+                sig_price_buy.append(np.nan)
+                sig_price_sell.append(dataset['Close'][i])
+                flag = 1
+            else:
+                sig_price_buy.append(np.nan)
+                sig_price_sell.append(np.nan)
 
         elif i in min_peaks_ind and dataset['Rsi'][i] < 60:
-            sig_price_sell.append(np.nan)
-            sig_price_buy.append(dataset['Close'][i])
+            if flag != 0:
+                sig_price_sell.append(np.nan)
+                sig_price_buy.append(dataset['Close'][i])
+                flag = 0
+            else:
+                sig_price_buy.append(np.nan)
+                sig_price_sell.append(np.nan)
 
         else:  # Handling nan values
             sig_price_buy.append(np.nan)

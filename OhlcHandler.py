@@ -46,7 +46,7 @@ class OhlcHandler:
             closed_price = closed_price.reshape(len(closed_price), 1)
             return closed_price
 
-    def plot_candlestick(self, indicators=False, buy_sell: tuple=None):
+    def plot_candlestick(self, indicators=False, buy_sell: tuple = None, filter_const: int = None):
         if indicators:
             # Plot candlestick chart
             fig = plt.figure()
@@ -77,7 +77,7 @@ class OhlcHandler:
 
             # Namiesto VWAP vykreslujem filtrovanu cenu, len pre znazornenie
             input_data = self.dataset['Close']
-            output = Services.fft_filter(input_data, 25)
+            output = Services.fft_filter(input_data, filter_const)
 
             ax[1, 1].plot(self.dataset.index, output, 'b', label='Filtered')  # row=1, col=1
             ax[1, 1].grid(True)
@@ -98,7 +98,6 @@ class OhlcHandler:
 
         plot_df = self.dataset.iloc[:, :-1]
         mpf.plot(plot_df, type='candle', style='charles', title='Candle Stick Graph', ylabel='Price', volume=True, mav=(3,6,9))
-
 
         plt.show()
 
