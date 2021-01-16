@@ -5,57 +5,52 @@ import Teacher
 import numpy as np
 import NeuralNetwork_2_hidden as nn_2_hidden
 import NeuralNetwork_2_hidden as nn_1_hidden
-
+from Constants import *
+import time
 
 '''
 Setting and getting dataset
 '''
-binance_pair = 'BTCUSDT'
-coin_name = 'bitcoin'
 
-nn = nn_2_hidden.NeuralNetwork(28, 10, 50, 3, 0.3)
+binance = BinanceOhlcHandler(BINANCE_PAIR)
+binance.get_dataset()
+# coinmarket = CoinMarketCapHandler(COIN_NAME)
+# coinmarket.get_actual()
+# # print(coinmarket.actual)
+
+nn = nn_2_hidden.NeuralNetwork(INPUT_SIZE, HIDDEN_LAYER_1, HIDDEN_LAYER_2, OUTPUT_SIZE, LEARNING_RATE)
 # nn = nn_1_hidden.NeuralNetwork(24, 50, 1, 0.3)
 
 services = Services()
 
-binance = BinanceOhlcHandler(binance_pair)
-binance.get_dataset()
-coinmarket = CoinMarketCapHandler(coin_name)
-coinmarket.get_actual()
-print(coinmarket.actual)
-
-look_back = 2
-epochs = 10
-filter_const = 100      # 100 alebo 25, podla toho kolko moc operacii chceme vykonat
-
 '''
 Finding and setting buy/sell signals
 '''
-x = Teacher.generate_buy_sell_signal(binance.dataset, filter_const)
-targets = Teacher.get_target(binance.dataset, x)
+x = Teacher.generate_buy_sell_signal(binance.dataset, FILTER_CONSTANT)
+targets = Teacher.get_target(len(binance.dataset), x)
 
+# For revision
 binance.dataset['Buy'] = x[0]
 binance.dataset['Sell'] = x[1]
 binance.dataset['Target'] = targets
 '''
 Plotting and printing
 '''
-
-binance.plot_candlestick(indicators=True, buy_sell=x, filter_const=filter_const)
+binance.plot_candlestick(indicators=True, buy_sell=x, filter_const=FILTER_CONSTANT)
 
 binance.print_to_file('out1.txt')
 
 '''
 Pushing new samples and the end of dataset
 '''
-# handler_binance.print_to_file('out1.txt')
-# # i = 0
-# # while i != 3:
-# #     time.sleep(60)
-# #     handler_binance.get_recent_OHLC()
-# #     i += 1
-# #
-# # handler_binance.print_to_file('out2.txt')
+# print("Printing from main.py: Start adding new samples")
+# i = 0
+# while i != 3:
+#     time.sleep(60)
+#     binance.get_recent_OHLC()
+#     i += 1
+#
+# binance.print_to_file('out1.txt')
 
 '''
 Feed Forward neural network
