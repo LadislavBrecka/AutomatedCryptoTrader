@@ -46,60 +46,58 @@ class OhlcHandler:
             closed_price = closed_price.reshape(len(closed_price), 1)
             return closed_price
 
-    def plot_candlestick(self, indicators=False):
-        # Plot candlestick chart
-        fig = plt.figure()
-        ax = fig.subplots(nrows=3, ncols=2, sharex=True)
-        # ax.xaxis_date()
-        # ax.xaxis.set_major_formatter(mdates.DateFormatter('%b %d, %H:%M'))
+    def plot_candlestick(self, indicators=False, buy_sell: tuple = None, filter_const: int = None):
+        if indicators:
+            # Plot candlestick chart
+            fig = plt.figure()
+            ax = fig.subplots(nrows=3, ncols=2, sharex=True)
+            # ax.xaxis_date()
+            # ax.xaxis.set_major_formatter(mdates.DateFormatter('%b %d, %H:%M'))
 
-        ind_list = list(self.dataset)
-        matching = [s for s in ind_list if "Ema" in s]
-        ax[0, 0].plot(self.dataset[matching[0]], 'b', label=matching[0])  # row=0, col=0
-        ax[0, 0].plot(self.dataset[matching[1]], 'm', label=matching[1])  # row=0, col=0
-        ax[0, 0].plot(self.dataset[matching[2]], 'g', label=matching[2])  # row=0, col=0
-        ax[0, 0].grid(True)
-        ax[0, 0].legend(loc="lower right")
+            ind_list = list(self.dataset)
+            matching = [s for s in ind_list if "Ema" in s]
+            ax[0, 0].plot(self.dataset[matching[0]], 'b', label=matching[0])  # row=0, col=0
+            ax[0, 0].plot(self.dataset[matching[1]], 'm', label=matching[1])  # row=0, col=0
+            ax[0, 0].plot(self.dataset[matching[2]], 'g', label=matching[2])  # row=0, col=0
+            ax[0, 0].grid(True)
+            ax[0, 0].legend(loc="lower right")
 
-        ax[1, 0].plot(self.dataset['Rsi'], 'b', label='Rsi')  # row=0, col=0
-        ax[1, 0].axhline(y=30, color='r')
-        ax[1, 0].axhline(y=70, color='r')
-        ax[1, 0].grid(True)
-        ax[1, 0].legend(loc="lower right")
+            ax[1, 0].plot(self.dataset['Rsi'], 'b', label='Rsi')  # row=0, col=0
+            ax[1, 0].axhline(y=30, color='r')
+            ax[1, 0].axhline(y=70, color='r')
+            ax[1, 0].grid(True)
+            ax[1, 0].legend(loc="lower right")
 
-        ax[2, 0].plot(self.dataset['Macd'], 'b', label='Macd')  # row=1, col=0
-        ax[2, 0].plot(self.dataset['Signal'], 'm', label='Signal')  # row=1, col=0
-        ax[2, 0].plot(self.dataset['Momentum'], 'go', label='Momentum')  # row=1, col=0
-        ax[2, 0].axhline(y=0, color='k')
-        ax[2, 0].grid(True)
-        ax[2, 0].legend(loc="lower right")
+            ax[2, 0].plot(self.dataset['Macd'], 'b', label='Macd')  # row=1, col=0
+            ax[2, 0].plot(self.dataset['Signal'], 'm', label='Signal')  # row=1, col=0
+            ax[2, 0].plot(self.dataset['Momentum'], 'go', label='Momentum')  # row=1, col=0
+            ax[2, 0].axhline(y=0, color='k')
+            ax[2, 0].grid(True)
+            ax[2, 0].legend(loc="lower right")
 
-        # Namiesto VWAP vykreslujem filtrovanu cenu, len pre znazornenie
-        input_data = self.dataset['Close']
-        output = Services.fft_filter(input_data, 25)
+            # Namiesto VWAP vykreslujem filtrovanu cenu, len pre znazornenie
+            input_data = self.dataset['Close']
+            output = Services.fft_filter(input_data, filter_const)
 
-        ax[1, 1].plot(self.dataset.index, output, 'b', label='Filtered')  # row=1, col=1
-        ax[1, 1].grid(True)
-        ax[1, 1].legend(loc="lower right")
+            ax[1, 1].plot(self.dataset.index, output, 'b', label='Filtered')  # row=1, col=1
+            ax[1, 1].grid(True)
+            ax[1, 1].legend(loc="lower right")
 
-        ax[2, 1].plot(self.dataset['Gradient'], 'b', label='Gradient')  # row=1, col=1
-        ax[2, 1].grid(True)
-        ax[2, 1].legend(loc="lower right")
+            ax[2, 1].plot(self.dataset['Gradient'], 'b', label='Gradient')  # row=1, col=1
+            ax[2, 1].grid(True)
+            ax[2, 1].legend(loc="lower right")
 
-        if 'Buy' in self.dataset:
-            ax[0, 1].scatter(self.dataset.index, self.dataset['Buy'], color='green', label='Buy Signal', marker='^', alpha=1)
-        if 'Sell' in self.dataset:
-            ax[0, 1].scatter(self.dataset.index, self.dataset['Sell'], color='red', label='Sell Signal', marker='v', alpha=1)
-        ax[0, 1].plot(self.dataset['Close'], 'b', label='Close')  # row=1, col=1
-        ax[0, 1].grid(True)
-        ax[0, 1].legend(loc="lower right")
+            if buy_sell is not None:
+                ax[0, 1].scatter(self.dataset.index, buy_sell[0], color='green', label='Buy Signal', marker='^', alpha=1)
+                ax[0, 1].scatter(self.dataset.index, buy_sell[1], color='red', label='Sell Signal', marker='v', alpha=1)
+            ax[0, 1].plot(self.dataset['Close'], 'b', label='Close')  # row=1, col=1
+            ax[0, 1].grid(True)
+            ax[0, 1].legend(loc="lower right")
 
-        # ax.grid(True)
-        plt.xticks(rotation=45)
+            plt.xticks(rotation=45)
 
         plot_df = self.dataset.iloc[:, :-1]
         mpf.plot(plot_df, type='candle', style='charles', title='Candle Stick Graph', ylabel='Price', volume=True, mav=(3,6,9))
-
 
         plt.show()
 

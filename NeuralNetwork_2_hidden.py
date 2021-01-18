@@ -4,16 +4,16 @@ from scipy import special
 
 class NeuralNetwork:
 
-    def __init__(self, inputnodes, hiddennodes, hiddennodes2, outputnodes, learningrate):
+    def __init__(self, input_nodes: int, hidden_nodes: int, hidden_nodes2: int, output_nodes: int, learning_rate: float):
 
         # Initialize nodes
-        self.inodes = inputnodes
-        self.hnodes1 = hiddennodes
-        self.hnodes2 = hiddennodes2
-        self.onodes = outputnodes
+        self.inodes = input_nodes
+        self.hnodes1 = hidden_nodes
+        self.hnodes2 = hidden_nodes2
+        self.onodes = output_nodes
 
         # Initialize learning rate
-        self.lr = learningrate
+        self.lr = learning_rate
 
         # Initialize weights
         self.wih = np.random.normal(0.0, pow(self.inodes, -0.5), (self.hnodes1, self.inodes))

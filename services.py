@@ -1,8 +1,7 @@
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
-
-
-
+import pandas as pd
+from sklearn.model_selection import train_test_split
 
 
 class Services:
@@ -11,23 +10,28 @@ class Services:
     def __init__(self):
         self.scaler = MinMaxScaler(feature_range=(0, 1))
 
-    def normalize(self, data_to_normalize):
+    def normalize(self, data_to_normalize: list) -> list:
         return self.scaler.fit_transform(data_to_normalize)
 
-    def unnormalize(self, data_to_unnormalize):
+    def unnormalize(self, data_to_unnormalize: list) -> list:
         return self.scaler.inverse_transform(data_to_unnormalize)
 
     @staticmethod
-    def fft_filter(input_data: list, filter_const):
+    def fft_filter(input_data: list, filter_const: int) -> list:
         furrier_transform = np.fft.fft(input_data)
         shifted_furrier_transform = np.fft.fftshift(furrier_transform)
-        HP_filter = np.zeros(len(shifted_furrier_transform), dtype=int)
-        n = int(len(HP_filter))
-        HP_filter[int(n / 2) - filter_const: int(n / 2) + filter_const] = 1
-        output = shifted_furrier_transform * HP_filter
+        hp_filter = np.zeros(len(shifted_furrier_transform), dtype=int)
+        n = int(len(hp_filter))
+        hp_filter[int(n / 2) - filter_const: int(n / 2) + filter_const] = 1
+        output = shifted_furrier_transform * hp_filter
         output = abs(np.fft.ifft(output))
 
         return output
+
+    @staticmethod
+    def split_test_train(dataset: pd.DataFrame, test_size: float) -> tuple:
+        train, test = train_test_split(dataset, test_size=test_size)
+        return train, test
 
     #
     # def get_data_for_ui(self, dataset, coinmarket):

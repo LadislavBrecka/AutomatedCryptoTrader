@@ -4,66 +4,141 @@ from services import Services
 import peakdetect
 
 
-# Vygeneruje target list pre vstup trenovania ns
-def get_target(look_back: int, look_future: int, dataset: pd.DataFrame) -> list:
+# Generate target list of format:
+# [1 0.01 0.01] - buy
+# [0.01 1 0.01] - sell
+# [0.01 0.01 1] - hold
+
+
+def get_target(dataset_length: int, buy_sell: tuple) -> list:
     targets = []
 
-    for i in range(1, len(dataset) - look_future, look_back):
-        # Logika vyhodnocovania spravneho momentu pre kupu
+    for i in range(dataset_length):
 
-        current = dataset.iloc[i]
-        # step_back = dataset.index[i-1]
-        future = dataset.iloc[i + look_future]
-        if current['Close'] < future['Close'] + 10.0:
-            ans = 0.6
-        elif current['Close'] < future['Close'] + 50.0:
-            ans = 0.7
-        elif current['Close'] < future['Close'] + 100.0:
-            ans = 0.85
-        elif current['Close'] < future['Close'] + 200.0:
-            ans = 1.0
+        desire_output = []
+        if not pd.isnull(buy_sell[0][i]):
+            desire_output.append(1)
+            desire_output.append(0.01)
+            desire_output.append(0.01)
+        elif not pd.isnull(buy_sell[1][i]):
+            desire_output.append(0.01)
+            desire_output.append(1)
+            desire_output.append(0.01)
         else:
-            ans = 0.01
+            desire_output.append(0.01)
+            desire_output.append(0.01)
+            desire_output.append(1)
 
-        targets.append(ans)
+        targets.append(desire_output)
 
     return targets
 
 
-def generate_buy_sell_signal(dataset: pd.DataFrame) -> tuple:
-    filtered_price = Services.fft_filter(dataset['Close'], 25)
-    # peaks, _ = find_peaks(filtered_price, distance=20)
+# Most important function of our application, written entirely by ME!
+def generate_buy_sell_signal(dataset: pd.DataFrame, filter_const: int) -> tuple:
 
+    # Low pass filter on closed price, for finding cleaner min and max
+    # Greater value of filter constant give us more buy/sell signals,
+    # because of less filtered values
+    filtered_price = Services.fft_filter(dataset['Close'], filter_const)
+
+    # Detecting min and max peaks in filtered series
     peaks = peakdetect.peakdetect(np.array(filtered_price), lookahead=10, delta=10)
 
+    # peakdetect function return tuple of min and max lists
+    # [[[ind, val], [ind, val], [ind, val]],
+    #  [[ind, val], [ind, val], [ind, val]]
+    # ]
+    # Min/max lists are in format list of lists (each min/max value in list has [ind, val])
+    # Parsing peaks to retrieve only indexes of min/max values from min/max lists and push them to corresponded lists
     max_peaks_ind = []
     for l in peaks[0]:
+        # Appending index of found maximum to list of indexes of max values
         max_peaks_ind.append(l[0])
     min_peaks_ind = []
     for l in peaks[1]:
+        # Appending index of found minimum to list of indexes of min values
         min_peaks_ind.append(l[0])
 
-    print(min_peaks_ind)
-    print(max_peaks_ind)
+    # We get indexes of min/max values in filtered series, which have a bit offset from min/max in non-filtered series
+    # Now we need to get precised min/max in non-filtered series by scanning in non-filtered series few samples
+    # to each side and scan in this interval for new min/max indexes
+    PRECISION_CONSTANT = 10
 
-    sigPriceBuy = []
-    sigPriceSell = []
-    flag = -1
+    # For every index in max indexes founded in filtered series, look at non-filtered series,
+    # and in range of PRECISION CONSTANT to each side scan for better max
+    # Output from np.where was a bit mess, sometimes it returns tuple, sometimes empty array
+    # sometimes 2 values,so there must be proper checking for proper case
+    new_max_ind = []
+    for i in max_peaks_ind:
+        k = np.where(dataset['Close'].values == dataset['Close'][i-PRECISION_CONSTANT:i+PRECISION_CONSTANT].max())
+        if isinstance(k, tuple):
+            if k[0].size == 0:
+                new_max_ind.append(i)
+            else:
+                new_max_ind.append(k[0])
+        else:
+            if k.size == 0:
+                new_max_ind.append(i)
+            else:
+                new_max_ind.append(k)
+
+    # For every index in mi indexes founded in filtered series, look at non-filtered series,
+    # and in range of PRECISION CONSTANT to each side scan for better min
+    # Output from np.where was a bit mess, sometimes it returns tuple, sometimes empty array
+    # sometimes 2 values,so there must be proper checking for proper case
+    new_min_ind = []
+    for i in min_peaks_ind:
+        k = np.where(dataset['Close'].values == dataset['Close'][i - PRECISION_CONSTANT:i + PRECISION_CONSTANT].min())
+        if isinstance(k, tuple):
+            if k[0].size == 0:
+                new_min_ind.append(i)
+            else:
+                new_min_ind.append(k[0])
+        else:
+            if k.size == 0:
+                new_min_ind.append(i)
+            else:
+                new_min_ind.append(k)
+
+    sig_price_buy = []
+    sig_price_sell = []
+    # Flag is there for securing buy-sell-buy-sell pattern, no buy-buy or sell-sell is allowed
+    flag = 1
+    budget = 0
 
     for i in range(0, len(dataset)):
-        if i in max_peaks_ind and dataset['Rsi'][i] > 40:
-            sigPriceBuy.append(np.nan)
-            sigPriceSell.append(dataset['Close'][i])
+        # Detecting sell signals, if there is maximum on non-filtered series and RSI > 40
+        if i in new_max_ind and dataset['Rsi'][i] > 40:
+            if flag != 1:
+                sig_price_buy.append(np.nan)
+                sig_price_sell.append(dataset['Close'][i])
+                flag = 1
+                budget = budget + dataset['Close'][i]
+            else:
+                sig_price_buy.append(np.nan)
+                sig_price_sell.append(np.nan)
 
-        elif i in min_peaks_ind and dataset['Rsi'][i] < 60:
-            sigPriceSell.append(np.nan)
-            sigPriceBuy.append(dataset['Close'][i])
+        # Detecting buy signals, if there is minimum on non-filtered series and RSI > 40
+        elif i in new_min_ind and dataset['Rsi'][i] < 60:
+            if flag != 0:
+                sig_price_sell.append(np.nan)
+                sig_price_buy.append(dataset['Close'][i])
+                flag = 0
+                budget = budget - dataset['Close'][i]
+            else:
+                sig_price_buy.append(np.nan)
+                sig_price_sell.append(np.nan)
 
-        else:  # Handling nan values
-            sigPriceBuy.append(np.nan)
-            sigPriceSell.append(np.nan)
+        # Handling nan values
+        else:
+            sig_price_buy.append(np.nan)
+            sig_price_sell.append(np.nan)
 
-    return sigPriceBuy, sigPriceSell
+    print("Printing from Teacher.py: Profit from these buy/sell signals is {}".format(np.around(budget, 2)))
+
+    # Returning tuples
+    return sig_price_buy, sig_price_sell
 
     # ind_list = list(dataset)
     # matching = [s for s in ind_list if "Ema" in s]
