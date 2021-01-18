@@ -74,14 +74,14 @@ def generate_buy_sell_signal(dataset: pd.DataFrame, filter_const: int) -> tuple:
         k = np.where(dataset['Close'].values == dataset['Close'][i-PRECISION_CONSTANT:i+PRECISION_CONSTANT].max())
         if isinstance(k, tuple):
             if k[0].size == 0:
-                new_max_ind.append(i)
+                new_max_ind.append(int(i))
             else:
-                new_max_ind.append(k[0])
+                new_max_ind.append(int(k[0]))
         else:
             if k.size == 0:
-                new_max_ind.append(i)
+                new_max_ind.append(int(i))
             else:
-                new_max_ind.append(k)
+                new_max_ind.append(int(k))
 
     # For every index in mi indexes founded in filtered series, look at non-filtered series,
     # and in range of PRECISION CONSTANT to each side scan for better min
@@ -92,20 +92,23 @@ def generate_buy_sell_signal(dataset: pd.DataFrame, filter_const: int) -> tuple:
         k = np.where(dataset['Close'].values == dataset['Close'][i - PRECISION_CONSTANT:i + PRECISION_CONSTANT].min())
         if isinstance(k, tuple):
             if k[0].size == 0:
-                new_min_ind.append(i)
+                new_min_ind.append(int(i))
             else:
-                new_min_ind.append(k[0])
+                new_min_ind.append(int(k[0]))
         else:
             if k.size == 0:
-                new_min_ind.append(i)
+                new_min_ind.append(int(i))
             else:
-                new_min_ind.append(k)
+                new_min_ind.append(int(k))
 
     sig_price_buy = []
     sig_price_sell = []
     # Flag is there for securing buy-sell-buy-sell pattern, no buy-buy or sell-sell is allowed
     flag = 1
     budget = 0
+
+    print(new_min_ind)
+    print(new_max_ind)
 
     for i in range(0, len(dataset)):
         # Detecting sell signals, if there is maximum on non-filtered series and RSI > 40
