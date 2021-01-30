@@ -5,9 +5,9 @@ import peakdetect
 
 
 # Generate target list of format:
-# [1 0.01 0.01] - buy
-# [0.01 1 0.01] - sell
-# [0.01 0.01 1] - hold
+# [1.0 0.01 0.01] - buy
+# [0.01 1.0 0.01] - sell
+# [0.01 0.01 1.0] - hold
 
 
 def get_target(dataset_length: int, buy_sell: tuple) -> list:
@@ -17,17 +17,17 @@ def get_target(dataset_length: int, buy_sell: tuple) -> list:
 
         desire_output = []
         if not pd.isnull(buy_sell[0][i]):
-            desire_output.append(1)
+            desire_output.append(1.0)
             desire_output.append(0.01)
             desire_output.append(0.01)
         elif not pd.isnull(buy_sell[1][i]):
             desire_output.append(0.01)
-            desire_output.append(1)
+            desire_output.append(1.0)
             desire_output.append(0.01)
         else:
             desire_output.append(0.01)
             desire_output.append(0.01)
-            desire_output.append(1)
+            desire_output.append(1.0)
 
         targets.append(desire_output)
 
@@ -65,41 +65,31 @@ def generate_buy_sell_signal(dataset: pd.DataFrame, filter_const: int) -> tuple:
     # to each side and scan in this interval for new min/max indexes
     PRECISION_CONSTANT = 10
 
-    # For every index in max indexes founded in filtered series, look at non-filtered series,
+    # For every index in max indexes found in filtered series, look at non-filtered series,
     # and in range of PRECISION CONSTANT to each side scan for better max
-    # Output from np.where was a bit mess, sometimes it returns tuple, sometimes empty array
-    # sometimes 2 values,so there must be proper checking for proper case
     new_max_ind = []
     for i in max_peaks_ind:
-        k = np.where(dataset['Close'].values == dataset['Close'][i-PRECISION_CONSTANT:i+PRECISION_CONSTANT].max())
-        if isinstance(k, tuple):
-            if k[0].size == 0:
-                new_max_ind.append(int(i))
-            else:
-                new_max_ind.append(int(k[0]))
-        else:
-            if k.size == 0:
-                new_max_ind.append(int(i))
-            else:
-                new_max_ind.append(int(k))
+        # "k" will represent offset from original max index "i" to better max -: new_max = "i" with offset "k"
+        # Npzero give value from 0 to 2*PRECISION CONSTANT, because length of scanned area is 2*PRECISION CONSTANT
+        k = np.nonzero(dataset['Close'][i-PRECISION_CONSTANT:i+PRECISION_CONSTANT].values == dataset['Close'][i-PRECISION_CONSTANT:i+PRECISION_CONSTANT].max())[0][0]
+        # Offset found index to range -PRECISION CONSTANT : + PRECISION CONSTANT
+        k = k - PRECISION_CONSTANT
+        # Now correct index found in filtered series "i" by offset "k" found in previous step
+        new_temp_ind = i + k
+        new_max_ind.append(new_temp_ind)
 
     # For every index in mi indexes founded in filtered series, look at non-filtered series,
     # and in range of PRECISION CONSTANT to each side scan for better min
-    # Output from np.where was a bit mess, sometimes it returns tuple, sometimes empty array
-    # sometimes 2 values,so there must be proper checking for proper case
     new_min_ind = []
     for i in min_peaks_ind:
-        k = np.where(dataset['Close'].values == dataset['Close'][i - PRECISION_CONSTANT:i + PRECISION_CONSTANT].min())
-        if isinstance(k, tuple):
-            if k[0].size == 0:
-                new_min_ind.append(int(i))
-            else:
-                new_min_ind.append(int(k[0]))
-        else:
-            if k.size == 0:
-                new_min_ind.append(int(i))
-            else:
-                new_min_ind.append(int(k))
+        # "k" will represent offset from original min index "i" to better min -: new_min = "i" with offset "k"
+        # Npzero give value from 0 to 2*PRECISION CONSTANT, because length of scanned area is 2*PRECISION CONSTANT
+        k = np.nonzero(dataset['Close'][i - PRECISION_CONSTANT:i + PRECISION_CONSTANT].values == dataset['Close'][i - PRECISION_CONSTANT:i + PRECISION_CONSTANT].min())[0][0]
+        # Offset index "k" to range -PRECISION CONSTANT : + PRECISION CONSTANT
+        k = k - PRECISION_CONSTANT
+        # Now correct index found in filtered series "i" by offset "k" found in previous step
+        new_temp_ind = i + k
+        new_min_ind.append(new_temp_ind)
 
     sig_price_buy = []
     sig_price_sell = []
@@ -107,8 +97,8 @@ def generate_buy_sell_signal(dataset: pd.DataFrame, filter_const: int) -> tuple:
     flag = 1
     budget = 0
 
-    print(new_min_ind)
-    print(new_max_ind)
+    # print(new_min_ind)
+    # print(new_max_ind)
 
     for i in range(0, len(dataset)):
         # Detecting sell signals, if there is maximum on non-filtered series and RSI > 40
@@ -138,7 +128,7 @@ def generate_buy_sell_signal(dataset: pd.DataFrame, filter_const: int) -> tuple:
             sig_price_buy.append(np.nan)
             sig_price_sell.append(np.nan)
 
-    print("Printing from Teacher.py: Profit from these buy/sell signals is {}".format(np.around(budget, 2)))
+    # print("Printing from Teacher.py: Profit from these buy/sell signals is {}".format(np.around(budget, 2)))
 
     # Returning tuples
     return sig_price_buy, sig_price_sell
