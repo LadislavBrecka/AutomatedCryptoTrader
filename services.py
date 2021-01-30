@@ -30,7 +30,18 @@ class Services:
 
     @staticmethod
     def split_test_train(dataset: pd.DataFrame, test_size: float) -> tuple:
-        train, test = train_test_split(dataset, test_size=test_size)
+        if test_size > 0.8:
+            test_size = 0.8
+            raise ValueError("Test size must be max 0.8, setting 0.8 as test size!")
+        elif test_size < 0.0:
+            test_size = 0.0
+            raise ValueError("Test size can not be lower than 0, setting 0.0 as test size!")
+
+        train_length = int((1 - test_size) * len(dataset))
+
+        train = dataset.iloc[0:train_length]
+        test = dataset.iloc[train_length:]
+
         return train, test
 
     #
