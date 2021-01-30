@@ -24,19 +24,25 @@ nn = nn_2_hidden.NeuralNetwork(INPUT_SIZE, HIDDEN_LAYER_1, HIDDEN_LAYER_2, OUTPU
 services = Services()
 
 '''
-Finding and setting buy/sell signals
+Finding and setting buy/sell signals, generating target values
 '''
 x = Teacher.generate_buy_sell_signal(binance.dataset, FILTER_CONSTANT)
 targets = Teacher.get_target(len(binance.dataset), x)
 
 # For revision
-binance.dataset['Buy'] = x[0]
-binance.dataset['Sell'] = x[1]
-binance.dataset['Target'] = targets
+# binance.dataset['Buy'] = x[0]
+# binance.dataset['Sell'] = x[1]
+# binance.dataset['Target'] = targets
+
+'''
+Splitting dataset to train and test datasets
+'''
+train, test = services.split_test_train(binance.dataset, 0.3)
+
 '''
 Plotting and printing
 '''
-binance.plot_candlestick(indicators=True, buy_sell=x, filter_const=FILTER_CONSTANT)
+# binance.plot_candlestick(indicators=True, buy_sell=x, filter_const=FILTER_CONSTANT)
 
 binance.print_to_file('out1.txt')
 
@@ -53,49 +59,64 @@ Pushing new samples and the end of dataset
 # binance.print_to_file('out1.txt')
 
 '''
-Feed Forward neural network
+Feed Forward neural network training
 '''
 
-# for e in range(epochs):
-#     for i in range(len(binance.dataset)):
-#         t = binance.dataset.iloc[i]
-#         tm1 = binance.dataset.iloc[i-1]
-#         del t['Date']
-#         del tm1['Date']
-#         t = t.values
-#         tm1 = tm1.values
-#
-#         inputs = np.concatenate([t, tm1])
-#         inputs = inputs.reshape(-1, 1)
-#         inputs = services.normalize(inputs)
-#         inputs = inputs.reshape(28, )
-#         inputs = inputs * 0.99 + 0.01
-#         #
-#         # print("Input value -> index {}\n value {}".format(i, inputs))
-#         # print("Target value -> index {}\n value {}".format(i, targets[i]))
-#
-#         nn.train(inputs, targets[i])
-#         print(i, e)
+for e in range(EPOCHS):
+    for i in range(1, len(train)):
+        t = train.iloc[i]
+        tm1 = train.iloc[i-1]
+        del t['Date']
+        del tm1['Date']
+        t = t.values
+        tm1 = tm1.values
 
+        inputs = np.concatenate([t, tm1])
+        inputs = inputs.reshape(-1, 1)
+        inputs = services.normalize(inputs)
+        inputs = inputs.reshape(28, )
+        inputs = inputs * 0.99 + 0.01
 
-# k = binance.dataset.iloc[45]
-# km = binance.dataset.iloc[44]
-# del k['Date']
-# del km['Date']
-# k = k.values
-# km = km.values
-# inp = np.concatenate([k, km])
-# inp = inp.reshape(-1, 1)
-# inp = services.normalize(inp)
-# inp = inp.reshape(28, )
-# inp = inp * 0.99 + 0.01
-#
-# ans = nn.query(inp)
-#
-# print("\n")
-# print(ans)
+        # print("Input value -> index {}\n value {}".format(i, inputs))
+        # print("Target value -> index {}\n value {}".format(i, targets[i]))
 
+        nn.train(inputs, targets[i])
+        print(i, e)
 
+'''
+Querying test dataset for testing Feed Forward Neural Network
+'''
+for i in range(1, len(test)):
+        t = test.iloc[i]
+        tm1 = test.iloc[i-1]
+        del t['Date']
+        del tm1['Date']
+        t = t.values
+        tm1 = tm1.values
+
+        inputs = np.concatenate([t, tm1])
+        inputs = inputs.reshape(-1, 1)
+        inputs = services.normalize(inputs)
+        inputs = inputs.reshape(28, )
+        inputs = inputs * 0.99 + 0.01
+
+        ans = nn.query(inputs)
+
+        label = np.argmax(ans)
+
+        # print(ans)
+        # print(label)
+
+        profit = 0.0
+
+        if label == 0:
+            profit = profit - test['Close'][i]
+        elif label == 1:
+            profit = profit + test['Close'][i]
+        elif label == 2:
+            pass
+
+        print("Profit is {}".format(profit))
 
 '''
 LSTM neural network
