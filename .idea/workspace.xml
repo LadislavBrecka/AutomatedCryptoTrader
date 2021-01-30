@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5f520c9c-5df7-45bf-9cde-f7150821fdd7" name="Default Changelist" comment="Updated README">
+    <list default="true" id="5f520c9c-5df7-45bf-9cde-f7150821fdd7" name="Default Changelist" comment="first version of predicting on test data">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Teacher.py" beforeDir="false" afterPath="$PROJECT_DIR$/Teacher.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -240,7 +239,10 @@
       <workItem from="1610794198387" duration="6553000" />
       <workItem from="1610809410426" duration="9964000" />
       <workItem from="1610821334138" duration="312000" />
-      <workItem from="1610995844205" duration="329000" />
+      <workItem from="1610995844205" duration="675000" />
+      <workItem from="1611862258197" duration="193000" />
+      <workItem from="1612002897823" duration="6994000" />
+      <workItem from="1612009993703" duration="1228000" />
     </task>
     <task id="LOCAL-00001" summary="Pridanie low pass filtra&#10;Pokusy o najdenie minima/maxima">
       <created>1610236393441</created>
@@ -312,7 +314,35 @@
       <option name="project" value="LOCAL" />
       <updated>1610821624833</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="min/max index cast na int z np.array">
+      <created>1610996501418</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1610996501418</updated>
+    </task>
+    <task id="LOCAL-00012" summary="improved findinng of local min/max">
+      <created>1612010099373</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1612010099374</updated>
+    </task>
+    <task id="LOCAL-00013" summary="new train_test split logic">
+      <created>1612010344262</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1612010344262</updated>
+    </task>
+    <task id="LOCAL-00014" summary="first version of predicting on test data">
+      <created>1612010445669</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1612010445669</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -342,7 +372,11 @@
     <MESSAGE value="Vyladenie hladanie buy/sell signalov" />
     <MESSAGE value="Pridanie funkcie pre split na train a test data" />
     <MESSAGE value="Updated README" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated README" />
+    <MESSAGE value="min/max index cast na int z np.array" />
+    <MESSAGE value="improved findinng of local min/max" />
+    <MESSAGE value="new train_test split logic" />
+    <MESSAGE value="first version of predicting on test data" />
+    <option name="LAST_COMMIT_MESSAGE" value="first version of predicting on test data" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$FF_usage.coverage" NAME="FF_usage Coverage Results" MODIFIED="1609936327001" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -350,7 +384,7 @@
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$scratch__1_.coverage" NAME="scratch (1) Coverage Results" MODIFIED="1601226692183" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$nn_test.coverage" NAME="nn_test Coverage Results" MODIFIED="1607528681981" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$NeuralNetwork_LSTM.coverage" NAME="NeuralNetwork_LSTM Coverage Results" MODIFIED="1607881773117" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$main.coverage" NAME="main Coverage Results" MODIFIED="1610996168116" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$main.coverage" NAME="main Coverage Results" MODIFIED="1612010227519" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$scratch1.coverage" NAME="scratch1 Coverage Results" MODIFIED="1602780570666" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$scratch3.coverage" NAME="scratch3 Coverage Results" MODIFIED="1602781387331" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
     <SUITE FILE_PATH="coverage/KrakenBinanceCryptoOHLC$main.coverage" NAME="main Coverage Results" MODIFIED="1594485647389" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

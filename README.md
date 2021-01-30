@@ -16,5 +16,4 @@ Grafy priebehov:
 
 TODO :
 
-Rozdelenie dat na TRAIN a TEST  - pracuje sa\
 Nakonfigurovanie NS
