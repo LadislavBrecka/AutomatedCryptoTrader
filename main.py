@@ -42,7 +42,7 @@ train, test = services.split_test_train(binance.dataset, 0.3)
 '''
 Plotting and printing
 '''
-# binance.plot_candlestick(indicators=True, buy_sell=x, filter_const=FILTER_CONSTANT)
+binance.plot_candlestick(indicators=True, buy_sell=x, filter_const=FILTER_CONSTANT)
 
 binance.print_to_file('out1.txt')
 

@@ -71,6 +71,8 @@ def generate_buy_sell_signal(dataset: pd.DataFrame, filter_const: int) -> tuple:
     for i in max_peaks_ind:
         # "k" will represent offset from original max index "i" to better max -: new_max = "i" with offset "k"
         # Npzero give value from 0 to 2*PRECISION CONSTANT, because length of scanned area is 2*PRECISION CONSTANT
+        if i < PRECISION_CONSTANT:
+            i = PRECISION_CONSTANT
         k = np.nonzero(dataset['Close'][i-PRECISION_CONSTANT:i+PRECISION_CONSTANT].values == dataset['Close'][i-PRECISION_CONSTANT:i+PRECISION_CONSTANT].max())[0][0]
         # Offset found index to range -PRECISION CONSTANT : + PRECISION CONSTANT
         k = k - PRECISION_CONSTANT
@@ -84,6 +86,8 @@ def generate_buy_sell_signal(dataset: pd.DataFrame, filter_const: int) -> tuple:
     for i in min_peaks_ind:
         # "k" will represent offset from original min index "i" to better min -: new_min = "i" with offset "k"
         # Npzero give value from 0 to 2*PRECISION CONSTANT, because length of scanned area is 2*PRECISION CONSTANT
+        if i < PRECISION_CONSTANT:
+            i = PRECISION_CONSTANT
         k = np.nonzero(dataset['Close'][i - PRECISION_CONSTANT:i + PRECISION_CONSTANT].values == dataset['Close'][i - PRECISION_CONSTANT:i + PRECISION_CONSTANT].min())[0][0]
         # Offset index "k" to range -PRECISION CONSTANT : + PRECISION CONSTANT
         k = k - PRECISION_CONSTANT
