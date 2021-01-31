@@ -1,7 +1,6 @@
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
 import pandas as pd
-from sklearn.model_selection import train_test_split
 
 
 class Services:
@@ -10,8 +9,13 @@ class Services:
     def __init__(self):
         self.scaler = MinMaxScaler(feature_range=(0, 1))
 
-    def normalize(self, data_to_normalize: list) -> list:
-        return self.scaler.fit_transform(data_to_normalize)
+    # TODO
+    # Column based normalisation with possible different future min/max
+    def normalize(self, dataset: list) -> list:
+        return self.scaler.fit_transform(dataset)
+        # x = dataset.values  # returns a numpy array
+        # x_scaled = self.scaler.fit_transform(x)
+        # return pd.DataFrame(x_scaled)
 
     def unnormalize(self, data_to_unnormalize: list) -> list:
         return self.scaler.inverse_transform(data_to_unnormalize)
@@ -44,15 +48,5 @@ class Services:
 
         return train, test
 
-    #
-    # def get_data_for_ui(self, dataset, coinmarket):
-    #
-    #     df_list = dataset.values.tolist()
-    #
-    #     [lists.pop(0) for lists in df_list]
-    #
-    #     inputs = self.normalize(df_list)
-    #
-    #     return inputs
 
 

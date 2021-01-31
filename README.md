@@ -16,4 +16,5 @@ Grafy priebehov:
 
 TODO :
 
+Vyriesit normalizaciu dat
 Nakonfigurovanie NS
