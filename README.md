@@ -4,6 +4,8 @@ Bakalarska praca
 DONE : 
 
 Urcenie a vyladenie buy/sell signalov\
+Normalizacia
+
 Nahlad:
 
 ![Screenshot](screens/buy_sell.jpg)
@@ -16,5 +18,4 @@ Grafy priebehov:
 
 TODO :
 
-Vyriesit normalizaciu dat
-Nakonfigurovanie NS
+Penalizovanie NS

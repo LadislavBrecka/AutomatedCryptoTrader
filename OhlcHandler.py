@@ -4,7 +4,7 @@ import datetime as dt
 import pandas as pd
 import matplotlib.pyplot as plt
 import mplfinance as mpf
-from services import Services
+import services
 import matplotlib.dates as mdates
 # pd.options.display.float_format = "{:,.2f}".format
 
@@ -46,11 +46,11 @@ class OhlcHandler:
             closed_price = closed_price.reshape(len(closed_price), 1)
             return closed_price
 
-    def plot_candlestick(self, indicators=False, buy_sell: tuple = None, filter_const: int = None):
+    def plot_candlestick(self, indicators=False, buy_sell: tuple = None, norm: pd.DataFrame = None, filter_const: int = None):
         if indicators:
             # Plot candlestick chart
             fig = plt.figure()
-            ax = fig.subplots(nrows=3, ncols=2, sharex=True)
+            ax = fig.subplots(nrows=4, ncols=2, sharex=True)
             # ax.xaxis_date()
             # ax.xaxis.set_major_formatter(mdates.DateFormatter('%b %d, %H:%M'))
 
@@ -58,7 +58,6 @@ class OhlcHandler:
             matching = [s for s in ind_list if "Ema" in s]
             ax[0, 0].plot(self.dataset[matching[0]], 'b', label=matching[0])  # row=0, col=0
             ax[0, 0].plot(self.dataset[matching[1]], 'm', label=matching[1])  # row=0, col=0
-            ax[0, 0].plot(self.dataset[matching[2]], 'g', label=matching[2])  # row=0, col=0
             ax[0, 0].grid(True)
             ax[0, 0].legend(loc="lower right")
 
@@ -77,7 +76,7 @@ class OhlcHandler:
 
             # Namiesto VWAP vykreslujem filtrovanu cenu, len pre znazornenie
             input_data = self.dataset['Close']
-            output = Services.fft_filter(input_data, filter_const)
+            output = services.Filter.fft_filter(input_data, filter_const)
 
             ax[1, 1].plot(self.dataset.index, output, 'b', label='Filtered')  # row=1, col=1
             ax[1, 1].grid(True)
@@ -93,6 +92,14 @@ class OhlcHandler:
             ax[0, 1].plot(self.dataset['Close'], 'b', label='Close')  # row=1, col=1
             ax[0, 1].grid(True)
             ax[0, 1].legend(loc="lower right")
+
+            # Temporary charts
+            ax[3, 0].plot(self.dataset.index, norm['Norm_M'], color='b', label='Normalized MACD-SIGNAL')
+            ax[3, 1].plot(self.dataset.index, norm['Norm_E'], color='b', label='Normalized EMA_SHORT-EMA_LONG')
+            ax[3, 0].grid(True)
+            ax[3, 0].legend(loc="lower right")
+            ax[3, 1].grid(True)
+            ax[3, 1].legend(loc="lower right")
 
             plt.xticks(rotation=45)
 
@@ -162,16 +169,26 @@ class OhlcHandler:
         # self.dataset.index = (i for i in range(500))
         return pd_dtf
 
-    def _add_statistic_indicators(self):
-        self.__ema(3)
-        self.__ema(6)
-        self.__ema(9)
-        self.__macd()
-        self.__rsi()
-        self.__vwap()
+    def _add_statistic_indicators(self, ema_short=3, ema_long=6, macd_slow=12, macd_fast=26, macd_signal=9, rsi_n=6, vwap_n=14):
+        if ema_short > ema_long:
+            raise Exception("Short ema must be lower than long ema")
+        if ema_long < ema_short:
+            raise Exception("Long ema must be higher than short ema")
+
+        self.__ema(ema_short)
+        self.__ema(ema_long)
+        ind_list = list(self.dataset)
+        matching = [s for s in ind_list if "Ema" in s]
+        self.dataset['{}-{}'.format(matching[0], matching[1])] = self.dataset[matching[0]] - self.dataset[matching[1]]
+
+        self.__macd(macd_slow, macd_fast, macd_signal)
+        self.dataset['Macd-Signal'] = self.dataset['Macd'] - self.dataset['Signal']
+
+        self.__rsi(rsi_n)
+        # self.__vwap(vwap_n)
         self.__gradient()
 
-    def __ema(self, n=7):
+    def __ema(self, n):
         ema_name = 'Ema' + str(n)
         # ema_additional = 'EMA' + str(n) + '_TA'
         self.dataset[ema_name] = self.dataset['Close'].ewm(span=n, adjust=False).mean()
