@@ -94,8 +94,8 @@ class OhlcHandler:
             ax[0, 1].legend(loc="lower right")
 
             # Temporary charts
-            ax[3, 0].plot(self.dataset.index, norm['Norm_M'], color='b', label='Normalized MACD-SIGNAL')
-            ax[3, 1].plot(self.dataset.index, norm['Norm_E'], color='b', label='Normalized EMA_SHORT-EMA_LONG')
+            ax[3, 0].plot(self.dataset.index, norm['Norm_Close'], color='b', label='Normalized Close price')
+            ax[3, 1].plot(self.dataset.index, norm['Norm_Macd_Diff'], color='b', label='Normalized MACD-SIGNAL')
             ax[3, 0].grid(True)
             ax[3, 0].legend(loc="lower right")
             ax[3, 1].grid(True)

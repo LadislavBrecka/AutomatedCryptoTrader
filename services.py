@@ -9,11 +9,11 @@ class Normalize:
         ind_list = list(dataset)
         matching = [s for s in ind_list if "Ema" in s]
 
-        OPEN_RANGE = [0.8 * dataset['Open'].min(), 1.2 * dataset['Open'].max()]
-        HIGH_RANGE = [0.8 * dataset['High'].min(), 1.2 * dataset['High'].max()]
-        LOW_RANGE = [0.8 * dataset['Low'].min(), 1.2 * dataset['Low'].max()]
-        CLOSE_RANGE = [0.8 * dataset['Close'].min(), 1.2 * dataset['Close'].max()]
-        VOLUME_RANGE = [0.8 * dataset['Volume'].min(), 1.2 * dataset['Volume'].max()]
+        OPEN_RANGE = [1.0 * dataset['Open'].min(), 1.0 * dataset['Open'].max()]
+        HIGH_RANGE = [1.0 * dataset['High'].min(), 1.0 * dataset['High'].max()]
+        LOW_RANGE = [1.0 * dataset['Low'].min(), 1.0 * dataset['Low'].max()]
+        CLOSE_RANGE = [1.0 * dataset['Close'].min(), 1.0 * dataset['Close'].max()]
+        VOLUME_RANGE = [1.0 * dataset['Volume'].min(), 1.2 * dataset['Volume'].max()]
         DIFF_EMA_RANGE = [0.4 * dataset['{}-{}'.format(matching[0], matching[1])].min(), 0.4 * dataset['{}-{}'.format(matching[0], matching[1])].max()]
         DIFF_MACD_RANGE = [0.4 * dataset['Macd-Signal'].min(), 0.4 * dataset['Macd-Signal'].max()]
         RSI_RANGE = [0.0, 100.0]
@@ -30,6 +30,7 @@ class Normalize:
         self.INPUT_RANGES.append(RSI_RANGE)
         self.INPUT_RANGES.append(GRADIENT_RANGE)
 
+    # Returning normalized [OPEN, HIGH, LOW, CLOSE, VOLUME, EMA_DIFF, MACD_DIFF, RSI, GRADIENT]
     def get_normalized_row(self, row: list):
         result = []
         for row_item, item_range in zip(row, self.INPUT_RANGES):

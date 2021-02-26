@@ -37,7 +37,21 @@ class NeuralNetwork:
         final_inputs = np.dot(self.who, hidden_outputs2)
         final_outputs = self.activation_function(final_inputs)
 
-        output_errors = targets - final_outputs
+        output_errors = targets - final_outputs                 # [1 0]-[0 0]=[1, 0]   [0 0]-[1 1]=[-1, -1]
+
+        # Variable penalising for different outputs
+        if targets[0] == 1.0 and targets[1] == 0.01:
+            output_errors = output_errors * 1.0
+            print("Buy so constant is 1")
+
+        elif targets[0] == 0.01 and targets[1] == 1.0:
+            output_errors = output_errors * 1.0
+            print("Sell so constant is 1")
+
+        else:
+            output_errors = output_errors * 0.1
+            print("Holding so constant is 0.1")
+
         hidden_errors2 = np.dot(self.who.T, output_errors)
         hidden_errors1 = np.dot(self.whh.T, hidden_errors2)
 

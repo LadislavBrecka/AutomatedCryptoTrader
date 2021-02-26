@@ -35,15 +35,16 @@ targets = Teacher.get_target(len(binance.dataset), x)
 binance.dataset['Buy'] = x[0]
 binance.dataset['Sell'] = x[1]
 binance.dataset['Target'] = targets
-binance.dataset['Norm'] = np.nan
 
-temp1 = []
-temp2 = []
-temp3 = []
-temp4 = []
-temp5 = []
-temp6 = []
-temp7 = []
+temp_open = []
+temp_high = []
+temp_low = []
+temp_close = []
+temp_volume = []
+temp_ema_diff = []
+temp_macd_diff = []
+temp_rsi = []
+temp_gradient = []
 for i in range(len(binance.dataset)):
     row = binance.dataset.iloc[i]
     del row['Date']
@@ -57,37 +58,31 @@ for i in range(len(binance.dataset)):
     del row['Target']
     row = row.values
     norm_row = normalizer.get_normalized_row(row)
-    temp1.append(norm_row[0])
-    temp2.append(norm_row[1])
-    temp3.append(norm_row[2])
-    temp4.append(norm_row[3])
-    temp5.append(norm_row[4])
-    temp6.append(norm_row[5])
-    temp7.append(norm_row[6])
+    temp_open.append(norm_row[0])   # open
+    temp_high.append(norm_row[1])   # high
+    temp_low.append(norm_row[2])   # low
+    temp_close.append(norm_row[3])   # close
+    temp_volume.append(norm_row[4])   # volume
+    temp_ema_diff.append(norm_row[5])   # ema_short - ema_long
+    temp_macd_diff.append(norm_row[6])   # macd - signal
+    temp_rsi.append(norm_row[7])        # rsi
+    temp_gradient.append(norm_row[8])   # gradient
 
-index = binance.dataset['Date']
-columns = ['Norm_O', 'Norm_H', 'Norm_L', 'Norm_C', 'Norm_V', 'Norm_E', 'Norm_M']
-temp_norm_dat = pd.DataFrame(index=index, columns=columns)
-temp_norm_dat['Norm_O'] = temp1
-temp_norm_dat['Norm_H'] = temp2
-temp_norm_dat['Norm_L'] = temp3
-temp_norm_dat['Norm_C'] = temp4
-temp_norm_dat['Norm_V'] = temp5
-temp_norm_dat['Norm_E'] = temp6
-temp_norm_dat['Norm_M'] = temp7
+norm_dataset = pd.DataFrame(index=binance.dataset['Date'],
+                            columns=['Norm_Open', 'Norm_High', 'Norm_Low', 'Norm_Close', 'Norm_Macd_Diff', 'Norm_Rsi'])
+norm_dataset['Norm_Open'] = temp_open
+norm_dataset['Norm_High'] = temp_high
+norm_dataset['Norm_Low'] = temp_low
+norm_dataset['Norm_Close'] = temp_close
+norm_dataset['Norm_Macd_Diff'] = temp_macd_diff
+norm_dataset['Norm_Rsi'] = temp_rsi
 
 
 '''
 Splitting dataset to train and test datasets
 '''
-train, test = splitter.split_test_train(binance.dataset, 0.3)
+train, test = splitter.split_test_train(norm_dataset, 0.3)
 
-'''
-Plotting and printing
-'''
-binance.plot_candlestick(indicators=True, buy_sell=x, norm=temp_norm_dat, filter_const=FILTER_CONSTANT)
-
-binance.print_to_file('out1.txt')
 
 '''
 Pushing new samples and the end of dataset
@@ -107,39 +102,20 @@ Feed Forward neural network training
 
 for e in range(EPOCHS):
     for i in range(1, len(train)):
+
         t = train.iloc[i]
         tm1 = train.iloc[i-1]
-        del t['Date']
-        del t['Ema3']
-        del t['Ema6']
-        del t['Macd']
-        del t['Signal']
-        del t['Momentum']
-        del t['Buy']
-        del t['Sell']
-        del t['Target']
-
-        del tm1['Date']
-        del tm1['Ema3']
-        del tm1['Ema6']
-        del tm1['Macd']
-        del tm1['Signal']
-        del tm1['Momentum']
-        del tm1['Buy']
-        del tm1['Sell']
-        del tm1['Target']
         t = t.values
         tm1 = tm1.values
 
-        t_normalized = np.array(normalizer.get_normalized_row(t))
-        tm1_normalized = np.array(normalizer.get_normalized_row(tm1))
+        t = np.array(t)
+        tm1 = np.array(tm1)
+        inputs = np.concatenate([t, tm1])
 
-        inputs = np.concatenate([t_normalized, tm1_normalized])
+        inputs = (inputs * 0.99) + 0.01
 
-        inputs = inputs * 0.99 + 0.01
-
-        print("Input value -> index {}\n value {}".format(i, inputs))
-        print("Target value -> index {}\n value {}".format(i, targets[i]))
+        # print("Input value -> index {}\n value {}".format(i, inputs))
+        # print("Target value -> index {}\n value {}".format(i, targets[i]))
 
         nn.train(inputs, targets[i])
         print(i, e)
@@ -149,35 +125,20 @@ Querying test dataset for testing Feed Forward Neural Network
 '''
 profit = 0.0
 output_file = open('output.txt', 'w')
+# Flag is there for securing buy-sell-buy-sell pattern, no buy-buy or sell-sell is allowed
+flag = 1
+
 for i in range(1, len(test)):
+
         t = test.iloc[i]
         tm1 = test.iloc[i-1]
-        del t['Date']
-        del t['Ema3']
-        del t['Ema6']
-        del t['Macd']
-        del t['Signal']
-        del t['Momentum']
-        del t['Buy']
-        del t['Sell']
-        del t['Target']
-
-        del tm1['Date']
-        del tm1['Ema3']
-        del tm1['Ema6']
-        del tm1['Macd']
-        del tm1['Signal']
-        del tm1['Momentum']
-        del tm1['Buy']
-        del tm1['Sell']
-        del tm1['Target']
         t = t.values
         tm1 = tm1.values
 
-        t_normalized = np.array(normalizer.get_normalized_row(t))
-        tm1_normalized = np.array(normalizer.get_normalized_row(tm1))
+        t = np.array(t)
+        tm1 = np.array(tm1)
+        inputs = np.concatenate([t, tm1])
 
-        inputs = np.concatenate([t_normalized, tm1_normalized])
         inputs = inputs * 0.99 + 0.01
 
         ans = nn.query(inputs)
@@ -186,14 +147,26 @@ for i in range(1, len(test)):
 
         print(ans)
 
-        if ans[0] > 0.2:
-            profit = profit - test['Close'][i]
-            print("Buying")
-            output_file.write("{}\n".format("Buying"))
-        elif ans[1] > 0.1:
-            profit = profit + test['Close'][i]
-            print("Selling")
-            output_file.write("{}\n".format("Selling"))
+        if ans[0] > 0.5:
+            if flag != 0:
+                profit = profit - binance.dataset['Close'][len(train)+i]
+                print("Buying")
+                output_file.write("{}\n".format("Buying"))
+                output_file.write("{}\n".format(binance.dataset.iloc[len(train)+i]['Date']))
+                flag = 0
+            else:
+                print("Holding")
+                output_file.write("{}\n".format("Holding"))
+        elif ans[1] > 0.5:
+            if flag != 1:
+                profit = profit + binance.dataset['Close'][len(train)+i]
+                print("Selling")
+                output_file.write("{}\n".format("Selling"))
+                output_file.write("{}\n".format(binance.dataset.iloc[len(train) + i]['Date']))
+                flag = 1
+            else:
+                print("Holding")
+                output_file.write("{}\n".format("Holding"))
         else:
             print("Holding")
             output_file.write("{}\n".format("Holding"))
@@ -201,6 +174,16 @@ for i in range(1, len(test)):
         print("Profit is {}".format(profit))
         output_file.write("Profit is {}\n".format(profit))
 
+output_file.close()
+
 '''
 LSTM neural network
 '''
+
+
+'''
+Plotting and printing
+'''
+binance.plot_candlestick(indicators=True, buy_sell=x, norm=norm_dataset, filter_const=FILTER_CONSTANT)
+#
+binance.print_to_file('out1.txt')
