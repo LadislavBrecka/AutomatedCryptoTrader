@@ -14,8 +14,8 @@ class Normalize:
         LOW_RANGE = [1.0 * dataset['Low'].min(), 1.0 * dataset['Low'].max()]
         CLOSE_RANGE = [1.0 * dataset['Close'].min(), 1.0 * dataset['Close'].max()]
         VOLUME_RANGE = [1.0 * dataset['Volume'].min(), 1.2 * dataset['Volume'].max()]
-        DIFF_EMA_RANGE = [0.4 * dataset['{}-{}'.format(matching[0], matching[1])].min(), 0.4 * dataset['{}-{}'.format(matching[0], matching[1])].max()]
-        DIFF_MACD_RANGE = [0.4 * dataset['Macd-Signal'].min(), 0.4 * dataset['Macd-Signal'].max()]
+        DIFF_EMA_RANGE = [0.6 * dataset['{}-{}'.format(matching[0], matching[1])].min(), 0.6 * dataset['{}-{}'.format(matching[0], matching[1])].max()]
+        DIFF_MACD_RANGE = [0.6 * dataset['Macd-Signal'].min(), 0.6 * dataset['Macd-Signal'].max()]
         RSI_RANGE = [0.0, 100.0]
         GRADIENT_RANGE = [0.4 * dataset['Gradient'].min(), 0.4 * dataset['Gradient'].max()]
 

@@ -5,7 +5,7 @@ HIDDEN_LAYER_2 = 20     # 2/3 - 3/4 of preceding layer
 OUTPUT_SIZE = 2
 LEARNING_RATE = 0.8
 LOOK_BACK = 2           # look back value
-EPOCHS = 50
+EPOCHS = 500
 
 # Data processing
 BINANCE_PAIR = 'ETHEUR'
