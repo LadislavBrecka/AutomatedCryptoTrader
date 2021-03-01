@@ -143,45 +143,6 @@ def generate_buy_sell_signal(dataset: pd.DataFrame, filter_const: int) -> tuple:
     # Returning tuples
     return sig_price_buy, sig_price_sell
 
-    # ind_list = list(dataset)
-    # matching = [s for s in ind_list if "Ema" in s]
-    #
-    # sigPriceBuy = []
-    # sigPriceSell = []
-    # flag = -1
-    # for i in range(0, len(dataset)):
-    #     # if MACD > signal line  then buy else sell
-    #     if dataset[matching[0]][i] < dataset[matching[1]][i] and \
-    #             dataset[matching[0]][i] < dataset[matching[2]][i]:
-    #         if dataset['Rsi'][i] < 30.0:
-    #             if flag != 1:
-    #                 sigPriceBuy.append(dataset['Close'][i])
-    #                 sigPriceSell.append(np.nan)
-    #                 flag = 1
-    #             else:
-    #                 sigPriceBuy.append(np.nan)
-    #                 sigPriceSell.append(np.nan)
-    #         else:
-    #             sigPriceBuy.append(np.nan)
-    #             sigPriceSell.append(np.nan)
-    #     elif dataset[matching[0]][i] > dataset[matching[1]][i] and \
-    #             dataset[matching[0]][i] > dataset[matching[2]][i]:
-    #         if dataset['Rsi'][i] > 70.0:
-    #             if flag != 0:
-    #                 sigPriceSell.append(dataset['Close'][i])
-    #                 sigPriceBuy.append(np.nan)
-    #                 flag = 0
-    #             else:
-    #                 sigPriceBuy.append(np.nan)
-    #                 sigPriceSell.append(np.nan)
-    #         else:
-    #             sigPriceBuy.append(np.nan)
-    #             sigPriceSell.append(np.nan)
-    #     else:  # Handling nan values
-    #         sigPriceBuy.append(np.nan)
-    #         sigPriceSell.append(np.nan)
-    #
-    # return sigPriceBuy, sigPriceSell
 
 
 

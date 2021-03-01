@@ -1,12 +1,9 @@
 import os
 import numpy as np
-import datetime as dt
 import pandas as pd
 import matplotlib.pyplot as plt
 import mplfinance as mpf
 import services
-import matplotlib.dates as mdates
-# pd.options.display.float_format = "{:,.2f}".format
 
 
 class OhlcHandler:
@@ -16,13 +13,22 @@ class OhlcHandler:
         self.dataset = None
         self.indicators = []
 
-    def print_data(self):
-        if self.dataset is None:
-            print("Dataset is not created!\n")
-        else:
-            print(self.dataset)
+    def save_to_csv(self, file):
+        self.dataset.to_csv(file)
 
-    def print_to_file(self, file, data='Dataset'):
+    def load_from_csv(self, file):
+        self.dataset = pd.read_csv(file, index_col=0)
+        self.dataset.insert(0, 'Date', pd.to_datetime(self.dataset['Date.1']))
+        self.dataset.index = self.dataset['Date']
+        del self.dataset['Date.1']
+
+        r1 = self.dataset.iloc[0]['Date']
+        r2 = self.dataset.iloc[1]['Date']
+
+        interval = r2 - r1
+        self.interval = int(interval.total_seconds() / 60.0)
+
+    def print_to_file(self, file):
         try:
             os.remove(file)
         except OSError:
@@ -37,22 +43,15 @@ class OhlcHandler:
 
         file.close()
 
-    def get_closed_price(self):
-        if self.dataset is None:
-            print("Cannot get closed price, dataset is not created!")
-        else:
-            closed_price = self.dataset['Close'].astype('float')
-            closed_price = closed_price.to_numpy()
-            closed_price = closed_price.reshape(len(closed_price), 1)
-            return closed_price
-
     def plot_candlestick(self, indicators=False, buy_sell: tuple = None, norm: pd.DataFrame = None, filter_const: int = None):
         if indicators:
             # Plot candlestick chart
             fig = plt.figure()
-            ax = fig.subplots(nrows=4, ncols=2, sharex=True)
-            # ax.xaxis_date()
-            # ax.xaxis.set_major_formatter(mdates.DateFormatter('%b %d, %H:%M'))
+
+            if norm is None:
+                ax = fig.subplots(nrows=3, ncols=2, sharex=True)
+            else:
+                ax = fig.subplots(nrows=4, ncols=2, sharex=True)
 
             ind_list = list(self.dataset)
             matching = [s for s in ind_list if "Ema" in s]
@@ -74,11 +73,9 @@ class OhlcHandler:
             ax[2, 0].grid(True)
             ax[2, 0].legend(loc="lower right")
 
-            # Namiesto VWAP vykreslujem filtrovanu cenu, len pre znazornenie
             input_data = self.dataset['Close']
             output = services.Filter.fft_filter(input_data, filter_const)
-
-            ax[1, 1].plot(self.dataset.index, output, 'b', label='Filtered')  # row=1, col=1
+            ax[1, 1].plot(self.dataset.index, output, 'b', label='Filtered close price')  # row=1, col=1
             ax[1, 1].grid(True)
             ax[1, 1].legend(loc="lower right")
 
@@ -93,13 +90,13 @@ class OhlcHandler:
             ax[0, 1].grid(True)
             ax[0, 1].legend(loc="lower right")
 
-            # Temporary charts
-            ax[3, 0].plot(self.dataset.index, norm['Norm_Close'], color='b', label='Normalized Close price')
-            ax[3, 1].plot(self.dataset.index, norm['Norm_Macd_Diff'], color='b', label='Normalized MACD-SIGNAL')
-            ax[3, 0].grid(True)
-            ax[3, 0].legend(loc="lower right")
-            ax[3, 1].grid(True)
-            ax[3, 1].legend(loc="lower right")
+            if norm is not None:
+                ax[3, 0].plot(self.dataset.index, norm['Norm_Close'], color='b', label='Normalized Close price')
+                ax[3, 1].plot(self.dataset.index, norm['Norm_Momentum'], color='b', label='Normalized MACD Momentum')
+                ax[3, 0].grid(True)
+                ax[3, 0].legend(loc="lower right")
+                ax[3, 1].grid(True)
+                ax[3, 1].legend(loc="lower right")
 
             plt.xticks(rotation=45)
 
@@ -108,54 +105,6 @@ class OhlcHandler:
 
         plt.show()
 
-    def __insert_row(self, row_number, row_value):
-        # Starting value of upper half
-        start_upper = 0
-        # End value of upper half
-        end_upper = row_number
-        # Start value of lower half
-        start_lower = row_number
-        # End value of lower half
-        end_lower = self.dataset.shape[0]
-        # Create a list of upper_half index
-        upper_half = [*range(start_upper, end_upper, 1)]
-        # Create a list of lower_half index
-        lower_half = [*range(start_lower, end_lower, 1)]
-        # Increment the value of lower half by 1
-        lower_half = [x.__add__(1) for x in lower_half]
-        # Combine the two lists
-        index_ = upper_half + lower_half
-        # Update the index of the dataframe
-        self.dataset.index = index_
-        # Insert a row at the end
-        self.dataset.loc[row_number] = row_value
-        # Sort the index labels
-        self.dataset = self.dataset.sort_index()
-
-    def _fill_with_nan(self):
-        one_minute = dt.timedelta(minutes=1)
-
-        if self.interval == '1':
-            n = self.dataset['Date'].iloc[0]
-            n = n - one_minute
-            n = int(n.strftime("%M"))
-
-            for d in self.dataset['Date']:
-                prev_n = n
-                n = int(d.strftime("%M"))
-                if n < prev_n:
-                    prev_n = prev_n - 60
-                dif = n - prev_n
-
-                if (dif > 1) and not (n == 0 and prev_n == 59):
-                    i = self.dataset[self.dataset['Date'] == d].index.values.astype(int)[0]
-                    for j in range(dif - 1):
-                        d = d - one_minute
-                        self.__insert_row(i, [d, np.nan, np.nan, np.nan, np.nan, np.nan])
-
-        elif self.interval == '60':
-            pass
-
     def _format_dataframe(self, pd_dtf):
         pd_dtf['Open'] = pd_dtf['Open'].astype('double')
         pd_dtf['High'] = pd_dtf['High'].astype('double')
@@ -163,10 +112,6 @@ class OhlcHandler:
         pd_dtf['Close'] = pd_dtf['Close'].astype('double')
         pd_dtf['Volume'] = pd_dtf['Volume'].astype('double')
         pd_dtf.index = pd.to_datetime(pd_dtf.Date)
-        # self.dataset.drop('Date', axis=1, inplace=True)
-        # cut = self.dataset.shape[0] - 500
-        # self.dataset = self.dataset.iloc[cut:]
-        # self.dataset.index = (i for i in range(500))
         return pd_dtf
 
     def _add_statistic_indicators(self, ema_short=3, ema_long=6, macd_slow=12, macd_fast=26, macd_signal=9, rsi_n=6, vwap_n=14):
@@ -182,10 +127,7 @@ class OhlcHandler:
         self.dataset['{}-{}'.format(matching[0], matching[1])] = self.dataset[matching[0]] - self.dataset[matching[1]]
 
         self.__macd(macd_slow, macd_fast, macd_signal)
-        self.dataset['Macd-Signal'] = self.dataset['Macd'] - self.dataset['Signal']
-
         self.__rsi(rsi_n)
-        # self.__vwap(vwap_n)
         self.__gradient()
 
     def __ema(self, n):
@@ -194,13 +136,8 @@ class OhlcHandler:
         self.dataset[ema_name] = self.dataset['Close'].ewm(span=n, adjust=False).mean()
         self.indicators.append(ema_name)
 
-        # Ta-lib version
-        # self.dataset[ema_additional] = talib.EMA(self.dataset['Close'].values, timeperiod=n)
-        # self.indicators.append(ema_additional)
-
-    def __macd(self, nslow=12, nfast=26, nsignal=9):
+    def __macd(self, nslow, nfast, nsignal):
         macd_name = ['Macd', 'Signal', 'Momentum']
-        # macd_additional = 'MACD_TA'
         closed = self.dataset['Close']
         ema_slw = closed.ewm(span=nslow, min_periods=1, adjust=False).mean()
         ema_fst = closed.ewm(span=nfast, min_periods=1, adjust=False).mean()
@@ -212,21 +149,7 @@ class OhlcHandler:
         self.dataset[macd_name[2]] = momentum
         self.indicators.append(macd_name[0])
 
-        # Ta-lib version
-        # self.dataset[macd_additional], a, b = talib.MACD(self.dataset["Close"].values, fastperiod=nslow, slowperiod=nfast, signalperiod=nsignal)
-        # self.indicators.append(macd_additional)
-
-    # def __vwap(self, n=14):
-    #     vwap_name = 'VWAP'
-    #     self.dataset[vwap_name] = 0
-    #     for i in range(0, 720, n):
-    #         tmp_df = self.dataset.iloc[i:i+n]
-    #         cum_vol = tmp_df['Volume'].cumsum()
-    #         cum_vol_price = (tmp_df['Volume'] * (tmp_df['High'] + tmp_df['Low'] + tmp_df['Close']) / 3.0).cumsum()
-    #         self.dataset.iloc[i:i+n, self.dataset.columns.get_loc('VWAP')] = cum_vol_price / cum_vol
-    #     self.indicators.append(vwap_name)
-
-    def __vwap(self, n=14):
+    def __vwap(self, n):
         vwap_name = 'Vwap'
         self.dataset[vwap_name] = 0
         v = self.dataset.iloc[:, self.dataset.columns.get_loc('Volume')]
@@ -237,9 +160,8 @@ class OhlcHandler:
         self.dataset[vwap_name] = vwap
         self.indicators.append(vwap_name)
 
-    def __rsi(self, n=6):
+    def __rsi(self, n):
         rsi_name = 'Rsi'
-        # rsi_additional = 'RSI_TA'
         closed = self.dataset['Close']
         deltas = np.diff(closed)
         seed = deltas[:n + 1]
@@ -264,15 +186,58 @@ class OhlcHandler:
         self.dataset[rsi_name] = rsi
         self.indicators.append(rsi_name)
 
-        # Ta-lib version
-        # self.dataset[rsi_additional] = talib.RSI(self.dataset["Close"].values, timeperiod=6)
-        # self.indicators.append(rsi_additional)
-
     def __gradient(self):
         gradient_name = 'Gradient'
         self.dataset[gradient_name] = [i * 100 for i in np.gradient(self.dataset['Close'])]
-        # self.dataset[gradient_name] = np.gradient(self.dataset['Close'], 60 * self.interval)*100
         self.indicators.append(gradient_name)
+
+    # def __insert_row(self, row_number, row_value):
+    #     # Starting value of upper half
+    #     start_upper = 0
+    #     # End value of upper half
+    #     end_upper = row_number
+    #     # Start value of lower half
+    #     start_lower = row_number
+    #     # End value of lower half
+    #     end_lower = self.dataset.shape[0]
+    #     # Create a list of upper_half index
+    #     upper_half = [*range(start_upper, end_upper, 1)]
+    #     # Create a list of lower_half index
+    #     lower_half = [*range(start_lower, end_lower, 1)]
+    #     # Increment the value of lower half by 1
+    #     lower_half = [x.__add__(1) for x in lower_half]
+    #     # Combine the two lists
+    #     index_ = upper_half + lower_half
+    #     # Update the index of the dataframe
+    #     self.dataset.index = index_
+    #     # Insert a row at the end
+    #     self.dataset.loc[row_number] = row_value
+    #     # Sort the index labels
+    #     self.dataset = self.dataset.sort_index()
+    #
+    # def _fill_with_nan(self):
+    #     one_minute = dt.timedelta(minutes=1)
+    #
+    #     if self.interval == '1':
+    #         n = self.dataset['Date'].iloc[0]
+    #         n = n - one_minute
+    #         n = int(n.strftime("%M"))
+    #
+    #         for d in self.dataset['Date']:
+    #             prev_n = n
+    #             n = int(d.strftime("%M"))
+    #             if n < prev_n:
+    #                 prev_n = prev_n - 60
+    #             dif = n - prev_n
+    #
+    #             if (dif > 1) and not (n == 0 and prev_n == 59):
+    #                 i = self.dataset[self.dataset['Date'] == d].index.values.astype(int)[0]
+    #                 for j in range(dif - 1):
+    #                     d = d - one_minute
+    #                     self.__insert_row(i, [d, np.nan, np.nan, np.nan, np.nan, np.nan])
+    #
+    #     elif self.interval == '60':
+    #         pass
 
     # USER CAN CHOOSE WHAT WILL BE PLOTED
     # def plot_closed_price(self, data='All'):

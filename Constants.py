@@ -1,24 +1,54 @@
-# Neural Network setup
-INPUT_SIZE = 12         # look back = 3
-HIDDEN_LAYER_1 = 20   # 3/4 of inputs size
-HIDDEN_LAYER_2 = 20     # 2/3 - 3/4 of preceding layer
-OUTPUT_SIZE = 2
-LEARNING_RATE = 0.8
-LOOK_BACK = 2           # look back value
-EPOCHS = 500
+"""
+Neural network
+"""
+INPUT_SIZE = 14
+HIDDEN_LAYER_1 = 20                 # 3/4 of inputs size
+HIDDEN_LAYER_2 = 20                 # 2/3 - 3/4 of preceding layer
+OUTPUT_SIZE = 2                     # [1.0 0.01] - buy
+                                    # [0.01 1.0] - sell
+                                    # [0.01 0.01] - hold
+LEARNING_RATE = 0.3
+EPOCHS = 100
+SPLIT_TRAIN_TEST = 0.3
 
-# Data processing
+"""
+Dataset
+"""
 BINANCE_PAIR = 'ETHEUR'
 COIN_NAME = 'bitcoin'
 
-# Min/Max peak finding
-FILTER_CONSTANT = 150              # higher value, more points of min/max will be found
-                                    # pre ~1100 vzoriek sa hodi FILTER_CONSTANT 100 (1100 vzoriek zodpoveda 5 minutovemu intervalu pre 96 hodin)
+"""
+Min/Max peak finding
+"""
+FILTER_CONSTANT = 30                # higher value, more points of min/max will be found
+                                    # 20.12 - pre ~1100 vzoriek sa hodi FILTER_CONSTANT 100 (1100 vzoriek zodpoveda 5 minutovemu intervalu pre 96 hodin)
+                                    # 28.2 -  pre 720 vzoriek sa hodi FILTER_CONSTANT 30 (12 hodin 1-minutove vzorky)
 
-'''Keep smaller on filtered series than on raw series, rather use filter constant for tuning peaks on filtered series'''
-LOOK_AHEAD_FILTERED_SERIES = 5     # look ahead for better peak in 1st step on filtered series
+LOOK_AHEAD_FILTERED_SERIES = 5      # look ahead for better peak in 1st step on filtered series
+                                    # Keep smaller on filtered series than on raw series, rather use LOOK_AHEAD_RAW_SERIES for tuning peaks
+                                    # 28.2 - najlepsia volba je 5, pretoze cim vacsie cislo, tym viac ukroji zo zaciatku aj konca (cim vacsie cislo tym viac ignoruje na zaciatku/konci)
+
 DELTA_FILTERED_SERIES = 2           # x delta, e.g. 5 mean only every 5 on x axes can be peak
-LOOK_AHEAD_RAW_SERIES = 15         # look ahead for better peak in 2nd step on raw series
-DELTA_RAW_SERIES = 1.0          # y delta, e.g. DELTA_RAW_SERIES = 25.0 mean 25.0 dollars is minimum between buy and sell
-RSI_LOW = 40.0                        # rsi at which comodity turn to oversold
-RSI_HIGH = 60.2                       # rsi at which comodity turn to overbought
+                                    # 28.2 - 2 je idealna volba
+
+LOOK_AHEAD_RAW_SERIES = 10          # look ahead for better peak in 2nd step on raw series
+                                    # 28.2 - 10 alebo 15 je ideal, ked je viac, uz preskakuje aj mozne body kupy/predaja kvoli tomu ze vpredu je lepsi peak
+
+DELTA_RAW_SERIES = 1.0              # y delta, e.g. DELTA_RAW_SERIES = 25.0 mean 25.0 dollars is minimum between buy and sell
+                                    # 28.2 - na ETH by to malo byt 25.0, treba vsetko vyladit pre tuto hodnotu
+
+RSI_LOW = 40.0                      # rsi at which comodity turn to oversold
+RSI_HIGH = 60.0                     # rsi at which comodity turn to overbought
+
+"""
+Normalizing parameters
+"""
+PRICE_AMPLITUDE = 1.0
+VOLUME_AMPLITUDE = 1.0
+EMA_AMPLITUDE = 1.0
+DIF_EMA_AMPLITUDE = 0.4             # 28.2 - od 0.4 nastava konvergencia
+MACD_AMPLITUDE = 1.0
+MOMENTUM_AMPLITUDE = 0.4            # 28.2 - od 0.4 nastava konvergencia
+GRADIENT_AMPLITUDE = 0.4
+
+

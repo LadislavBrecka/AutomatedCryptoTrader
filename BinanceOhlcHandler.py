@@ -3,9 +3,6 @@ from binance.client import Client
 import numpy as np
 import pandas as pd
 import datetime as dt
-import requests
-import time
-import calendar
 
 api_key = 'wzDZXGFp9DK9QOChVTEOhZKaYEVAbbCBhsBDJXvSI78t2WlD3TqQhViWb8LH5Xom'
 api_secret = 'U6Gk59emVhyiNtuX9GDkpgtRwZlsAJkVhUFFzb3YvJEnN8NRDECozDnE8SgyT0kh'
@@ -16,25 +13,21 @@ class BinanceOhlcHandler(OhlcHandler):
     binance_client = Client(api_key, api_secret)
     #####
 
-    def __init__(self, pair, interval='5m'):
+    def __init__(self, pair, interval='1m'):
         super(BinanceOhlcHandler, self).__init__(pair)
 
         if interval == '1m':
             self.interval = '1'
         elif interval == '5m':
             self.interval = '5'
-        elif interval == '1h':
-            self.interval = '60'
         else:
             raise ValueError("Only '1m' or '1h' interval is supported to this day.")
 
     def get_dataset(self):
         if self.interval == '1':
-            raw_data = self.binance_client.get_historical_klines(self.pair, Client.KLINE_INTERVAL_1MINUTE, "24 hours ago UTC")
+            raw_data = self.binance_client.get_historical_klines(self.pair, Client.KLINE_INTERVAL_1MINUTE, "12 hours ago UTC")
         elif self.interval == '5':
             raw_data = self.binance_client.get_historical_klines(self.pair, Client.KLINE_INTERVAL_5MINUTE, "48 hours ago UTC")
-        elif self.interval == '60':
-            raw_data = self.binance_client.get_historical_klines(self.pair, Client.KLINE_INTERVAL_1HOUR, "1440 hours ago UTC")
         else:
             raise ValueError("Only '1m' or '1h' interval is supported to this day.")
 
@@ -57,7 +50,6 @@ class BinanceOhlcHandler(OhlcHandler):
         del self.dataset['taker_base_vol']
         del self.dataset['taker_quote_vol']
         del self.dataset['ignore']
-        self._fill_with_nan()
 
         self.dataset = self._format_dataframe(self.dataset)
         self._add_statistic_indicators()
