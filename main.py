@@ -110,9 +110,10 @@ for i in range(1, len(test)):
         ans = nn.query(inputs)
         print(ans)
 
-        if ans[0] > 0.3:
+        if ans[0] > NN_OUT_ANS_BUY_THRESHOLD:
             if flag != 0:
-                profit = profit - DataHandling.binance.dataset['Close'][len(train)+i]
+                buying_price = (BUY_QUANTITY * DataHandling.binance.dataset['Close'][len(train)+i]) + (BUY_QUANTITY * DataHandling.binance.dataset['Close'][len(train)+i]) * FEE_FROM_BUY
+                profit = profit - buying_price
                 print("Buying")
                 output_file.write("{}\n".format("Buying"))
                 output_file.write("{}\n".format(DataHandling.binance.dataset.iloc[len(train)+i]['Date']))
@@ -122,9 +123,10 @@ for i in range(1, len(test)):
                 print("Holding")
                 output_file.write("{}\n".format("Holding"))
                 output_file.write("{}\n".format(ans))
-        elif ans[1] > 0.3:
+        elif ans[1] > NN_OUT_ANS_SELL_THRESHOLD:
             if flag != 1:
-                profit = profit + DataHandling.binance.dataset['Close'][len(train)+i]
+                selling_price = DataHandling.binance.dataset['Close'][len(train)+i] * BUY_QUANTITY
+                profit = profit + selling_price
                 print("Selling")
                 output_file.write("{}\n".format("Selling"))
                 output_file.write("{}\n".format(DataHandling.binance.dataset.iloc[len(train) + i]['Date']))
@@ -141,6 +143,14 @@ for i in range(1, len(test)):
 
         print("Profit is {}".format(profit))
         output_file.write("Profit is {}\n".format(profit))
+
+print("-----------------------------------------------------------------------------------------------------------------------------------")
+print("Final earning is {} EUR. All fees are included, application was buying for price 10% of actual price of {}.".format(profit, DataHandling.binance.pair))
+print("-----------------------------------------------------------------------------------------------------------------------------------")
+
+output_file.write("-------------------------------------------------------------------------------------------------------------------------------------\n")
+output_file.write("Final earning is {} EUR. All fees are included, application was buying for price 10% of actual price of {}.\n".format(profit, DataHandling.binance.pair))
+output_file.write("-------------------------------------------------------------------------------------------------------------------------------------")
 
 output_file.close()
 

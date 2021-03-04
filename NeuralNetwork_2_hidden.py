@@ -1,5 +1,6 @@
 import numpy as np
 from scipy import special
+from Constants import *
 
 
 class NeuralNetwork:
@@ -42,15 +43,10 @@ class NeuralNetwork:
         # Variable penalising for different outputs
         if targets[0] == 1.0 and targets[1] == 0.01:
             output_errors = output_errors * 1.0
-            print("Buy so constant is 1")
-
         elif targets[0] == 0.01 and targets[1] == 1.0:
             output_errors = output_errors * 1.0
-            print("Sell so constant is 1")
-
         else:
-            output_errors = output_errors * 0.1
-            print("Holding so constant is 0.1")
+            output_errors = output_errors * HOLD_ERROR_PENALIZING
 
         hidden_errors2 = np.dot(self.who.T, output_errors)
         hidden_errors1 = np.dot(self.whh.T, hidden_errors2)
