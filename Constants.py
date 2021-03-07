@@ -9,11 +9,10 @@ OUTPUT_SIZE = 2                     # [1.0 0.01] - buy
                                     # [0.01 0.01] - hold
 LEARNING_RATE = 0.3
 EPOCHS = 100
-SPLIT_TRAIN_TEST = 0.3
 HOLD_ERROR_PENALIZING = 0.01
 NN_OUT_ANS_BUY_THRESHOLD = 0.3
 NN_OUT_ANS_SELL_THRESHOLD = 0.3
-FEE_FROM_BUY = 0.001                # 1% from buy price (BINANCE)
+FEE_PERCENTAGE = 0.001              # 1% from buy price (BINANCE)
 BUY_QUANTITY = 0.1                  # 10% from price of ETH, e.q. price of ETH is 1300 EUR, we will be buying for 130 EUR
 
 """
@@ -21,6 +20,7 @@ Dataset
 """
 BINANCE_PAIR = 'ETHEUR'
 COIN_NAME = 'bitcoin'
+
 
 """
 Min/Max peak finding
