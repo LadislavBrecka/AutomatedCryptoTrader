@@ -48,7 +48,7 @@ class OhlcHandler:
 
         file.close()
 
-    def plot_candlestick(self, indicators=False, buy_sell: tuple = None, norm: pd.DataFrame = None, filter_const: int = None):
+    def plot_candlestick(self, indicators=False, buy_sell: tuple = None, answers: tuple = None, norm: pd.DataFrame = None, filter_const: int = None):
         if indicators:
             # Plot candlestick chart
             fig = plt.figure()
@@ -56,7 +56,7 @@ class OhlcHandler:
             if norm is None:
                 ax = fig.subplots(nrows=3, ncols=2, sharex=True)
             else:
-                ax = fig.subplots(nrows=4, ncols=2, sharex=True)
+                ax = fig.subplots(nrows=5, ncols=2, sharex=True)
 
             ind_list = list(self.dataset)
             matching = [s for s in ind_list if "Ema" in s]
@@ -91,6 +91,12 @@ class OhlcHandler:
             if buy_sell is not None:
                 ax[0, 1].scatter(self.dataset.index, buy_sell[0], color='green', label='Buy Signal', marker='^', alpha=1)
                 ax[0, 1].scatter(self.dataset.index, buy_sell[1], color='red', label='Sell Signal', marker='v', alpha=1)
+            if answers is not None:
+                if len(set(answers[0])) != 1:
+                    ax[0, 1].scatter(self.dataset.index, answers[0], color='green', label='Predicted buy', marker='X', alpha=1)
+                if len(set(answers[1])) != 1:
+                    ax[0, 1].scatter(self.dataset.index, answers[1], color='red', label='Predicted sell', marker='X', alpha=1)
+
             ax[0, 1].plot(self.dataset['Close'], 'b', label='Close')  # row=1, col=1
             ax[0, 1].grid(True)
             ax[0, 1].legend(loc="lower right")
@@ -102,6 +108,12 @@ class OhlcHandler:
                 ax[3, 0].legend(loc="lower right")
                 ax[3, 1].grid(True)
                 ax[3, 1].legend(loc="lower right")
+                ax[4, 0].plot(self.dataset.index, norm['Norm_Volume'], color='b', label='Normalized volume')
+                ax[4, 1].plot(self.dataset.index, norm['Norm_Gradient'], color='b', label='Normalized gradient')
+                ax[4, 0].grid(True)
+                ax[4, 0].legend(loc="lower right")
+                ax[4, 1].grid(True)
+                ax[4, 1].legend(loc="lower right")
 
             plt.xticks(rotation=45)
 

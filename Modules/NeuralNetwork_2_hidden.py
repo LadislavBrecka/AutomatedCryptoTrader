@@ -73,7 +73,7 @@ class NeuralNetwork:
         return final_outputs
 
     def save_to_file(self):
-        MyLogger.write_console("Saving neural network to file!")
+        MyLogger.write_console("Saving neural network to file!\n")
         try:
             np.savetxt("Data/Neurons/l1.csv", self.wih, delimiter=",")
             np.savetxt("Data/Neurons/l2.csv", self.whh, delimiter=",")
@@ -82,11 +82,12 @@ class NeuralNetwork:
             raise ValueError("Something wrong occurred while saving neural network to file!")
 
     def load_from_file(self):
-        MyLogger.write_console("Loading neural network from file!")
+        MyLogger.write_console("Loading neural network from file!\n")
         try:
             self.wih = np.loadtxt("Data/Neurons/l1.csv", delimiter=",")
             self.whh = np.loadtxt("Data/Neurons/l2.csv", delimiter=",")
             self.who = np.loadtxt("Data/Neurons/l3.csv", delimiter=",")
+            # input("Loading successfully, press enter for continue..")
 
         except Exception:
             raise ValueError("Cannot load neural network from file, file does not exists!")

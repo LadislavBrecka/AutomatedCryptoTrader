@@ -49,6 +49,8 @@ def predict_live():
         t = normalizer.get_normalized_row(t)
         tm1 = normalizer.get_normalized_row(tm1)
 
+        # Vymazat iba take indexi, ktore nechcem ako vstupy na nn
+        # Pozriet si v NN_Training.py, ktore indexy reprezentuju ktore indikatori
         del t[12]
         del t[9]
         del t[8]

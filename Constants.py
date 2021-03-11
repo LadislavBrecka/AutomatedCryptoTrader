@@ -1,19 +1,20 @@
 """
 Neural network
 """
-INPUT_SIZE = 14
+INPUT_SIZE = 26                     # number of inputs * look back constant - must be set manual
 HIDDEN_LAYER_1 = 20                 # 3/4 of inputs size
 HIDDEN_LAYER_2 = 20                 # 2/3 - 3/4 of preceding layer
 OUTPUT_SIZE = 2                     # [1.0 0.01] - buy
-                                    # [0.01 1.0] - sell
+                                    # [0.01 1.0] - sellS
                                     # [0.01 0.01] - hold
+LOOK_BACK = 2
 LEARNING_RATE = 0.3
 EPOCHS = 100
 HOLD_ERROR_PENALIZING = 0.01
-NN_OUT_ANS_BUY_THRESHOLD = 0.3
-NN_OUT_ANS_SELL_THRESHOLD = 0.3
+NN_OUT_ANS_BUY_THRESHOLD = 0.5
+NN_OUT_ANS_SELL_THRESHOLD = 0.5
 FEE_PERCENTAGE = 0.001              # 1% from buy price (BINANCE)
-BUY_QUANTITY = 0.1                  # 10% from price of ETH, e.q. price of ETH is 1300 EUR, we will be buying for 130 EUR
+BUY_QUANTITY = 10.0                  # 10% from price of ETH, e.q. price of ETH is 1300 EUR, we will be buying for 130 EUR
 
 """
 Dataset
@@ -36,10 +37,10 @@ LOOK_AHEAD_FILTERED_SERIES = 10      # look ahead for better peak in 1st step on
 DELTA_FILTERED_SERIES = 2           # x delta, e.g. 5 mean only every 5 on x axes can be peak
                                     # 28.2 - 2 je idealna volba
 
-LOOK_AHEAD_RAW_SERIES = 15          # look ahead for better peak in 2nd step on raw series
+LOOK_AHEAD_RAW_SERIES = 10          # look ahead for better peak in 2nd step on raw series
                                     # 28.2 - 10 alebo 15 je ideal, ked je viac, uz preskakuje aj mozne body kupy/predaja kvoli tomu ze vpredu je lepsi peak
 
-DELTA_RAW_SERIES = 25.0              # y delta, e.g. DELTA_RAW_SERIES = 25.0 mean 25.0 dollars is minimum between buy and sell
+DELTA_RAW_SERIES = 15.0              # y delta, e.g. DELTA_RAW_SERIES = 25.0 mean 25.0 dollars is minimum between buy and sell
                                     # 28.2 - na ETH by to malo byt 25.0, treba vsetko vyladit pre tuto hodnotu
 
 RSI_LOW = 40.0                      # rsi at which comodity turn to oversold
@@ -51,9 +52,9 @@ Normalizing parameters
 PRICE_AMPLITUDE = 1.0
 VOLUME_AMPLITUDE = 1.0
 EMA_AMPLITUDE = 1.0
-DIF_EMA_AMPLITUDE = 0.4             # 28.2 - od 0.4 nastava konvergencia
+DIF_EMA_AMPLITUDE = 0.7             # 28.2 - od 0.4 nastava konvergencia
 MACD_AMPLITUDE = 1.0
-MOMENTUM_AMPLITUDE = 0.4            # 28.2 - od 0.4 nastava konvergencia
-GRADIENT_AMPLITUDE = 0.4
+MOMENTUM_AMPLITUDE = 0.7            # 28.2 - od 0.4 nastava konvergencia
+GRADIENT_AMPLITUDE = 0.7
 
 
