@@ -14,7 +14,7 @@ HOLD_ERROR_PENALIZING = 0.01
 NN_OUT_ANS_BUY_THRESHOLD = 0.5
 NN_OUT_ANS_SELL_THRESHOLD = 0.5
 FEE_PERCENTAGE = 0.001              # 1% from buy price (BINANCE)
-BUY_QUANTITY = 10.0                  # 10% from price of ETH, e.q. price of ETH is 1300 EUR, we will be buying for 130 EUR
+BUY_QUANTITY = 0.03                  # 10% from price of ETH, e.q. price of ETH is 1300 EUR, we will be buying for 130 EUR
 
 """
 Dataset
