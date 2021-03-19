@@ -1,5 +1,5 @@
 from NN_Training import nn_train
 
-# nn_train('Data/Datasets/9.csv', True, False, 1.0)
 
-# nn_train('Data/Datasets/9.csv', False, False, 0.01)
+for i in range(1, 12):
+    nn_train('Data/Datasets/Archive/08.03-18.03_ETHEUR/{}.csv'.format(i), True, False, 1.0)

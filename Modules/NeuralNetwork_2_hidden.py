@@ -82,7 +82,7 @@ class NeuralNetwork:
             raise ValueError("Something wrong occurred while saving neural network to file!")
 
     def load_from_file(self):
-        MyLogger.write_console("Loading neural network from file!\n")
+        MyLogger.write_console("Loading neural network from file!")
         try:
             self.wih = np.loadtxt("Data/Neurons/l1.csv", delimiter=",")
             self.whh = np.loadtxt("Data/Neurons/l2.csv", delimiter=",")

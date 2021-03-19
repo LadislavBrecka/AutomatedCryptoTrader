@@ -1,15 +1,16 @@
 """
 Neural network
 """
-INPUT_SIZE = 26                     # number of inputs * look back constant - must be set manual
-HIDDEN_LAYER_1 = 20                 # 3/4 of inputs size
-HIDDEN_LAYER_2 = 20                 # 2/3 - 3/4 of preceding layer
+INPUT_SIZE = 104                     # number of inputs * look back constant - must be set manual
+HIDDEN_LAYER_1 = 50                 # 3/4 of inputs size
+HIDDEN_LAYER_2 = 50                 # 2/3 - 3/4 of preceding layer
 OUTPUT_SIZE = 2                     # [1.0 0.01] - buy
                                     # [0.01 1.0] - sellS
                                     # [0.01 0.01] - hold
-LOOK_BACK = 2
-LEARNING_RATE = 0.3
-EPOCHS = 100
+LOOK_BACK = 8
+LEARNING_RATE = 0.25
+EPOCHS = 100                        # 12.3 - 175 is looking good for look_back=5, lr=0.25
+
 HOLD_ERROR_PENALIZING = 0.01
 NN_OUT_ANS_BUY_THRESHOLD = 0.5
 NN_OUT_ANS_SELL_THRESHOLD = 0.5
@@ -22,6 +23,8 @@ Dataset
 BINANCE_PAIR = 'ETHEUR'
 COIN_NAME = 'bitcoin'
 
+HOURS = 296
+INTERVAL = '5m'
 
 """
 Min/Max peak finding

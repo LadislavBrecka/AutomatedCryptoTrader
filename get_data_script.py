@@ -2,10 +2,8 @@ from Modules.BinanceOhlcHandler import BinanceOhlcHandler
 from Constants import *
 from Modules.services import MyLogger
 import Modules.Teacher as Teacher
-
-
-HOURS = 296
-INTERVAL = '5m'
+import sys
+import os
 
 
 def download_dataset():
@@ -24,9 +22,11 @@ def download_dataset():
     MyLogger.write_console("Do you want to save this dataset for future use? [y]")
     if str(input()) == 'y':
         datasets_by_day = [group[1] for group in binance.dataset.groupby(binance.dataset.index.date)]
-        i = 0
+        datasets_by_day.pop(0)
+        datasets_by_day.pop(-1)
+        i = 1
         for frame in datasets_by_day:
-            frame.to_csv("Data/Datasets/{}.csv".format(i))
+            frame.to_csv("Data/Datasets/Download/{}.csv".format(i))
             i = i + 1
         MyLogger.write_console("Number of datasets saved: {} !".format(len(datasets_by_day)))
     else:
@@ -44,7 +44,20 @@ def load_dataset(file_name):
     binance.plot_candlestick(indicators=True, buy_sell=ideal_signals, filter_const=FILTER_CONSTANT)
 
 
-load_dataset('Data/Datasets/4.csv')
+if len(sys.argv) == 1:
+    raise ValueError("You must specify if you want to download (-d) or load (-l) file")
+elif sys.argv[1] == '-d':
+    download_dataset()
+elif sys.argv[1] == '-l':
+    try:
+        load_dataset(sys.argv[2])
+    except Exception:
+        raise ValueError("You did no specify existing relative path to file")
+else:
+    raise ValueError("You must specify if you want to download (-d) or load (-l) file")
+
+
+
 
 
 
