@@ -53,6 +53,63 @@ class Normalize:
 
         return result
 
+    def get_normalized_dataset(self, dataset):
+        '''
+        Normalizing whole dataset once
+        '''
+        temp_open = []
+        temp_high = []
+        temp_low = []
+        temp_close = []
+        temp_volume = []
+        temp_emaShort = []
+        temp_emaLong = []
+        temp_ema_diff = []
+        temp_macd = []
+        temp_signal = []
+        temp_momentum = []
+        temp_rsi = []
+        temp_gradient = []
+        for i in range(len(dataset)):
+            row = dataset.iloc[i]
+            del row['Date']
+            row = row.values
+            norm_row = self.get_normalized_row(row)
+            temp_open.append(norm_row[0])  # open
+            temp_high.append(norm_row[1])  # high
+            temp_low.append(norm_row[2])  # low
+            temp_close.append(norm_row[3])  # close
+            temp_volume.append(norm_row[4])  # volume
+            temp_emaShort.append(norm_row[5])  # ema short
+            temp_emaLong.append(norm_row[6])  # ema long
+            temp_ema_diff.append(norm_row[7])  # ema_short - ema_long
+            temp_macd.append(norm_row[8])  # macd
+            temp_signal.append(norm_row[9])  # signal
+            temp_momentum.append(norm_row[10])  # momentum
+            temp_rsi.append(norm_row[11])  # rsi
+            temp_gradient.append(norm_row[12])  # gradient
+
+        norm_dataset = pd.DataFrame(index=dataset['Date'],
+                                    columns=['Norm_Open', 'Norm_High', 'Norm_Low', 'Norm_Close', 'Norm_Volume',
+                                             'Norm_EmaShort', 'Norm_EmaLong', 'Norm_EmaDiff', 'Norm_Macd',
+                                             'Norm_Signal', 'Norm_Momentum', 'Norm_Rsi', 'Norm_Gradient'])
+
+        norm_dataset['Norm_Open'] = temp_open
+        norm_dataset['Norm_High'] = temp_high
+        norm_dataset['Norm_Low'] = temp_low
+        norm_dataset['Norm_Close'] = temp_close
+        norm_dataset['Norm_Volume'] = temp_volume
+        norm_dataset['Norm_EmaShort'] = temp_emaShort
+        norm_dataset['Norm_EmaLong'] = temp_emaLong
+        norm_dataset['Norm_EmaDiff'] = temp_ema_diff
+        norm_dataset['Norm_Macd'] = temp_macd
+        norm_dataset['Norm_Signal'] = temp_signal
+        norm_dataset['Norm_Momentum'] = temp_momentum
+        norm_dataset['Norm_Rsi'] = temp_rsi
+        norm_dataset['Norm_Gradient'] = temp_gradient
+
+        return norm_dataset
+
 
 class Filter:
 

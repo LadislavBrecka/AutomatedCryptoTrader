@@ -4,7 +4,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import mplfinance as mpf
 import Modules.services as services
-from Modules.services import MyLogger
 
 
 class OhlcHandler:

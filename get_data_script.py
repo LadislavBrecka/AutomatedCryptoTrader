@@ -6,12 +6,12 @@ import sys
 import os
 
 
-def download_dataset():
-    if HOURS < 4*24:
+def download_dataset(hours):
+    if hours < 4*24:
         raise ValueError("Minimal hours for neural network to train is 96, which is 4 days!")
 
     binance = BinanceOhlcHandler(BINANCE_PAIR)
-    binance.get_dataset(HOURS, INTERVAL)
+    binance.get_dataset(hours, INTERVAL)
     msg = "-----------------------------------------------------------------------------------------\n" + \
           "Actual price chart for {}. Close graph for continue!\n".format(BINANCE_PAIR) +\
           "-----------------------------------------------------------------------------------------"
@@ -47,7 +47,10 @@ def load_dataset(file_name):
 if len(sys.argv) == 1:
     raise ValueError("You must specify if you want to download (-d) or load (-l) file")
 elif sys.argv[1] == '-d':
-    download_dataset()
+    try:
+        download_dataset(int(sys.argv[2]))
+    except Exception:
+        raise ValueError("You did no specify hours")
 elif sys.argv[1] == '-l':
     try:
         load_dataset(sys.argv[2])
