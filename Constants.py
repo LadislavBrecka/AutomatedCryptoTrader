@@ -1,15 +1,15 @@
 """
 Neural network
 """
-INPUT_SIZE = 65                   # number of inputs * look back constant - must be set manual
-HIDDEN_LAYER_1 = 50                 # 3/4 of inputs size
-HIDDEN_LAYER_2 = 50                 # 2/3 - 3/4 of preceding layer
+INPUT_SIZE = 42                   # number of inputs * look back constant - must be set manual
+HIDDEN_LAYER_1 = 20                 # 3/4 of inputs size
+HIDDEN_LAYER_2 = 20                 # 2/3 - 3/4 of preceding layer
 OUTPUT_SIZE = 2                     # [1.0 0.01] - buy
                                     # [0.01 1.0] - sellS
                                     # [0.01 0.01] - hold
-LOOK_BACK = 5
-LEARNING_RATE = 0.1
-EPOCHS = 180                      # 12.3 - 175 is looking good for look_back=5, lr=0.25
+LOOK_BACK = 3
+LEARNING_RATE = 0.008
+EPOCHS = 125                    # 12.3 - 175 is looking good for look_back=5, lr=0.25
 
 HOLD_ERROR_PENALIZING = 0.01
 NN_OUT_ANS_BUY_THRESHOLD = 0.5
@@ -53,6 +53,7 @@ Normalizing parameters
 """
 PRICE_AMPLITUDE = 1.0
 VOLUME_AMPLITUDE = 1.0
+DIFF_OPEN_CLOSE_AMPLITUDE = 1.0
 EMA_AMPLITUDE = 1.0
 DIF_EMA_AMPLITUDE = 0.7             # 28.2 - od 0.4 nastava konvergencia
 MACD_AMPLITUDE = 1.0

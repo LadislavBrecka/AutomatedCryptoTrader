@@ -4,12 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5f520c9c-5df7-45bf-9cde-f7150821fdd7" name="Default Changelist" comment="Dataset folder refactor, tunning - 8 days earning from 11 days">
-      <change afterPath="$PROJECT_DIR$/test_nn_script.py" afterDir="false" />
+    <list default="true" id="5f520c9c-5df7-45bf-9cde-f7150821fdd7" name="Default Changelist" comment="NN training and testing refactor, good test result with this setup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomaticCryptoTrader.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomaticCryptoTrader.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/Constants.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/1.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/10.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/10.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/11.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/11.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/12.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/12.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/13.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/13.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/14.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/14.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/15.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/15.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/16.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/17.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/17.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/18.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/18.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/19.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/19.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/2.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/20.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/20.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/21.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/21.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/22.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/22.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/23.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/23.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/3.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/3.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/4.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/5.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/5.csv" afterDir="false" />
@@ -17,16 +31,38 @@
       <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/7.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/7.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/8.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/9.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/9.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/10.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/11.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/13.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/14.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/15.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/16.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/17.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/18.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/19.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/2.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/20.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/21.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/22.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/23.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/3.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/4.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/5.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/6.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/7.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/8.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR/9.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/Neurons/l1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Neurons/l1.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/Neurons/l2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Neurons/l2.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/Neurons/l3.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Neurons/l3.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/BinanceOhlcHandler.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/BinanceOhlcHandler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/OhlcHandler.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/OhlcHandler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/services.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/services.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NN_Training.py" beforeDir="false" afterPath="$PROJECT_DIR$/NN_Training.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NN_LiveQuerry.py" beforeDir="false" afterPath="$PROJECT_DIR$/NN_LiveQuerry.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Outputs/output_dataset.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Outputs/output_dataset.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Outputs/testing_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Outputs/testing_log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/get_data_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_data_script.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train_nn_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_nn_script.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +107,7 @@
       <recent name="D:\Laco\SKOLA\FEI STU\Bakalarka\AutomatedCryptoTrader" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.train_nn_script">
+  <component name="RunManager" selected="Python.test_nn_script">
     <configuration name="AutomaticCryptoTrader" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="KrakenBinanceCryptoOHLC" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -86,6 +122,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/AutomaticCryptoTrader.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="NN_LiveQuerry" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="KrakenBinanceCryptoOHLC" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/NN_LiveQuerry.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -162,10 +220,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.train_nn_script" />
         <item itemvalue="Python.test_nn_script" />
+        <item itemvalue="Python.NN_LiveQuerry" />
         <item itemvalue="Python.AutomaticCryptoTrader" />
         <item itemvalue="Python.scratch" />
+        <item itemvalue="Python.train_nn_script" />
       </list>
     </recent_temporary>
   </component>
@@ -297,6 +356,22 @@
       <workItem from="1616748462976" duration="17564000" />
       <workItem from="1616838121732" duration="190000" />
       <workItem from="1616838335068" duration="335000" />
+      <workItem from="1616880023618" duration="714000" />
+      <workItem from="1617006176301" duration="27000" />
+      <workItem from="1617133997718" duration="3143000" />
+      <workItem from="1617183056805" duration="30000" />
+      <workItem from="1617308861895" duration="6921000" />
+      <workItem from="1617447603612" duration="1459000" />
+      <workItem from="1617702068444" duration="10500000" />
+      <workItem from="1617730005055" duration="6973000" />
+      <workItem from="1617897809545" duration="2386000" />
+      <workItem from="1618230759702" duration="2200000" />
+      <workItem from="1618236692847" duration="11859000" />
+      <workItem from="1618307453527" duration="8863000" />
+      <workItem from="1618479500420" duration="3693000" />
+      <workItem from="1618480285545" duration="12705000" />
+      <workItem from="1618517623775" duration="15717000" />
+      <workItem from="1618767016964" duration="1445000" />
     </task>
     <task id="LOCAL-00001" summary="Pridanie low pass filtra&#10;Pokusy o najdenie minima/maxima">
       <created>1610236393441</created>
@@ -473,7 +548,21 @@
       <option name="project" value="LOCAL" />
       <updated>1616171663522</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="NN training and testing refactor, good test result with this setup">
+      <created>1616880065895</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1616880065895</updated>
+    </task>
+    <task id="LOCAL-00027" summary="NN training and testing refactor, good test result with this setup">
+      <created>1616880123068</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1616880123068</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -516,7 +605,8 @@
     <MESSAGE value="parsing dataset by days, clean up code" />
     <MESSAGE value="earning demo with lookb_back=2" />
     <MESSAGE value="Dataset folder refactor, tunning - 8 days earning from 11 days" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dataset folder refactor, tunning - 8 days earning from 11 days" />
+    <MESSAGE value="NN training and testing refactor, good test result with this setup" />
+    <option name="LAST_COMMIT_MESSAGE" value="NN training and testing refactor, good test result with this setup" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$training_script.coverage" NAME="training_script Coverage Results" MODIFIED="1615396028698" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -526,17 +616,17 @@
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$NeuralNetwork_LSTM.coverage" NAME="NeuralNetwork_LSTM Coverage Results" MODIFIED="1607881773117" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$scratch3.coverage" NAME="scratch3 Coverage Results" MODIFIED="1602781387331" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$FF_usage.coverage" NAME="FF_usage Coverage Results" MODIFIED="1609936327001" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$AutomaticCryptoTrader.coverage" NAME="AutomaticCryptoTrader Coverage Results" MODIFIED="1616522587553" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$AutomaticCryptoTrader.coverage" NAME="AutomaticCryptoTrader Coverage Results" MODIFIED="1618481108359" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$NN_Training.coverage" NAME="NN_Training Coverage Results" MODIFIED="1615406543520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$NN_LiveQuerry.coverage" NAME="NN_LiveQuerry Coverage Results" MODIFIED="1615028755764" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$test_nn_script.coverage" NAME="test_nn_script Coverage Results" MODIFIED="1616674689184" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$NN_LiveQuerry.coverage" NAME="NN_LiveQuerry Coverage Results" MODIFIED="1618558791665" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$test_nn_script.coverage" NAME="test_nn_script Coverage Results" MODIFIED="1618769494343" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$DataHandling.coverage" NAME="DataHandling Coverage Results" MODIFIED="1614985430275" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$scratch__1_.coverage" NAME="scratch (1) Coverage Results" MODIFIED="1601226692183" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
-    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$scratch.coverage" NAME="scratch Coverage Results" MODIFIED="1615485032169" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
+    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$scratch.coverage" NAME="scratch Coverage Results" MODIFIED="1618312319065" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$GetDataScript.coverage" NAME="get_data_script Coverage Results" MODIFIED="1615406528073" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$main.coverage" NAME="main Coverage Results" MODIFIED="1614953973519" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$scratch1.coverage" NAME="scratch1 Coverage Results" MODIFIED="1602780570666" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
     <SUITE FILE_PATH="coverage/KrakenBinanceCryptoOHLC$main.coverage" NAME="main Coverage Results" MODIFIED="1594485647389" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$train_nn_script.coverage" NAME="train_nn_script Coverage Results" MODIFIED="1616838652661" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$train_nn_script.coverage" NAME="train_nn_script Coverage Results" MODIFIED="1617899269420" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

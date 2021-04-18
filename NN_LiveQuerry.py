@@ -5,107 +5,112 @@ from Modules.BinanceOhlcHandler import BinanceOhlcHandler
 import Modules.services as services
 import Modules.NeuralNetwork_2_hidden as nn_2_hidden
 from Modules.services import MyLogger
+from datetime import datetime, timedelta
+import Modules.Teacher as Teacher
 
 
-PREDICT_TIME = 30
-PREDICT_INTERVAL = '5m'
+def predict_live(predict_time):
 
+    output_file = open('Outputs/live_log.txt', 'w')
 
-def predict_live():
+    live_dataset_handler_binance = BinanceOhlcHandler(BINANCE_PAIR)
+    live_dataset_handler_binance.get_dataset(12, INTERVAL)
+    main_normalizer = services.Normalize(live_dataset_handler_binance.dataset)
 
-    output_file = open('Outputs/output_live.txt', 'w')
-
-    binance = BinanceOhlcHandler(BINANCE_PAIR)
-    binance.get_dataset(12, PREDICT_INTERVAL)
-
-    normalizer = services.Normalize(binance.dataset)
     nn = nn_2_hidden.NeuralNetwork(INPUT_SIZE, HIDDEN_LAYER_1, HIDDEN_LAYER_2, OUTPUT_SIZE, LEARNING_RATE)
     nn.load_from_file()
 
     MyLogger.write("Now going live, lets see!", output_file)
-    i = 0
+    t = 0
     flag = 1
     profit = 0.0
-    while i != PREDICT_TIME:
-        MyLogger.write("waiting {} seconds".format(binance.interval*60), output_file)
-        time.sleep(binance.interval*60)
-        binance.get_recent_OHLC()
-        i += 1
+    ans_buy_list = []
+    ans_sell_list = []
+    ans_list = ans_buy_list, ans_sell_list
 
-        t = binance.dataset.iloc[-1]
-        tm1 = binance.dataset.iloc[-2]
+    for i in range(len(live_dataset_handler_binance.dataset)):
+        ans_list[0].append(np.nan)
+        ans_list[1].append(np.nan)
 
-        actual_close_price = t['Close']
-        actual_date = t['Date']
+    while t != predict_time:
 
-        MyLogger.write("New data : {}, {} EUR".format(actual_date, actual_close_price), output_file)
+        now = datetime.utcnow()
+        rounded = now - timedelta(minutes=now.minute % 5 - 5, seconds=now.second, microseconds=now.microsecond)
+        wait_t = (rounded - now).seconds + 3
+        MyLogger.write("Next time of execution is {} UTC, waiting {} seconds".format(rounded, wait_t), output_file)
+        time.sleep(wait_t)
+        MyLogger.write("\n---Execution start at {} UTC---".format(datetime.utcnow()), output_file)
 
-        del t['Date']
-        del tm1['Date']
+        live_dataset_handler_binance.get_recent_OHLC()
+        t += 1
 
-        t = t.values
-        tm1 = tm1.values
+        look_back_list = []
 
-        t = normalizer.get_normalized_row(t)
-        tm1 = normalizer.get_normalized_row(tm1)
+        for step in range(LOOK_BACK):
+            entry_row = live_dataset_handler_binance.dataset.iloc[-1 - step]
+            del entry_row['Date']
+            entry_row = entry_row.values
+            norm_entry_row = main_normalizer.get_normalized_row(entry_row)
+            look_back_list.append(np.array(norm_entry_row))
 
-        # Vymazat iba take indexi, ktore nechcem ako vstupy na nn
-        # Pozriet si v NN_Training.py, ktore indexy reprezentuju ktore indikatori
-        del t[12]
-        del t[9]
-        del t[8]
-        del t[6]
-        del t[5]
-        del t[4]
-
-        del tm1[12]
-        del tm1[9]
-        del tm1[8]
-        del tm1[6]
-        del tm1[5]
-        del tm1[4]
-
-        t = np.array(t)
-        tm1 = np.array(tm1)
-        inputs = np.concatenate([t, tm1])
-
+        inputs = np.concatenate(look_back_list)
         inputs = inputs * 0.99 + 0.01
 
         ans = nn.query(inputs)
 
         if ans[0] > NN_OUT_ANS_BUY_THRESHOLD:
             if flag != 0:
-                buying_price = BUY_QUANTITY * actual_close_price
-                fees = (BUY_QUANTITY * actual_close_price) * FEE_PERCENTAGE
+                actual_price = live_dataset_handler_binance.get_actual_price()
+                buying_price = BUY_QUANTITY * actual_price
+                fees = (BUY_QUANTITY * actual_price) * FEE_PERCENTAGE
                 profit = profit - buying_price - fees
-                MyLogger.write("1. Buying at time : {}, for price {}.".format(actual_date, buying_price), output_file)
+
+                MyLogger.write("1. Buying at time : {}, for price {}.".format(live_dataset_handler_binance.dataset.iloc[-1]['Date'], buying_price), output_file)
+                MyLogger.write("2. Profit is {}\n".format(profit), output_file)
+                ans_list[0].append(actual_price)
+                ans_list[1].append(np.nan)
                 flag = 0
             else:
-                MyLogger.write("1. Holding", output_file)
+                ans_list[0].append(np.nan)
+                ans_list[1].append(np.nan)
+                pass
         elif ans[1] > NN_OUT_ANS_SELL_THRESHOLD:
             if flag != 1:
-                selling_price = BUY_QUANTITY * actual_close_price
-                fees = (BUY_QUANTITY * actual_close_price) * FEE_PERCENTAGE
+                actual_price = live_dataset_handler_binance.get_actual_price()
+                selling_price = BUY_QUANTITY * actual_price
+                fees = (BUY_QUANTITY * actual_price) * FEE_PERCENTAGE
                 profit = profit + selling_price - fees
-                MyLogger.write("1. Selling at time : {}, for price {}.".format(actual_date, selling_price), output_file)
+
+                MyLogger.write("1. Selling at time : {}, for price {}.".format(live_dataset_handler_binance.dataset.iloc[-1]['Date'], selling_price), output_file)
+                MyLogger.write("2. Profit is {}\n".format(profit), output_file)
+                ans_list[0].append(np.nan)
+                ans_list[1].append(actual_price)
                 flag = 1
             else:
-                MyLogger.write("1. Holding", output_file)
+                ans_list[0].append(np.nan)
+                ans_list[1].append(np.nan)
+                pass
         else:
-            MyLogger.write("1. Holding", output_file)
+            ans_list[0].append(np.nan)
+            ans_list[1].append(np.nan)
+            pass
 
-        MyLogger.write("2. Profit is {}\n".format(profit), output_file)
+        MyLogger.write("---Execution end at {} UTC---\n".format(datetime.utcnow()), output_file)
 
     msg = "-----------------------------------------------------------------------------------------------------------------------------------\n" + \
-          "Final earning is {} EUR. All fees are included, application was buying for price 10% of actual price of {}.\n".format(profit, binance.pair) + \
+          "Final earning is {} EUR. All fees are included, application was buying for price 10% of actual price of {}.\n".format(profit, live_dataset_handler_binance.pair) + \
           "-----------------------------------------------------------------------------------------------------------------------------------"
 
     MyLogger.write(msg, output_file)
+
+    ideal_signals = Teacher.generate_buy_sell_signal(live_dataset_handler_binance.dataset, FILTER_CONSTANT)
+    live_dataset_handler_binance.plot_candlestick(indicators=True, buy_sell=ideal_signals, answers=ans_list, filter_const=FILTER_CONSTANT)
+    live_dataset_handler_binance.print_to_file('Outputs/output_live_dataset.txt')
+
     output_file.close()
 
 
-predict_live()
-
+predict_live(288)
 
 
 

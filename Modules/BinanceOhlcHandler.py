@@ -3,6 +3,8 @@ from binance.client import Client
 import numpy as np
 import pandas as pd
 import datetime as dt
+from Modules.services import MyLogger
+
 
 api_key = 'wzDZXGFp9DK9QOChVTEOhZKaYEVAbbCBhsBDJXvSI78t2WlD3TqQhViWb8LH5Xom'
 api_secret = 'U6Gk59emVhyiNtuX9GDkpgtRwZlsAJkVhUFFzb3YvJEnN8NRDECozDnE8SgyT0kh'
@@ -15,6 +17,9 @@ class BinanceOhlcHandler(OhlcHandler):
 
     def __init__(self, pair):
         super(BinanceOhlcHandler, self).__init__(pair)
+
+    def get_actual_price(self):
+        return float(self.binance_client.get_symbol_ticker(symbol=self.pair)['price'])
 
     def get_dataset(self, hours, interval='5m'):
 
@@ -53,7 +58,12 @@ class BinanceOhlcHandler(OhlcHandler):
 
     def get_recent_OHLC(self):
 
-        raw_data = self.binance_client.get_historical_klines(self.pair, Client.KLINE_INTERVAL_1MINUTE, "1 minute ago UTC")
+        if self.interval == 1:
+            raw_data = self.binance_client.get_historical_klines(self.pair, Client.KLINE_INTERVAL_1MINUTE, "1 minute ago UTC")
+        elif self.interval == 5:
+            raw_data = self.binance_client.get_historical_klines(self.pair, Client.KLINE_INTERVAL_5MINUTE, "5 minutes ago UTC")
+        else:
+            raw_data = []
 
         raw_data = np.array(raw_data)
 
@@ -80,8 +90,7 @@ class BinanceOhlcHandler(OhlcHandler):
         self.dataset = self._format_dataframe(self.dataset)
         self._add_statistic_indicators()
 
-
-
+        MyLogger.write_console("Added new sample for time {} :\n {}".format(self.dataset.iloc[-1]['Date'], self.dataset.iloc[-1]))
 
 
 

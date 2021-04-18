@@ -1,5 +1,16 @@
-from NN_Training import nn_train
+from Modules.BinanceOhlcHandler import BinanceOhlcHandler
+from Constants import *
+import time
 
+h = BinanceOhlcHandler(BINANCE_PAIR)
+h.get_dataset(12, interval='5m')
 
-for i in range(1, 12):
-    nn_train('Data/Datasets/Archive/08.03-18.03_ETHEUR/{}.csv'.format(i), True, False, 1.0)
+h.print_to_file('out1.txt')
+i = 0
+while i != 3:
+    time.sleep(5*60)
+    h.get_recent_OHLC()
+    i += 1
+
+h.print_to_file('out2.txt')
+

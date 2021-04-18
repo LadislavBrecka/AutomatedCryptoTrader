@@ -4,6 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import mplfinance as mpf
 import Modules.services as services
+import datetime as dt
 
 
 class OhlcHandler:
@@ -136,6 +137,7 @@ class OhlcHandler:
         if ema_long < ema_short:
             raise Exception("Long ema must be higher than short ema")
 
+        self.dataset['Close-Open'] = self.dataset['Close'] - self.dataset['Open']
         self.__ema(ema_short)
         self.__ema(ema_long)
         ind_list = list(self.dataset)
@@ -207,53 +209,53 @@ class OhlcHandler:
         self.dataset[gradient_name] = [i * 100 for i in np.gradient(self.dataset['Close'])]
         self.indicators.append(gradient_name)
 
-    # def __insert_row(self, row_number, row_value):
-    #     # Starting value of upper half
-    #     start_upper = 0
-    #     # End value of upper half
-    #     end_upper = row_number
-    #     # Start value of lower half
-    #     start_lower = row_number
-    #     # End value of lower half
-    #     end_lower = self.dataset.shape[0]
-    #     # Create a list of upper_half index
-    #     upper_half = [*range(start_upper, end_upper, 1)]
-    #     # Create a list of lower_half index
-    #     lower_half = [*range(start_lower, end_lower, 1)]
-    #     # Increment the value of lower half by 1
-    #     lower_half = [x.__add__(1) for x in lower_half]
-    #     # Combine the two lists
-    #     index_ = upper_half + lower_half
-    #     # Update the index of the dataframe
-    #     self.dataset.index = index_
-    #     # Insert a row at the end
-    #     self.dataset.loc[row_number] = row_value
-    #     # Sort the index labels
-    #     self.dataset = self.dataset.sort_index()
-    #
-    # def _fill_with_nan(self):
-    #     one_minute = dt.timedelta(minutes=1)
-    #
-    #     if self.interval == '1':
-    #         n = self.dataset['Date'].iloc[0]
-    #         n = n - one_minute
-    #         n = int(n.strftime("%M"))
-    #
-    #         for d in self.dataset['Date']:
-    #             prev_n = n
-    #             n = int(d.strftime("%M"))
-    #             if n < prev_n:
-    #                 prev_n = prev_n - 60
-    #             dif = n - prev_n
-    #
-    #             if (dif > 1) and not (n == 0 and prev_n == 59):
-    #                 i = self.dataset[self.dataset['Date'] == d].index.values.astype(int)[0]
-    #                 for j in range(dif - 1):
-    #                     d = d - one_minute
-    #                     self.__insert_row(i, [d, np.nan, np.nan, np.nan, np.nan, np.nan])
-    #
-    #     elif self.interval == '60':
-    #         pass
+    def __insert_row(self, row_number, row_value):
+        # Starting value of upper half
+        start_upper = 0
+        # End value of upper half
+        end_upper = row_number
+        # Start value of lower half
+        start_lower = row_number
+        # End value of lower half
+        end_lower = self.dataset.shape[0]
+        # Create a list of upper_half index
+        upper_half = [*range(start_upper, end_upper, 1)]
+        # Create a list of lower_half index
+        lower_half = [*range(start_lower, end_lower, 1)]
+        # Increment the value of lower half by 1
+        lower_half = [x.__add__(1) for x in lower_half]
+        # Combine the two lists
+        index_ = upper_half + lower_half
+        # Update the index of the dataframe
+        self.dataset.index = index_
+        # Insert a row at the end
+        self.dataset.loc[row_number] = row_value
+        # Sort the index labels
+        self.dataset = self.dataset.sort_index()
+
+    def _fill_with_nan(self):
+        one_minute = dt.timedelta(minutes=1)
+
+        if self.interval == '1':
+            n = self.dataset['Date'].iloc[0]
+            n = n - one_minute
+            n = int(n.strftime("%M"))
+
+            for d in self.dataset['Date']:
+                prev_n = n
+                n = int(d.strftime("%M"))
+                if n < prev_n:
+                    prev_n = prev_n - 60
+                dif = n - prev_n
+
+                if (dif > 1) and not (n == 0 and prev_n == 59):
+                    i = self.dataset[self.dataset['Date'] == d].index.values.astype(int)[0]
+                    for j in range(dif - 1):
+                        d = d - one_minute
+                        self.__insert_row(i, [d, np.nan, np.nan, np.nan, np.nan, np.nan])
+
+        elif self.interval == '60':
+            pass
 
     # USER CAN CHOOSE WHAT WILL BE PLOTED
     # def plot_closed_price(self, data='All'):
