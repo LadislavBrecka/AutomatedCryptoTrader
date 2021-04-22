@@ -1,6 +1,6 @@
 import numpy as np
 from scipy import special
-from Constants import *
+from Config import *
 from Modules.services import MyLogger
 
 

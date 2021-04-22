@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import peakdetect
-from Constants import *
+from Config import *
 import Modules.services as services
 
 # Generate target list of format:

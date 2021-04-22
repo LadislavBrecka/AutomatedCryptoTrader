@@ -2,10 +2,9 @@ import Modules.services as services
 import Modules.Teacher as Teacher
 import numpy as np
 import Modules.NeuralNetwork_2_hidden as nn_2_hidden
-from Constants import *
+from Config import *
 from Modules.BinanceOhlcHandler import BinanceOhlcHandler
 from Modules.services import MyLogger
-import time
 
 
 def nn_train(main_dataset_file_name, load_nn, save_nn, test_split, validation_dataset_file_name=None):

@@ -8,7 +8,7 @@ OUTPUT_SIZE = 2                     # [1.0 0.01] - buy
                                     # [0.01 1.0] - sellS
                                     # [0.01 0.01] - hold
 LOOK_BACK = 3
-LEARNING_RATE = 0.008
+LEARNING_RATE = 0.02
 EPOCHS = 125                    # 12.3 - 175 is looking good for look_back=5, lr=0.25
 
 HOLD_ERROR_PENALIZING = 0.01
@@ -51,12 +51,12 @@ RSI_HIGH = 60.0                     # rsi at which comodity turn to overbought
 """
 Normalizing parameters
 """
-PRICE_AMPLITUDE = 1.0
+PRICE_AMPLITUDE = 1.2
 VOLUME_AMPLITUDE = 1.0
 DIFF_OPEN_CLOSE_AMPLITUDE = 1.0
-EMA_AMPLITUDE = 1.0
+EMA_AMPLITUDE = 1.2
 DIF_EMA_AMPLITUDE = 0.7             # 28.2 - od 0.4 nastava konvergencia
-MACD_AMPLITUDE = 1.0
+MACD_AMPLITUDE = 1.2
 MOMENTUM_AMPLITUDE = 0.7            # 28.2 - od 0.4 nastava konvergencia
 GRADIENT_AMPLITUDE = 0.7
 

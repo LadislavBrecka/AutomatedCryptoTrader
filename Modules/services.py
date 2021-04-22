@@ -1,7 +1,7 @@
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
 import pandas as pd
-from Constants import *
+from Config import *
 import sys
 
 

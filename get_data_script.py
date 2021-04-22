@@ -1,9 +1,8 @@
 from Modules.BinanceOhlcHandler import BinanceOhlcHandler
-from Constants import *
+from Config import *
 from Modules.services import MyLogger
 import Modules.Teacher as Teacher
 import sys
-import os
 
 
 def download_dataset(hours):

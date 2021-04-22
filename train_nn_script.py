@@ -17,8 +17,6 @@ except IOError:
     validation_file_name = None
     val_i = 0
 
-
-
 file_name = 'Data/Datasets/Active/1.csv'
 nn_train(file_name, False, True, 0.0, validation_dataset_file_name=validation_file_name)
 

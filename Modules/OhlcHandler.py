@@ -5,6 +5,10 @@ import matplotlib.pyplot as plt
 import mplfinance as mpf
 import Modules.services as services
 import datetime as dt
+import matplotlib
+matplotlib.use("TkAgg")
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 
 class OhlcHandler:
@@ -47,6 +51,29 @@ class OhlcHandler:
             file.write('\n')
 
         file.close()
+
+    def plot_to_tkinter(self, buy_sell: tuple, answers: tuple, window, ax=None, fig=None):
+        if ax is None:
+            fig = plt.figure(figsize=(7, 3))
+            ax = fig.add_subplot(1, 1, 1)
+        else:
+            ax.clear()
+
+        ax.scatter(self.dataset.index, buy_sell[0], color='green', label='Buy Signal', marker='^', alpha=1)
+        ax.scatter(self.dataset.index, buy_sell[1], color='red', label='Sell Signal', marker='v', alpha=1)
+        if len(set(answers[0])) != 1:
+            ax.scatter(self.dataset.index, answers[0], color='green', label='Predicted buy', marker='X', alpha=1)
+        if len(set(answers[1])) != 1:
+            ax.scatter(self.dataset.index, answers[1], color='red', label='Predicted sell', marker='X', alpha=1)
+
+        ax.plot(self.dataset['Close'], 'b', label='Close')
+        ax.grid(True)
+        ax.legend(loc="lower right")
+
+        canvas = FigureCanvasTkAgg(fig, window)
+        canvas.get_tk_widget().grid(row=1, column=1)
+
+        return fig, ax
 
     def plot_candlestick(self, indicators=False, buy_sell: tuple = None, answers: tuple = None, norm: pd.DataFrame = None, filter_const: int = None):
         if indicators:
