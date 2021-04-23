@@ -27,7 +27,8 @@ def predict_live():
 
     global start
     global end
-    global ans_list
+    global ans_buy_list
+    global ans_sell_list
     global live_dataset_handler_binance
 
     predict_time = 120
@@ -36,7 +37,10 @@ def predict_live():
 
     live_dataset_handler_binance = BinanceOhlcHandler(BINANCE_PAIR)
     live_dataset_handler_binance.get_dataset(24, INTERVAL)
+    live_dataset_handler_binance.dataset.drop(live_dataset_handler_binance.dataset.tail(1).index, inplace=True)
     main_normalizer = services.Normalize(live_dataset_handler_binance.dataset)
+
+    live_dataset_handler_binance.print_to_file('Outputs/live_dataset.txt')
 
     nn = nn_2_hidden.NeuralNetwork(INPUT_SIZE, HIDDEN_LAYER_1, HIDDEN_LAYER_2, OUTPUT_SIZE, LEARNING_RATE)
     nn.load_from_file()
@@ -47,8 +51,8 @@ def predict_live():
     profit = 0.0
 
     for i in range(len(live_dataset_handler_binance.dataset)):
-        ans_list[0].append(np.nan)
-        ans_list[1].append(np.nan)
+        ans_buy_list.append(np.nan)
+        ans_sell_list.append(np.nan)
 
     while t != predict_time:
 
@@ -63,6 +67,14 @@ def predict_live():
             MyLogger.write("\n---Execution start at {} UTC---".format(datetime.utcnow()), output_file)
 
             live_dataset_handler_binance.get_recent_OHLC()
+
+            # Delete head of dataset and ans_list
+            live_dataset_handler_binance.dataset.drop(live_dataset_handler_binance.dataset.head(1).index, inplace=True)
+            ans_buy_list.pop(0)
+            ans_sell_list.pop(0)
+
+            live_dataset_handler_binance.print_to_file('Outputs/live_dataset.txt')
+
             t += 1
 
             look_back_list = []
@@ -77,7 +89,7 @@ def predict_live():
             inputs = np.concatenate(look_back_list)
             inputs = inputs * 0.99 + 0.01
             ans = nn.query(inputs)
-            # ans = [1.0, 0.0]
+
             if ans[0] > NN_OUT_ANS_BUY_THRESHOLD:
                 if flag != 0:
                     actual_price = live_dataset_handler_binance.get_actual_price()
@@ -87,13 +99,13 @@ def predict_live():
 
                     MyLogger.write("1. Buying at time : {}, for price {}.".format(live_dataset_handler_binance.dataset.iloc[-1]['Date'], buying_price), output_file)
                     MyLogger.write("2. Profit is {}\n".format(profit), output_file)
-                    ans_list[0].append(actual_price)
-                    ans_list[1].append(np.nan)
+                    ans_buy_list.append(actual_price)
+                    ans_sell_list.append(np.nan)
                     flag = 0
                     update_message("Buying for price {}.".format(buying_price))
                 else:
-                    ans_list[0].append(np.nan)
-                    ans_list[1].append(np.nan)
+                    ans_buy_list.append(np.nan)
+                    ans_sell_list.append(np.nan)
                     MyLogger.write("Holding, profit is {}".format(profit), output_file)
                     pass
             elif ans[1] > NN_OUT_ANS_SELL_THRESHOLD:
@@ -105,18 +117,18 @@ def predict_live():
 
                     MyLogger.write("1. Selling at time : {}, for price {}.".format(live_dataset_handler_binance.dataset.iloc[-1]['Date'], selling_price), output_file)
                     MyLogger.write("2. Profit is {}\n".format(profit), output_file)
-                    ans_list[0].append(np.nan)
-                    ans_list[1].append(actual_price)
+                    ans_buy_list.append(np.nan)
+                    ans_sell_list.append(actual_price)
                     flag = 1
                     update_message("Selling for price {}.".format(selling_price))
                 else:
-                    ans_list[0].append(np.nan)
-                    ans_list[1].append(np.nan)
+                    ans_buy_list.append(np.nan)
+                    ans_sell_list.append(np.nan)
                     MyLogger.write("Holding, profit is {}".format(profit), output_file)
                     pass
             else:
-                ans_list[0].append(np.nan)
-                ans_list[1].append(np.nan)
+                ans_buy_list.append(np.nan)
+                ans_sell_list.append(np.nan)
                 MyLogger.write("Holding, profit is {}".format(profit), output_file)
                 pass
 
@@ -187,21 +199,26 @@ def update_clock():
         Label_Elapsed.config(text='Elapsed time:  -- : -- : --', font='Times 25')
 
     # Reschedule update_clock function to update time_label every 100 ms
-    after_id1= window.after(100, update_clock)
+    after_id1 = window.after(100, update_clock)
 
 
 def update_graphs():
     global ax
     global fig
+    global canvas
     global live_dataset_handler_binance
     global after_id2
 
+    print(len(ans_buy_list))
+    print(len(ans_sell_list))
+    print(len(live_dataset_handler_binance.dataset))
+
     if ax is None:
         ideal_signals = Teacher.generate_buy_sell_signal(live_dataset_handler_binance.dataset, FILTER_CONSTANT)
-        fig, ax = live_dataset_handler_binance.plot_to_tkinter(ideal_signals, ans_list, window)
+        fig, ax, canvas = live_dataset_handler_binance.plot_to_tkinter(ideal_signals, (ans_buy_list, ans_sell_list), frame_bottom)
     elif ax is not None:
         ideal_signals = Teacher.generate_buy_sell_signal(live_dataset_handler_binance.dataset, FILTER_CONSTANT)
-        live_dataset_handler_binance.plot_to_tkinter(ideal_signals, ans_list, window, ax=ax, fig=fig)
+        live_dataset_handler_binance.plot_to_tkinter(ideal_signals, (ans_buy_list, ans_sell_list), frame_bottom, canvas=canvas, ax=ax, fig=fig)
     after_id2 = window.after(10000, update_graphs)
 
 
@@ -217,9 +234,9 @@ after_id2 = -1
 start_time: datetime
 ax = None
 fig = None
+canvas = None
 ans_buy_list = []
 ans_sell_list = []
-ans_list = ans_buy_list, ans_sell_list
 
 # Predict_live function must be running in separate thread because this function is sleeping for 99,9 % of time,
 # and so if we dont want to block entire GUI app by this sleep, we must run this function in separate thread
@@ -258,6 +275,9 @@ window.rowconfigure(0, weight=2)
 window.rowconfigure(1, weight=1)
 window.columnconfigure(0, weight=1)
 window.columnconfigure(1, weight=2)
+
+frame_bottom = tk.Frame(window)
+frame_bottom.pack(side=tk.BOTTOM)
 
 update_profit(0.0)
 update_message("Application started")

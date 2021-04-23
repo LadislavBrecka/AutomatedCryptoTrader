@@ -86,6 +86,7 @@ class BinanceOhlcHandler(OhlcHandler):
         del recent_trade['ignore']
 
         recent_trade = self._format_dataframe(recent_trade)
+
         self.dataset = self.dataset.append(recent_trade, ignore_index=True)
         self.dataset = self._format_dataframe(self.dataset)
         self._add_statistic_indicators()

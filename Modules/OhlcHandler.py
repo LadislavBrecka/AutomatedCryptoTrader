@@ -9,6 +9,7 @@ import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import matplotlib.backends.backend_tkagg as tkagg
 
 
 class OhlcHandler:
@@ -52,12 +53,15 @@ class OhlcHandler:
 
         file.close()
 
-    def plot_to_tkinter(self, buy_sell: tuple, answers: tuple, window, ax=None, fig=None):
+    def plot_to_tkinter(self, buy_sell: tuple, answers: tuple, frame, canvas=None, ax=None, fig=None):
         if ax is None:
             fig = plt.figure(figsize=(7, 3))
             ax = fig.add_subplot(1, 1, 1)
+            canvas = FigureCanvasTkAgg(fig, frame)
+            tkagg.NavigationToolbar2Tk(canvas, frame).pack()
         else:
             ax.clear()
+            canvas.get_tk_widget().pack_forget()
 
         ax.scatter(self.dataset.index, buy_sell[0], color='green', label='Buy Signal', marker='^', alpha=1)
         ax.scatter(self.dataset.index, buy_sell[1], color='red', label='Sell Signal', marker='v', alpha=1)
@@ -68,12 +72,11 @@ class OhlcHandler:
 
         ax.plot(self.dataset['Close'], 'b', label='Close')
         ax.grid(True)
-        ax.legend(loc="lower right")
+        ax.legend(loc="lower left")
 
-        canvas = FigureCanvasTkAgg(fig, window)
-        canvas.get_tk_widget().grid(row=1, column=1)
+        canvas.get_tk_widget().pack()
 
-        return fig, ax
+        return fig, ax, canvas
 
     def plot_candlestick(self, indicators=False, buy_sell: tuple = None, answers: tuple = None, norm: pd.DataFrame = None, filter_const: int = None):
         if indicators:

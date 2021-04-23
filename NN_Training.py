@@ -77,7 +77,7 @@ def nn_train(main_dataset_file_name, load_nn, save_nn, test_split, validation_da
         Plotting and printing
        '''
         main_dataset_handler_binance.plot_candlestick(indicators=True, buy_sell=ideal_signals, answers=ans_list_main, norm=main_norm_dataset, filter_const=FILTER_CONSTANT)
-        main_dataset_handler_binance.print_to_file('Outputs/output_dataset.txt')
+        main_dataset_handler_binance.print_to_file('Outputs/testing_dataset.txt')
 
     if save_nn:
         nn.save_to_file()
