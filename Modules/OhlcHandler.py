@@ -63,8 +63,10 @@ class OhlcHandler:
             ax.clear()
             canvas.get_tk_widget().pack_forget()
 
-        ax.scatter(self.dataset.index, buy_sell[0], color='green', label='Buy Signal', marker='^', alpha=1)
-        ax.scatter(self.dataset.index, buy_sell[1], color='red', label='Sell Signal', marker='v', alpha=1)
+        if len(set(buy_sell[0])) != 1:
+            ax.scatter(self.dataset.index, buy_sell[0], color='green', label='Buy Signal', marker='^', alpha=1)
+        if len(set(buy_sell[1])) != 1:
+            ax.scatter(self.dataset.index, buy_sell[1], color='red', label='Sell Signal', marker='v', alpha=1)
         if len(set(answers[0])) != 1:
             ax.scatter(self.dataset.index, answers[0], color='green', label='Predicted buy', marker='X', alpha=1)
         if len(set(answers[1])) != 1:
@@ -119,8 +121,10 @@ class OhlcHandler:
             ax[2, 1].legend(loc="lower right")
 
             if buy_sell is not None:
-                ax[0, 1].scatter(self.dataset.index, buy_sell[0], color='green', label='Buy Signal', marker='^', alpha=1)
-                ax[0, 1].scatter(self.dataset.index, buy_sell[1], color='red', label='Sell Signal', marker='v', alpha=1)
+                if len(set(buy_sell[0])) != 1:
+                    ax[0, 1].scatter(self.dataset.index, buy_sell[0], color='green', label='Buy Signal', marker='^', alpha=1)
+                if len(set(buy_sell[1])) != 1:
+                    ax[0, 1].scatter(self.dataset.index, buy_sell[1], color='red', label='Sell Signal', marker='v', alpha=1)
             if answers is not None:
                 if len(set(answers[0])) != 1:
                     ax[0, 1].scatter(self.dataset.index, answers[0], color='green', label='Predicted buy', marker='X', alpha=1)

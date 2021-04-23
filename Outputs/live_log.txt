@@ -1,8 +1,2 @@
 Now going live, lets see! Click Start for start :-)
-Next time of execution is 2021-04-23 09:35:00 UTC, waiting 20.363916 seconds
-
----Execution start at 2021-04-23 09:34:59.000619 UTC---
-Holding, profit is 0.0
----Execution end at 2021-04-23 09:34:59.661781 UTC---
-
-Next time of execution is 2021-04-23 09:40:00 UTC, waiting 298.33738400000004 seconds
+Next time of execution is 2021-04-23 16:15:00 UTC, waiting 88.952742 seconds

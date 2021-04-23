@@ -4,14 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5f520c9c-5df7-45bf-9cde-f7150821fdd7" name="Default Changelist" comment="Added GUI for live prediction, new normalization">
+    <list default="true" id="5f520c9c-5df7-45bf-9cde-f7150821fdd7" name="Default Changelist" comment="change to gui, added navigation bar">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modules/BinanceOhlcHandler.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/BinanceOhlcHandler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Neurons/l1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Neurons/l1.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Neurons/l2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Neurons/l2.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Neurons/l3.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Neurons/l3.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/OhlcHandler.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/OhlcHandler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NN_Training.py" beforeDir="false" afterPath="$PROJECT_DIR$/NN_Training.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/services.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/services.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Outputs/live_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Outputs/live_log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Outputs/output_dataset.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Outputs/output_live_dataset.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Outputs/testing_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Outputs/testing_log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/live_query_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/live_query_script.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -93,6 +94,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="scratch" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="KrakenBinanceCryptoOHLC" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$APPLICATION_CONFIG_DIR$/scratches" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="test_nn_script" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="KrakenBinanceCryptoOHLC" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -115,10 +138,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="train_nn_script" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="KrakenBinanceCryptoOHLC" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train_nn_script.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.live_query_script" />
         <item itemvalue="Python.test_nn_script" />
+        <item itemvalue="Python.train_nn_script" />
+        <item itemvalue="Python.scratch" />
       </list>
     </recent_temporary>
   </component>
@@ -277,7 +324,7 @@
       <workItem from="1619127413298" duration="57000" />
       <workItem from="1619159235409" duration="235000" />
       <workItem from="1619166286883" duration="3363000" />
-      <workItem from="1619166074383" duration="4469000" />
+      <workItem from="1619166074383" duration="15094000" />
     </task>
     <task id="LOCAL-00001" summary="Pridanie low pass filtra&#10;Pokusy o najdenie minima/maxima">
       <created>1610236393441</created>
@@ -482,7 +529,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619127445896</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="change to gui, added navigation bar">
+      <created>1619170584027</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1619170584027</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -528,11 +582,12 @@
     <MESSAGE value="NN training and testing refactor, good test result with this setup" />
     <MESSAGE value="Update of repository, ideal training/testing, before update for live prediction" />
     <MESSAGE value="Added GUI for live prediction, new normalization" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added GUI for live prediction, new normalization" />
+    <MESSAGE value="change to gui, added navigation bar" />
+    <option name="LAST_COMMIT_MESSAGE" value="change to gui, added navigation bar" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$training_script.coverage" NAME="training_script Coverage Results" MODIFIED="1615396028698" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$live_query_script.coverage" NAME="live_query_script Coverage Results" MODIFIED="1619170472310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$live_query_script.coverage" NAME="live_query_script Coverage Results" MODIFIED="1619193501593" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$Trade_bot.coverage" NAME="Trade_bot Coverage Results" MODIFIED="1594638855353" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$GetDataScript__1_.coverage" NAME="GetDataScript (1) Coverage Results" MODIFIED="1614988158000" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$nn_test.coverage" NAME="nn_test Coverage Results" MODIFIED="1607528681981" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -544,15 +599,15 @@
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$NN_Training.coverage" NAME="NN_Training Coverage Results" MODIFIED="1615406543520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$NN_LiveQuerry__1_.coverage" NAME="NN_LiveQuerry Coverage Results" MODIFIED="1619101436947" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Functions" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$NN_LiveQuerry.coverage" NAME="NN_LiveQuerry Coverage Results" MODIFIED="1619002541329" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$test_nn_script.coverage" NAME="test_nn_script Coverage Results" MODIFIED="1619125031836" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$test_nn_script.coverage" NAME="test_nn_script Coverage Results" MODIFIED="1619194288144" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$DataHandling.coverage" NAME="DataHandling Coverage Results" MODIFIED="1614985430275" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$live_query_script__1_.coverage" NAME="live_query_script (1) Coverage Results" MODIFIED="1619124673003" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$scratch__1_.coverage" NAME="scratch (1) Coverage Results" MODIFIED="1601226692183" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
-    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$scratch.coverage" NAME="scratch Coverage Results" MODIFIED="1619004603862" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
+    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$scratch.coverage" NAME="scratch Coverage Results" MODIFIED="1619189709221" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$GetDataScript.coverage" NAME="get_data_script Coverage Results" MODIFIED="1615406528073" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$main.coverage" NAME="main Coverage Results" MODIFIED="1614953973519" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$scratch1.coverage" NAME="scratch1 Coverage Results" MODIFIED="1602780570666" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
     <SUITE FILE_PATH="coverage/KrakenBinanceCryptoOHLC$main.coverage" NAME="main Coverage Results" MODIFIED="1594485647389" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$train_nn_script.coverage" NAME="train_nn_script Coverage Results" MODIFIED="1618819996777" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$train_nn_script.coverage" NAME="train_nn_script Coverage Results" MODIFIED="1619193965030" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

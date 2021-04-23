@@ -116,21 +116,6 @@ class Normalize:
         return norm_dataset
 
 
-class Filter:
-
-    @staticmethod
-    def fft_filter(input_data: list, filter_const: int) -> list:
-        furrier_transform = np.fft.fft(input_data)
-        shifted_furrier_transform = np.fft.fftshift(furrier_transform)
-        hp_filter = np.zeros(len(shifted_furrier_transform), dtype=int)
-        n = int(len(hp_filter))
-        hp_filter[int(n / 2) - filter_const: int(n / 2) + filter_const] = 1
-        output = shifted_furrier_transform * hp_filter
-        output = abs(np.fft.ifft(output))
-
-        return output
-
-
 class Splitter:
 
     @staticmethod
@@ -148,6 +133,21 @@ class Splitter:
         test = dataset.iloc[train_length:]
 
         return train, test
+
+
+class Filter:
+
+    @staticmethod
+    def fft_filter(input_data: list, filter_const: int) -> list:
+        furrier_transform = np.fft.fft(input_data)
+        shifted_furrier_transform = np.fft.fftshift(furrier_transform)
+        hp_filter = np.zeros(len(shifted_furrier_transform), dtype=int)
+        n = int(len(hp_filter))
+        hp_filter[int(n / 2) - filter_const: int(n / 2) + filter_const] = 1
+        output = shifted_furrier_transform * hp_filter
+        output = abs(np.fft.ifft(output))
+
+        return output
 
 
 class MyLogger():

@@ -209,10 +209,6 @@ def update_graphs():
     global live_dataset_handler_binance
     global after_id2
 
-    print(len(ans_buy_list))
-    print(len(ans_sell_list))
-    print(len(live_dataset_handler_binance.dataset))
-
     if ax is None:
         ideal_signals = Teacher.generate_buy_sell_signal(live_dataset_handler_binance.dataset, FILTER_CONSTANT)
         fig, ax, canvas = live_dataset_handler_binance.plot_to_tkinter(ideal_signals, (ans_buy_list, ans_sell_list), frame_bottom)
