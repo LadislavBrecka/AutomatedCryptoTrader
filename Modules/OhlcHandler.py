@@ -5,11 +5,6 @@ import matplotlib.pyplot as plt
 import mplfinance as mpf
 import Modules.services as services
 import datetime as dt
-import matplotlib
-matplotlib.use("TkAgg")
-from matplotlib.figure import Figure
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import matplotlib.backends.backend_tkagg as tkagg
 
 
 class OhlcHandler:
@@ -53,38 +48,89 @@ class OhlcHandler:
 
         file.close()
 
-    def plot_to_tkinter(self, ideal_signals: tuple, predicted_signals: tuple, frame, canvas=None, ax=None, fig=None, toolbar=None):
-        if ax is None:
-            fig = plt.figure(figsize=(7, 3))
-            ax = fig.add_subplot(1, 1, 1)
-            canvas = FigureCanvasTkAgg(fig, frame)
-            toolbar = tkagg.NavigationToolbar2Tk(canvas, frame)
-
-            canvas.get_tk_widget().pack()
-            toolbar.pack()
-        else:
-            ax.clear()
-
-        if len(predicted_signals[0]) == len(predicted_signals[1]):
-            if len(set(predicted_signals[0])) != 1:
-                ax.scatter(self.dataset.index, predicted_signals[0], color='green', label='Predicted buy', marker='X', alpha=1)
-            if len(set(predicted_signals[1])) != 1:
-                ax.scatter(self.dataset.index, predicted_signals[1], color='red', label='Predicted sell', marker='X', alpha=1)
-        else:
-            print("\nLength of arrays are not the same, cannot plot!\n")
-
-        if len(set(ideal_signals[0])) != 1:
-            ax.scatter(self.dataset.index, ideal_signals[0], color='green', label='Buy Signal', marker='^', alpha=1)
-        if len(set(ideal_signals[1])) != 1:
-            ax.scatter(self.dataset.index, ideal_signals[1], color='red', label='Sell Signal', marker='v', alpha=1)
-
-        ax.plot(self.dataset['Close'], 'b', label='Close')
-        ax.grid(True)
-        ax.legend(loc="lower left")
-
-        canvas.draw()
-
-        return fig, ax, canvas, toolbar
+    # def plot_to_tkinter(self, ideal_signals: tuple, predicted_signals: tuple, frames, ax: list, canvas: list, fig: list, toolbar):
+    #     if len(ax) == 0:
+    #         fig1 = plt.figure(figsize=(7, 3))
+    #         fig2 = plt.figure(figsize=(7, 3))
+    #         fig3 = plt.figure(figsize=(7, 3))
+    #         fig4 = plt.figure(figsize=(7, 3))
+    #
+    #         ax.append(fig1.add_subplot(1, 1, 1))
+    #         ax.append(fig2.add_subplot(1, 1, 1))
+    #         ax.append(fig3.add_subplot(1, 1, 1))
+    #         ax.append(fig4.add_subplot(1, 1, 1))
+    #
+    #         canvas.append(FigureCanvasTkAgg(fig1, frames[0]))
+    #         canvas.append(FigureCanvasTkAgg(fig2, frames[1]))
+    #         canvas.append(FigureCanvasTkAgg(fig3, frames[2]))
+    #         canvas.append(FigureCanvasTkAgg(fig4, frames[3]))
+    #
+    #         toolbar1 = tkagg.NavigationToolbar2Tk(canvas[0], frames[0])
+    #         toolbar2 = tkagg.NavigationToolbar2Tk(canvas[1], frames[1])
+    #         toolbar3 = tkagg.NavigationToolbar2Tk(canvas[2], frames[2])
+    #         toolbar4 = tkagg.NavigationToolbar2Tk(canvas[3], frames[3])
+    #
+    #         toolbar1.config(background='white')
+    #         toolbar2.config(background='white')
+    #         toolbar3.config(background='white')
+    #         toolbar4.config(background='white')
+    #
+    #         canvas[0].get_tk_widget().pack(side=tk.TOP)
+    #         canvas[1].get_tk_widget().pack(side=tk.BOTTOM)
+    #         canvas[2].get_tk_widget().pack(side=tk.TOP)
+    #         canvas[3].get_tk_widget().pack(side=tk.BOTTOM)
+    #
+    #         toolbar1.pack()
+    #         toolbar2.pack()
+    #         toolbar3.pack()
+    #         toolbar4.pack()
+    #     else:
+    #         for a in ax:
+    #             a.clear()
+    #
+    #     if len(predicted_signals[0]) == len(predicted_signals[1]):
+    #         if len(set(predicted_signals[0])) != 1:
+    #             ax[0].scatter(self.dataset.index, predicted_signals[0], color='green', label='Predicted buy', marker='X', alpha=1)
+    #         if len(set(predicted_signals[1])) != 1:
+    #             ax[0].scatter(self.dataset.index, predicted_signals[1], color='red', label='Predicted sell', marker='X', alpha=1)
+    #     else:
+    #         print("\nLength of arrays are not the same, cannot plot!\n")
+    #
+    #     if len(set(ideal_signals[0])) != 1:
+    #         ax[0].scatter(self.dataset.index, ideal_signals[0], color='green', label='Buy Signal', marker='^', alpha=1)
+    #     if len(set(ideal_signals[1])) != 1:
+    #         ax[0].scatter(self.dataset.index, ideal_signals[1], color='red', label='Sell Signal', marker='v', alpha=1)
+    #
+    #     ax[0].plot(self.dataset['Close'], 'b', label='Close')
+    #     ax[0].grid(True)
+    #     ax[0].legend(loc="lower left")
+    #
+    #     ax[1].plot(self.dataset['Macd'], 'b', label='Macd')  # row=1, col=0
+    #     ax[1].plot(self.dataset['Signal'], 'm', label='Signal')  # row=1, col=0
+    #     ax[1].plot(self.dataset['Momentum'], 'go', label='Momentum')  # row=1, col=0
+    #     ax[1].axhline(y=0, color='k')
+    #     ax[1].grid(True)
+    #     ax[1].legend(loc="lower right")
+    #
+    #     ind_list = list(self.dataset)
+    #     matching = [s for s in ind_list if "Ema" in s]
+    #     ax[2].plot(self.dataset[matching[0]], 'b', label=matching[0])  # row=0, col=0
+    #     ax[2].plot(self.dataset[matching[1]], 'm', label=matching[1])  # row=0, col=0
+    #     ax[2].grid(True)
+    #     ax[2].legend(loc="lower right")
+    #
+    #     ax[3].plot(self.dataset['Rsi'], 'b', label='Rsi')  # row=0, col=0
+    #     ax[3].axhline(y=30, color='r')
+    #     ax[3].axhline(y=70, color='r')
+    #     ax[3].grid(True)
+    #     ax[3].legend(loc="lower right")
+    #
+    #     canvas[0].draw()
+    #     canvas[1].draw()
+    #     canvas[2].draw()
+    #     canvas[3].draw()
+    #
+    #     return fig, ax, canvas, toolbar
 
     def plot_candlestick(self, indicators=False, buy_sell: tuple = None, answers: tuple = None, norm: pd.DataFrame = None, filter_const: int = None):
         if indicators:

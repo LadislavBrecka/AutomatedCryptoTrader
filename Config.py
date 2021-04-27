@@ -9,7 +9,7 @@ OUTPUT_SIZE = 2                     # [1.0 0.01] - buy
                                     # [0.01 0.01] - hold
 LOOK_BACK = 3
 LEARNING_RATE = 0.08
-EPOCHS = 150                    # 12.3 - 175 is looking good for look_back=5, lr=0.25
+EPOCHS = 50                    # 12.3 - 175 is looking good for look_back=5, lr=0.25
 
 HOLD_ERROR_PENALIZING = 0.01
 NN_OUT_ANS_BUY_THRESHOLD = 0.5

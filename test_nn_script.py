@@ -1,4 +1,4 @@
-from NN_Training import nn_train
+from Modules.NN_Training import nn_train
 from Modules.services import MyLogger
 import os
 

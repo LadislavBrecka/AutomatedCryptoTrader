@@ -1,5 +1,5 @@
 from Modules.services import MyLogger
-from NN_Training import nn_train
+from Modules.NN_Training import nn_train
 import os
 
 files = 0

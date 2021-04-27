@@ -22,7 +22,7 @@ def nn_train(main_dataset_file_name, load_nn, save_nn, test_split, validation_da
         validation_dataset_handler_binance.load_from_csv(validation_dataset_file_name)
         validation_normalizer = services.Normalize(validation_dataset_handler_binance.dataset)
         validation_norm_dataset = validation_normalizer.get_normalized_dataset(validation_dataset_handler_binance.dataset)
-        validation_log_file = open('Outputs/validation_log.txt', 'w')
+        validation_log_file = open('../Outputs/validation_log.txt', 'w')
 
     '''
     Finding and setting buy/sell signals, generating target values
