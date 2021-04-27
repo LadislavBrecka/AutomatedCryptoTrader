@@ -53,32 +53,38 @@ class OhlcHandler:
 
         file.close()
 
-    def plot_to_tkinter(self, buy_sell: tuple, answers: tuple, frame, canvas=None, ax=None, fig=None):
+    def plot_to_tkinter(self, ideal_signals: tuple, predicted_signals: tuple, frame, canvas=None, ax=None, fig=None, toolbar=None):
         if ax is None:
             fig = plt.figure(figsize=(7, 3))
             ax = fig.add_subplot(1, 1, 1)
             canvas = FigureCanvasTkAgg(fig, frame)
-            tkagg.NavigationToolbar2Tk(canvas, frame).pack()
+            toolbar = tkagg.NavigationToolbar2Tk(canvas, frame)
+
+            canvas.get_tk_widget().pack()
+            toolbar.pack()
         else:
             ax.clear()
-            canvas.get_tk_widget().pack_forget()
 
-        if len(set(buy_sell[0])) != 1:
-            ax.scatter(self.dataset.index, buy_sell[0], color='green', label='Buy Signal', marker='^', alpha=1)
-        if len(set(buy_sell[1])) != 1:
-            ax.scatter(self.dataset.index, buy_sell[1], color='red', label='Sell Signal', marker='v', alpha=1)
-        if len(set(answers[0])) != 1:
-            ax.scatter(self.dataset.index, answers[0], color='green', label='Predicted buy', marker='X', alpha=1)
-        if len(set(answers[1])) != 1:
-            ax.scatter(self.dataset.index, answers[1], color='red', label='Predicted sell', marker='X', alpha=1)
+        if len(predicted_signals[0]) == len(predicted_signals[1]):
+            if len(set(predicted_signals[0])) != 1:
+                ax.scatter(self.dataset.index, predicted_signals[0], color='green', label='Predicted buy', marker='X', alpha=1)
+            if len(set(predicted_signals[1])) != 1:
+                ax.scatter(self.dataset.index, predicted_signals[1], color='red', label='Predicted sell', marker='X', alpha=1)
+        else:
+            print("\nLength of arrays are not the same, cannot plot!\n")
+
+        if len(set(ideal_signals[0])) != 1:
+            ax.scatter(self.dataset.index, ideal_signals[0], color='green', label='Buy Signal', marker='^', alpha=1)
+        if len(set(ideal_signals[1])) != 1:
+            ax.scatter(self.dataset.index, ideal_signals[1], color='red', label='Sell Signal', marker='v', alpha=1)
 
         ax.plot(self.dataset['Close'], 'b', label='Close')
         ax.grid(True)
         ax.legend(loc="lower left")
 
-        canvas.get_tk_widget().pack()
+        canvas.draw()
 
-        return fig, ax, canvas
+        return fig, ax, canvas, toolbar
 
     def plot_candlestick(self, indicators=False, buy_sell: tuple = None, answers: tuple = None, norm: pd.DataFrame = None, filter_const: int = None):
         if indicators:

@@ -9,10 +9,11 @@ from datetime import datetime, timedelta
 import Modules.Teacher as Teacher
 import tkinter as tk
 import threading
+import sys
 
 
 def get_next_exec_wait():
-    now = datetime.utcnow()
+    now = datetime.now()
     next_ex = now - timedelta(minutes=now.minute % 5 - 5, seconds=now.second, microseconds=now.microsecond)
     diff = next_ex - now
     millis = diff.days * 24 * 60 * 60 * 1000
@@ -31,7 +32,8 @@ def predict_live():
     global ans_sell_list
     global live_dataset_handler_binance
 
-    predict_time = 120
+    # 287 is 24 hours - some samples and the end, in term of time to get ready for next execution at midnight
+    predict_time = 285
 
     output_file = open('Outputs/live_log.txt', 'w')
 
@@ -62,9 +64,9 @@ def predict_live():
             time.sleep(1)
             wait_sec, next_execution_time = get_next_exec_wait()
 
-            MyLogger.write("Next time of execution is {} UTC, waiting {} seconds".format(next_execution_time, wait_sec), output_file)
+            MyLogger.write("Next time of execution is {}, waiting {} seconds".format(next_execution_time, wait_sec), output_file)
             time.sleep(wait_sec)
-            MyLogger.write("\n---Execution start at {} UTC---".format(datetime.utcnow()), output_file)
+            MyLogger.write("\n---Execution start at {} ---".format(datetime.now()), output_file)
 
             live_dataset_handler_binance.get_recent_OHLC()
 
@@ -89,6 +91,8 @@ def predict_live():
             inputs = np.concatenate(look_back_list)
             inputs = inputs * 0.99 + 0.01
             ans = nn.query(inputs)
+
+            # ans = [1.0,0.01]
 
             if ans[0] > NN_OUT_ANS_BUY_THRESHOLD:
                 if flag != 0:
@@ -133,7 +137,7 @@ def predict_live():
                 pass
 
             update_profit(profit)
-            MyLogger.write("---Execution end at {} UTC---\n".format(datetime.utcnow()), output_file)
+            MyLogger.write("---Execution end at {} ---\n".format(datetime.now()), output_file)
 
         if end:
             break
@@ -206,15 +210,17 @@ def update_graphs():
     global ax
     global fig
     global canvas
+    global toolbar
     global live_dataset_handler_binance
     global after_id2
 
     if ax is None:
         ideal_signals = Teacher.generate_buy_sell_signal(live_dataset_handler_binance.dataset, FILTER_CONSTANT)
-        fig, ax, canvas = live_dataset_handler_binance.plot_to_tkinter(ideal_signals, (ans_buy_list, ans_sell_list), frame_bottom)
+        fig, ax, canvas, toolbar = live_dataset_handler_binance.plot_to_tkinter(ideal_signals, (ans_buy_list, ans_sell_list), frame_bottom)
     elif ax is not None:
         ideal_signals = Teacher.generate_buy_sell_signal(live_dataset_handler_binance.dataset, FILTER_CONSTANT)
-        live_dataset_handler_binance.plot_to_tkinter(ideal_signals, (ans_buy_list, ans_sell_list), frame_bottom, canvas=canvas, ax=ax, fig=fig)
+        live_dataset_handler_binance.plot_to_tkinter(ideal_signals, (ans_buy_list, ans_sell_list), frame_bottom, canvas=canvas, ax=ax, fig=fig, toolbar=toolbar)
+
     after_id2 = window.after(10000, update_graphs)
 
 
@@ -233,6 +239,7 @@ fig = None
 canvas = None
 ans_buy_list = []
 ans_sell_list = []
+toolbar = None
 
 # Predict_live function must be running in separate thread because this function is sleeping for 99,9 % of time,
 # and so if we dont want to block entire GUI app by this sleep, we must run this function in separate thread
@@ -243,26 +250,26 @@ thread.start()
 window = tk.Tk()
 window.title('Automatic CryptoTrader')
 window.geometry('800x600')
-window.configure(bg='orange')
+window.configure(bg='white')
 
-Label_Clock = tk.Label(window, justify='center')  # create the label for timer
+Label_Clock = tk.Label(window, justify='center', bg='white')  # create the label for timer
 Label_Clock.place(relx=0.03, rely=0.02, anchor='nw')
-Label_Timer = tk.Label(window, justify='center')  # create the label for timer
+Label_Timer = tk.Label(window, justify='center', bg='white')  # create the label for timer
 Label_Timer.place(relx=0.55, rely=0.12, anchor='nw')
-Label_Elapsed = tk.Label(window, justify='center')  # create the label for timer
+Label_Elapsed = tk.Label(window, justify='center', bg='white')  # create the label for timer
 Label_Elapsed.place(relx=0.58, rely=0.02, anchor='nw')
 
-button1 = tk.Button(window, text='Start', command=start_handler, height=1, width=5, font='Arial 20', activebackground='green', bg='yellow')
+button1 = tk.Button(window, text='Start', command=start_handler, height=1, width=5, font='Arial 20', activebackground='green', bg='grey70')
 button1.place(relx=0.1, rely=0.12, anchor='nw')
-button2 = tk.Button(window, text='End', command=end_handler, height=1, width=5, font='Arial 20', activebackground='red', bg='yellow')
+button2 = tk.Button(window, text='End', command=end_handler, height=1, width=5, font='Arial 20', activebackground='red', bg='grey70')
 button2.place(relx=0.25, rely=0.12, anchor='nw')
 
-Label_LastAction_Title = tk.Label(window, text='Last action was at:', font='Arial 20', bg='deep sky blue')
+Label_LastAction_Title = tk.Label(window, text='Last action was at:', font='Arial 20', bg='white')
 Label_LastAction_Title.place(relx=0.03, rely=0.25, anchor='nw')
 Label_LastAction = tk.Label(window, bg='white')
 Label_LastAction.place(relx=0.03, rely=0.32, anchor='nw')
 
-Label_Profit_Title = tk.Label(window, text='Current profit is: ', font='Arial 20', bg='deep sky blue')
+Label_Profit_Title = tk.Label(window, text='Current profit is: ', font='Arial 20', bg='white')
 Label_Profit_Title.place(relx=0.65, rely=0.25, anchor='nw')
 Label_Profit = tk.Label(window, bg='white')
 Label_Profit.place(relx=0.65, rely=0.32, anchor='nw')
@@ -277,7 +284,20 @@ frame_bottom.pack(side=tk.BOTTOM)
 
 update_profit(0.0)
 update_message("Application started")
-# update_sample("No sample was added up to now")
+
+'''
+Automatic startup switch
+'''
+if len(sys.argv) == 2:
+    if sys.argv[1] == '-a':
+        time.sleep(2)
+        start_handler()
+    else:
+        pass
+else:
+    pass
+
+
 after_id1 = window.after(0, update_clock)
 start_time = datetime.utcnow()
 window.mainloop()
