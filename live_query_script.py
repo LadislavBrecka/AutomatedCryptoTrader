@@ -175,18 +175,6 @@ def plot_to_tkinter(ideal_signals: tuple, predicted_signals: tuple):
         ax.append(fig[2].add_subplot(1, 1, 1))
         ax.append(fig[3].add_subplot(1, 1, 1))
 
-        max_xticks = 6
-        xloc = plt.MaxNLocator(max_xticks)
-        for a in ax:
-            a.xaxis.set_major_formatter(mdates.DateFormatter("%d.%m-%H:%M"))
-            a.xaxis.set_major_formatter(mdates.DateFormatter("%d.%m-%H:%M"))
-            a.xaxis.set_major_formatter(mdates.DateFormatter("%d.%m-%H:%M"))
-            a.xaxis.set_major_formatter(mdates.DateFormatter("%d.%m-%H:%M"))
-            a.xaxis.set_major_locator(xloc)
-            a.xaxis.set_major_locator(xloc)
-            a.xaxis.set_major_locator(xloc)
-            a.xaxis.set_major_locator(xloc)
-
         canvas.append(FigureCanvasTkAgg(fig[0], frame_left_up))
         canvas.append(FigureCanvasTkAgg(fig[1], frame_left_down))
         canvas.append(FigureCanvasTkAgg(fig[2], frame_right_up))
@@ -209,9 +197,12 @@ def plot_to_tkinter(ideal_signals: tuple, predicted_signals: tuple):
                 button.config(background='white')
             t.pack()
 
-    else:
-        for a in ax:
-            a.clear()
+    for a in ax:
+        a.clear()
+        a.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
+        a.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
+        a.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
+        a.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
 
     if len(predicted_signals[0]) == len(predicted_signals[1]):
         if len(set(predicted_signals[0])) != 1:
@@ -252,6 +243,9 @@ def plot_to_tkinter(ideal_signals: tuple, predicted_signals: tuple):
 
     for c in canvas:
         c.draw()
+
+    for t in toolbar:
+        t.update()
 
 
 def construct_gui(width, height):

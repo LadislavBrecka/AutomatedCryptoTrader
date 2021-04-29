@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import mplfinance as mpf
 import Modules.services as services
 import datetime as dt
+import matplotlib.dates as mdates
 
 
 class OhlcHandler:
@@ -201,7 +202,12 @@ class OhlcHandler:
                 ax[4, 1].grid(True)
                 ax[4, 1].legend(loc="lower right")
 
-            plt.xticks(rotation=45)
+            for row in ax:
+                for a in row:
+                    a.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
+                    a.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
+                    a.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
+                    a.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
 
         plot_df = self.dataset.iloc[:, :-1]
         mpf.plot(plot_df, type='candle', style='charles', title='Candle Stick Graph', ylabel='Price', volume=True, mav=(3,6,9))
