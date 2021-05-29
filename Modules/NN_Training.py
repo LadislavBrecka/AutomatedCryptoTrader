@@ -83,9 +83,6 @@ def nn_train(main_dataset_file_name, load_nn, save_nn, test_split, validation_da
         nn.save_to_file()
 
 
-pass
-
-
 def nn_test_validation(nn, dataset_handler_binance, test_norm_dataset, test_log_file, validation=False):
 
     train_dataset_len = len(dataset_handler_binance.dataset) - len(test_norm_dataset)
@@ -99,8 +96,8 @@ def nn_test_validation(nn, dataset_handler_binance, test_norm_dataset, test_log_
         ans_sell_list = []
         ans_list = ans_buy_list, ans_sell_list
 
-        # length of tuple must have same length as whole dataset
-        # if testing was on same dataset as training, at the start we must fill np.nan so many times, as is length of
+        # Length of tuple must have same length as whole dataset.
+        # If testing was on same dataset as training, at the start we must fill np.nan so many times, as is length of
         # training dataset .. also, we must compensate LOOK_BACK constant at the start by filling np.nan
         for i in range(train_dataset_len + LOOK_BACK - 1):
             ans_list[0].append(np.nan)
@@ -111,7 +108,7 @@ def nn_test_validation(nn, dataset_handler_binance, test_norm_dataset, test_log_
 
     profit = 0.0
 
-    # main test loop
+    # Main test loop
     for i in range(LOOK_BACK - 1, len(test_norm_dataset)):
 
         look_back_list = []

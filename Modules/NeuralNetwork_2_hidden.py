@@ -40,7 +40,7 @@ class NeuralNetwork:
         final_inputs = np.dot(self.who, hidden_outputs2)
         final_outputs = self.activation_function(final_inputs)
 
-        output_errors = targets - final_outputs  # [1 0]-[0 0]=[1, 0]   [0 0]-[1 1]=[-1, -1]
+        output_errors = targets - final_outputs
 
         # Variable penalising for different outputs
         if targets[0] == 1.0 and targets[1] == 0.01:
@@ -87,7 +87,6 @@ class NeuralNetwork:
             self.wih = np.loadtxt("Data/Neurons/l1.csv", delimiter=",")
             self.whh = np.loadtxt("Data/Neurons/l2.csv", delimiter=",")
             self.who = np.loadtxt("Data/Neurons/l3.csv", delimiter=",")
-            # input("Loading successfully, press enter for continue..")
 
         except Exception:
             raise ValueError("Cannot load neural network from file, file does not exists!")

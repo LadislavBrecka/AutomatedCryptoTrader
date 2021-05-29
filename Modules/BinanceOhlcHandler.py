@@ -3,17 +3,13 @@ from binance.client import Client
 import numpy as np
 import pandas as pd
 import datetime as dt
+from Config import *
 from Modules.services import MyLogger
 
 
-api_key = 'wzDZXGFp9DK9QOChVTEOhZKaYEVAbbCBhsBDJXvSI78t2WlD3TqQhViWb8LH5Xom'
-api_secret = 'U6Gk59emVhyiNtuX9GDkpgtRwZlsAJkVhUFFzb3YvJEnN8NRDECozDnE8SgyT0kh'
-
-
 class BinanceOhlcHandler(OhlcHandler):
-    #####
-    binance_client = Client(api_key, api_secret)
-    #####
+
+    binance_client = Client(API_KEY, API_SECRET)
 
     def __init__(self, pair):
         super(BinanceOhlcHandler, self).__init__(pair)
@@ -21,8 +17,7 @@ class BinanceOhlcHandler(OhlcHandler):
     def get_actual_price(self):
         return float(self.binance_client.get_symbol_ticker(symbol=self.pair)['price'])
 
-    def get_dataset(self, hours, interval='5m'):
-
+    def get_dataset(self, hours, interval=INTERVAL):
         if interval == '1m':
             self.interval = 1
             raw_data = self.binance_client.get_historical_klines(self.pair, Client.KLINE_INTERVAL_1MINUTE, "{} hours ago UTC".format(hours))
@@ -57,7 +52,6 @@ class BinanceOhlcHandler(OhlcHandler):
         self._add_statistic_indicators()
 
     def get_recent_OHLC(self):
-
         if self.interval == 1:
             raw_data = self.binance_client.get_historical_klines(self.pair, Client.KLINE_INTERVAL_1MINUTE, "1 minute ago UTC")
         elif self.interval == 5:
@@ -92,46 +86,3 @@ class BinanceOhlcHandler(OhlcHandler):
         self._add_statistic_indicators()
 
         MyLogger.write_console("Added new sample for time {} :\n {}".format(self.dataset.iloc[-1]['Date'], self.dataset.iloc[-1]))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # def __make_and_format_binance_dataset(self, data):
-    #     pdt = pd.DataFrame(data.reshape(-1, 12), dtype=float, columns=('Date',
-    #                                                                     'Open', 'High', 'Low', 'Close',
-    #                                                                     'Volume',
-    #                                                                     'close_time', 'qav',
-    #                                                                     'num_trades',
-    #                                                                     'taker_base_vol',
-    #                                                                     'taker_quote_vol', 'ignore'))
-    #
-    #     pdt['Date'] = pdt['Date'] / 1000
-    #     pdt['Date'] = [dt.datetime.fromtimestamp(x) for x in pdt['Date']]
-    #
-    #     del pdt['close_time']
-    #     del pdt['qav']
-    #     del pdt['num_trades']
-    #     del pdt['taker_base_vol']
-    #     del pdt['taker_quote_vol']
-    #     del pdt['ignore']
-    #
-    #     # self._format_dataset()
-    #     self._add_statistic_indicators(pdt)
-    #
-    #     return pdt

@@ -16,15 +16,15 @@ def get_target(dataset_length: int, buy_sell: tuple) -> list:
     for i in range(dataset_length):
 
         desire_output = []
-        # buy
+        # Buy
         if not pd.isnull(buy_sell[0][i]):
             desire_output.append(1.0)
             desire_output.append(0.01)
-        # sell
+        # Sell
         elif not pd.isnull(buy_sell[1][i]):
             desire_output.append(0.01)
             desire_output.append(1.0)
-        # hold
+        # Hold
         else:
             desire_output.append(0.01)
             desire_output.append(0.01)
@@ -45,7 +45,7 @@ def generate_buy_sell_signal(dataset: pd.DataFrame, filter_const: int) -> tuple:
     # Detecting min and max peaks in filtered series
     peaks = peakdetect.peakdetect(np.array(filtered_price), lookahead=LOOK_AHEAD_FILTERED_SERIES, delta=DELTA_FILTERED_SERIES)
 
-    # peakdetect function return tuple of min and max lists
+    # Peakdetect function return tuple of min and max lists
     # [[[ind, val], [ind, val], [ind, val]],
     #  [[ind, val], [ind, val], [ind, val]]
     # ]
@@ -101,9 +101,6 @@ def generate_buy_sell_signal(dataset: pd.DataFrame, filter_const: int) -> tuple:
     budget = 0
     last_trans = 0.0
 
-    # print(new_min_ind)
-    # print(new_max_ind)
-
     for i in range(0, len(dataset)):
         # Detecting sell signals, if there is maximum on non-filtered series and RSI > 40
         if i in new_max_ind and dataset['Rsi'][i] > RSI_LOW:
@@ -137,8 +134,6 @@ def generate_buy_sell_signal(dataset: pd.DataFrame, filter_const: int) -> tuple:
         else:
             sig_price_buy.append(np.nan)
             sig_price_sell.append(np.nan)
-
-    # print("Printing from Teacher.py: Profit from these buy/sell signals is {}".format(np.around(budget, 2)))
 
     # Returning tuples
     return sig_price_buy, sig_price_sell

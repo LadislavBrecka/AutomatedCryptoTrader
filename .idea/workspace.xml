@@ -4,11 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5f520c9c-5df7-45bf-9cde-f7150821fdd7" name="Default Changelist" comment="changed GUI, added more charts with own frames">
+    <list default="true" id="5f520c9c-5df7-45bf-9cde-f7150821fdd7" name="Default Changelist" comment="minor fixes to gui, added GUI toolbars refreshing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config.py" beforeDir="false" afterPath="$PROJECT_DIR$/Config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/BinanceOhlcHandler.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/BinanceOhlcHandler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/NN_Training.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/NN_Training.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/NeuralNetwork.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/NeuralNetwork_2_hidden.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/NeuralNetwork_2_hidden.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modules/OhlcHandler.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/OhlcHandler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/Teacher.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/Teacher.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/services.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/services.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Outputs/live_dataset.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Outputs/live_dataset.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Outputs/live_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Outputs/live_log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Outputs/testing_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Outputs/testing_log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/get_data_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/get_data_script.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/live_query_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/live_query_script.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/buy_sell.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/buy_sell_zoom.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/candlestick.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/indicators.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +71,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="Python" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../6semester/ROB/Zadanie3/robot_animation" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RecentsManager">
@@ -323,6 +338,18 @@
       <workItem from="1619203668715" duration="876000" />
       <workItem from="1619265730896" duration="4055000" />
       <workItem from="1619509640996" duration="21766000" />
+      <workItem from="1619695799687" duration="118000" />
+      <workItem from="1619860794089" duration="19000" />
+      <workItem from="1619944599626" duration="11000" />
+      <workItem from="1620058031900" duration="672000" />
+      <workItem from="1620380493048" duration="2771000" />
+      <workItem from="1620466940763" duration="3071000" />
+      <workItem from="1620639153002" duration="2078000" />
+      <workItem from="1620813712046" duration="16000" />
+      <workItem from="1621511750607" duration="694000" />
+      <workItem from="1621763149919" duration="2000" />
+      <workItem from="1621954711872" duration="3768000" />
+      <workItem from="1622287706864" duration="3483000" />
     </task>
     <task id="LOCAL-00001" summary="Pridanie low pass filtra&#10;Pokusy o najdenie minima/maxima">
       <created>1610236393441</created>
@@ -555,7 +582,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619526702225</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="minor fixes to gui, added GUI toolbars refreshing">
+      <created>1619695883842</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1619695883842</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -577,7 +611,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="pridanie screenov" />
     <MESSAGE value="Vyladenie hladanie buy/sell signalov" />
     <MESSAGE value="Pridanie funkcie pre split na train a test data" />
     <MESSAGE value="Updated README" />
@@ -602,11 +635,12 @@
     <MESSAGE value="tunning parameters, bug fixing" />
     <MESSAGE value="solved bug with updating tkinter graph" />
     <MESSAGE value="changed GUI, added more charts with own frames" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed GUI, added more charts with own frames" />
+    <MESSAGE value="minor fixes to gui, added GUI toolbars refreshing" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor fixes to gui, added GUI toolbars refreshing" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$training_script.coverage" NAME="training_script Coverage Results" MODIFIED="1615396028698" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$live_query_script.coverage" NAME="live_query_script Coverage Results" MODIFIED="1619528404771" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$live_query_script.coverage" NAME="live_query_script Coverage Results" MODIFIED="1620469839783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$Trade_bot.coverage" NAME="Trade_bot Coverage Results" MODIFIED="1594638855353" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$GetDataScript__1_.coverage" NAME="GetDataScript (1) Coverage Results" MODIFIED="1614988158000" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$nn_test.coverage" NAME="nn_test Coverage Results" MODIFIED="1607528681981" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

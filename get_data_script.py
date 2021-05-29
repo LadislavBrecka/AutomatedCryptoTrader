@@ -36,10 +36,10 @@ def download_dataset(hours):
 def load_dataset(file_name):
     binance = BinanceOhlcHandler(BINANCE_PAIR)
     binance.load_from_csv(file_name)
-    '''
-        Finding and setting buy/sell signals, generating target values
-        '''
+
+    # Finding and setting buy/sell signals, generating target values
     ideal_signals = Teacher.generate_buy_sell_signal(binance.dataset, FILTER_CONSTANT)
+
     binance.plot_candlestick(indicators=True, buy_sell=ideal_signals, filter_const=FILTER_CONSTANT)
 
 

@@ -33,7 +33,6 @@ def get_next_exec_wait():
 
 
 def predict_live():
-
     global start
     global end
     global ans_buy_list
@@ -41,7 +40,7 @@ def predict_live():
     global live_dataset_handler_binance
 
     # 287 is 24 hours - some samples and the end, in term of time to get ready for next execution at midnight
-    predict_time = 285
+    max_predict_time = 285
 
     output_file = open('Outputs/live_log.txt', 'w')
 
@@ -64,11 +63,11 @@ def predict_live():
         ans_buy_list.append(np.nan)
         ans_sell_list.append(np.nan)
 
-    while t != predict_time:
+    while t != max_predict_time:
 
         # If start is True, run the loop
         if start:
-            # sleep until rounded 5 minute time
+            # Sleep until rounded 5 minute time
             time.sleep(1)
             wait_sec, next_execution_time = get_next_exec_wait()
 
@@ -157,7 +156,6 @@ def predict_live():
 
 
 def plot_to_tkinter(ideal_signals: tuple, predicted_signals: tuple):
-
     global fig
     global ax
     global canvas
@@ -253,21 +251,20 @@ def construct_gui(width, height):
     root = tk.Tk()
     root.title('Automatic CryptoTrader')
 
-    # width for the Tk root
+    # Width for the Tk root
     w = width
-    # height for the Tk root
+    # Height for the Tk root
     h = height
 
-    # get screen width and height
+    # Get screen width and height
     ws = root.winfo_screenwidth()
     hs = root.winfo_screenheight()
 
-    # calculate x and y coordinates for the Tk root window
+    # Calculate x and y coordinates for the Tk root window
     x = (ws / 2) - (w / 2)
     y = (hs / 2) - (h / 2)
 
-    # set the dimensions of the screen
-    # and where it is placed
+    # Set the dimensions of the screen and where it is placed
     root.geometry('%dx%d+%d+%d' % (w, h, x, y))
     root.configure(bg='white')
 
@@ -321,7 +318,7 @@ def update_clock():
     global Label_Timer
     global Label_Elapsed
 
-    # change the text of the time_label according to the current time
+    # Change the text of the time_label according to the current time
     Label_Clock.config(text=time.strftime('Current time is: %H:%M:%S', time.localtime()), font='Times 25')
     if start:
         seconds, _ = get_next_exec_wait()
@@ -455,7 +452,7 @@ window.mainloop()
 # When tkinter windows will be closed, automatically set end = True for breaking infinite loop
 end = True
 
-# When the GUI is closed we join the thread
+# Wen the GUI is closed we join the thread
 thread.join()
 
 

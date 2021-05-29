@@ -1,39 +1,42 @@
-1. Buying at time : 2021-04-07 01:45:00, for price 53.1267.
-2. Profit is -53.1798267
+1. Buying at time : 2021-03-25 00:15:00, for price 40.2309.
+2. Profit is -40.271130899999996
 
-1. Selling at time : 2021-04-07 04:20:00, for price 53.5644.
-2. Profit is 0.33100889999999955
+1. Selling at time : 2021-03-25 05:10:00, for price 40.17959999999999.
+2. Profit is -0.13171050000000217
 
-1. Buying at time : 2021-04-07 05:25:00, for price 52.820100000000004.
-2. Profit is -52.5419112
+1. Buying at time : 2021-03-25 08:55:00, for price 40.0728.
+2. Profit is -40.2445833
 
-1. Selling at time : 2021-04-07 07:00:00, for price 53.4084.
-2. Profit is 0.813080399999999
+1. Selling at time : 2021-03-25 09:20:00, for price 40.5963.
+2. Profit is 0.3111203999999972
 
-1. Buying at time : 2021-04-07 08:00:00, for price 52.5141.
-2. Profit is -51.753533700000006
+1. Buying at time : 2021-03-25 12:55:00, for price 40.5231.
+2. Profit is -40.2525027
 
-1. Selling at time : 2021-04-07 15:15:00, for price 50.836499999999994.
-2. Profit is -0.9678702000000117
+1. Selling at time : 2021-03-25 15:05:00, for price 40.894200000000005.
+2. Profit is 0.6008031000000041
 
-1. Buying at time : 2021-04-07 16:35:00, for price 50.026199999999996.
-2. Profit is -51.04409640000001
+1. Buying at time : 2021-03-25 16:15:00, for price 40.3251.
+2. Profit is -39.76462199999999
 
-1. Selling at time : 2021-04-07 17:20:00, for price 50.3418.
-2. Profit is -0.7526382000000087
+1. Selling at time : 2021-03-25 16:30:00, for price 40.742399999999996.
+2. Profit is 0.9370356000000079
 
-1. Buying at time : 2021-04-07 18:40:00, for price 49.78079999999999.
-2. Profit is -50.583219
+1. Buying at time : 2021-03-25 17:05:00, for price 40.140899999999995.
+2. Profit is -39.24400529999998
 
-1. Selling at time : 2021-04-07 19:10:00, for price 50.296499999999995.
-2. Profit is -0.337015500000005
+1. Selling at time : 2021-03-25 17:15:00, for price 40.788900000000005.
+2. Profit is 1.5041058000000218
 
-1. Buying at time : 2021-04-07 20:15:00, for price 49.2816.
-2. Profit is -49.667897100000005
+1. Buying at time : 2021-03-25 17:25:00, for price 40.1901.
+2. Profit is -38.72618429999998
 
-1. Selling at time : 2021-04-07 21:55:00, for price 50.4297.
-2. Profit is 0.7113731999999922
+1. Selling at time : 2021-03-25 18:10:00, for price 40.884899999999995.
+2. Profit is 2.117830800000016
+
+1. Buying at time : 2021-03-25 23:45:00, for price 40.4217.
+2. Profit is -38.34429089999999
 
 -----------------------------------------------------------------------------------------------------------------------------------
-Final earning is 0.7113731999999922 EUR. All fees are included, application was buying for price 10% of actual price of ETHEUR.
+Final earning is -38.34429089999999 EUR. All fees are included, application was buying for price 10% of actual price of ETHEUR.
 -----------------------------------------------------------------------------------------------------------------------------------
