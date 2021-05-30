@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5f520c9c-5df7-45bf-9cde-f7150821fdd7" name="Default Changelist" comment="code clean up, commenting files, version 0.7">
+    <list default="true" id="5f520c9c-5df7-45bf-9cde-f7150821fdd7" name="Default Changelist" comment="added commented market_buy/sell functionality">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/live_query_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/live_query_script.py" afterDir="false" />
     </list>
@@ -334,7 +334,7 @@
       <workItem from="1621954711872" duration="3768000" />
       <workItem from="1622287706864" duration="3599000" />
       <workItem from="1622373617221" duration="4701000" />
-      <workItem from="1622392196672" duration="1770000" />
+      <workItem from="1622392196672" duration="2151000" />
     </task>
     <task id="LOCAL-00001" summary="Pridanie low pass filtra&#10;Pokusy o najdenie minima/maxima">
       <created>1610236393441</created>
@@ -588,7 +588,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622380053613</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="added commented market_buy/sell functionality">
+      <created>1622394027966</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1622394027966</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -610,7 +617,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Updated README" />
     <MESSAGE value="min/max index cast na int z np.array" />
     <MESSAGE value="improved findinng of local min/max" />
     <MESSAGE value="new train_test split logic" />
@@ -635,7 +641,8 @@
     <MESSAGE value="minor fixes to gui, added GUI toolbars refreshing" />
     <MESSAGE value="code clean up" />
     <MESSAGE value="code clean up, commenting files, version 0.7" />
-    <option name="LAST_COMMIT_MESSAGE" value="code clean up, commenting files, version 0.7" />
+    <MESSAGE value="added commented market_buy/sell functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="added commented market_buy/sell functionality" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$training_script.coverage" NAME="training_script Coverage Results" MODIFIED="1615396028698" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
