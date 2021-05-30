@@ -105,8 +105,18 @@ def predict_live():
                 if flag != 0:
                     actual_price = live_dataset_handler_binance.get_actual_price()
                     buying_price = BUY_QUANTITY * actual_price
+
+                    # order = BinanceOhlcHandler.binance_client.order_market_buy(
+                    #     symbol='BNBETH',
+                    #     quantity=buying_price)
+                    # actual_buy_price = order.aktualna_cena
+
+                    # If we used order_market_buy, this 2 lines under will be commented
+                    # and replaced by actual buy price subtracted from profit as you can see above
                     fees = (BUY_QUANTITY * actual_price) * FEE_PERCENTAGE
-                    profit = profit - buying_price - fees
+                    actual_buy_price = buying_price + fees
+
+                    profit = profit - actual_buy_price
 
                     MyLogger.write("1. Buying at time : {}, for price {}.".format(live_dataset_handler_binance.dataset.iloc[-1]['Date'], np.around(buying_price, 4)), output_file)
                     MyLogger.write("2. Profit is {}\n".format(np.around(profit, 4)), output_file)
@@ -123,8 +133,18 @@ def predict_live():
                 if flag != 1:
                     actual_price = live_dataset_handler_binance.get_actual_price()
                     selling_price = BUY_QUANTITY * actual_price
+
+                    # order = BinanceOhlcHandler.binance_client.order_market_sell(
+                    #     symbol='BNBETH',
+                    #     quantity=selling_price)
+                    # actual_sell_price = order.aktualna_cena
+
+                    # If we used order_market_sell, this 2 lines under will be commented
+                    # and replaced by actual sell price added to profit as you can see above
                     fees = (BUY_QUANTITY * actual_price) * FEE_PERCENTAGE
-                    profit = profit + selling_price - fees
+                    actual_sell_price = selling_price - fees
+
+                    profit = profit + actual_sell_price
 
                     MyLogger.write("1. Selling at time : {}, for price {}.".format(live_dataset_handler_binance.dataset.iloc[-1]['Date'], np.around(selling_price, 4)), output_file)
                     MyLogger.write("2. Profit is {}\n".format(np.around(profit, 4)), output_file)
