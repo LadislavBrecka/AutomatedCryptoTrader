@@ -2,6 +2,10 @@ from Modules.NN_Training import nn_train
 from Modules.services import MyLogger
 import os
 
+
+'''
+Console application
+'''
 files = 0
 
 for _, dirnames, filenames in os.walk("D:/Laco/SKOLA/FEI STU/Bakalarka/AutomatedCryptoTrader/Data/Datasets/Testing/"):

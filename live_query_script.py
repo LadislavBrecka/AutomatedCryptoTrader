@@ -20,6 +20,7 @@ matplotlib.use("TkAgg")
 style.use('seaborn-pastel')
 
 
+# Function for returning nearest time of execution, rounded to 5 minutes
 def get_next_exec_wait():
     now = datetime.now()
     next_ex = now - timedelta(minutes=now.minute % 5 - 5, seconds=now.second, microseconds=now.microsecond)
@@ -32,6 +33,7 @@ def get_next_exec_wait():
     return seconds, next_ex
 
 
+# Function with all the logic for live predicting, it needs to be in file with GUI
 def predict_live():
     global start
     global end
@@ -155,6 +157,8 @@ def predict_live():
     output_file.close()
 
 
+# Function for plotting to tkinter gui, it is modification of method for plotting located in module OhlcHandler.py
+# Modified for needs of tkinter gui
 def plot_to_tkinter(ideal_signals: tuple, predicted_signals: tuple):
     global fig
     global ax
@@ -246,6 +250,7 @@ def plot_to_tkinter(ideal_signals: tuple, predicted_signals: tuple):
         t.update()
 
 
+# Method which construct GUI with given parameters
 def construct_gui(width, height):
     # Tkinter stuff for creating simple GUI
     root = tk.Tk()
@@ -269,6 +274,11 @@ def construct_gui(width, height):
     root.configure(bg='white')
 
     return root
+
+
+'''
+Handlers functions for all elements of GUIs
+'''
 
 
 def start_handler():
@@ -346,25 +356,15 @@ def update_graphs():
     global live_dataset_handler_binance
     global after_id2
 
-    '''
-    If we will use plot_to_tkinter method from OhlcHandler, use this section
-    '''
-    # if len(ax) == 0:
-    #     ideal_signals = Teacher.generate_buy_sell_signal(live_dataset_handler_binance.dataset, FILTER_CONSTANT)
-    #     fig, ax, canvas, toolbar = live_dataset_handler_binance.plot_to_tkinter(ideal_signals, (ans_buy_list, ans_sell_list), graph_frames, ax, canvas, fig, toolbar)
-    # elif ax is not None:
-    #     ideal_signals = Teacher.generate_buy_sell_signal(live_dataset_handler_binance.dataset, FILTER_CONSTANT)
-    #     live_dataset_handler_binance.plot_to_tkinter(ideal_signals, (ans_buy_list, ans_sell_list), graph_frames, ax, canvas=canvas, fig=fig, toolbar=toolbar)
-
-    '''
-    If we will use plot_to_tkinter method from this file, use this section
-        '''
     ideal_signals = Teacher.generate_buy_sell_signal(live_dataset_handler_binance.dataset, FILTER_CONSTANT)
     plot_to_tkinter(ideal_signals, (ans_buy_list, ans_sell_list))
 
     after_id2 = window.after(30000, update_graphs)
 
 
+'''
+Logic of the GUI and live predicting, constructing 
+'''
 # Global variables for controlling application and for storing global information needed outside threaded
 # predict_live() function. Matplotlib want to run in main thread, not second
 # and because predict_live is running as second, plotting must be done outside this function, so we must store info

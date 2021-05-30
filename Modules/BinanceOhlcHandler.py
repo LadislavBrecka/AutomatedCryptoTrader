@@ -9,14 +9,18 @@ from Modules.services import MyLogger
 
 class BinanceOhlcHandler(OhlcHandler):
 
+    # Creating client of BINANCE API with our API_KEY and API_SECRET. It is static variable of this class
     binance_client = Client(API_KEY, API_SECRET)
 
     def __init__(self, pair):
+        # Calling parent constructor
         super(BinanceOhlcHandler, self).__init__(pair)
 
+    # Function for getting actual price of coin for live prediction
     def get_actual_price(self):
         return float(self.binance_client.get_symbol_ticker(symbol=self.pair)['price'])
 
+    # Function for getting dataset into memory for specified number of hours and with specified interval, default is 5m
     def get_dataset(self, hours, interval=INTERVAL):
         if interval == '1m':
             self.interval = 1
@@ -51,6 +55,7 @@ class BinanceOhlcHandler(OhlcHandler):
         self.dataset = self._format_dataframe(self.dataset)
         self._add_statistic_indicators()
 
+    # Function for getting actual candlestick data
     def get_recent_OHLC(self):
         if self.interval == 1:
             raw_data = self.binance_client.get_historical_klines(self.pair, Client.KLINE_INTERVAL_1MINUTE, "1 minute ago UTC")

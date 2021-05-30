@@ -10,6 +10,8 @@ import Modules.services as services
 # [0.01 0.01] - hold
 
 
+# Function which return formatted output for our needs
+# Input here is output of function which is at bottom of file
 def get_target(dataset_length: int, buy_sell: tuple) -> list:
     targets = []
 
@@ -35,6 +37,7 @@ def get_target(dataset_length: int, buy_sell: tuple) -> list:
 
 
 # Most important function of our application, written entirely by ME!
+# Return of this function is input for function at top of file
 def generate_buy_sell_signal(dataset: pd.DataFrame, filter_const: int) -> tuple:
 
     # Low pass filter on closed price, for finding cleaner min and max

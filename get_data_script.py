@@ -5,6 +5,7 @@ import Modules.Teacher as Teacher
 import sys
 
 
+# Handler function for downloading dataset
 def download_dataset(hours):
     if hours < 4*24:
         raise ValueError("Minimal hours for neural network to train is 96, which is 4 days!")
@@ -33,6 +34,7 @@ def download_dataset(hours):
         pass
 
 
+# Handler function for loading dataset
 def load_dataset(file_name):
     binance = BinanceOhlcHandler(BINANCE_PAIR)
     binance.load_from_csv(file_name)
@@ -43,6 +45,9 @@ def load_dataset(file_name):
     binance.plot_candlestick(indicators=True, buy_sell=ideal_signals, filter_const=FILTER_CONSTANT)
 
 
+'''
+Console application, we must specify arguments in calling from terminal
+'''
 if len(sys.argv) == 1:
     raise ValueError("You must specify if you want to download (-d) or load (-l) file")
 elif sys.argv[1] == '-d':

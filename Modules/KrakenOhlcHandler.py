@@ -6,8 +6,11 @@ import datetime as dt
 import time
 
 
+# Not used in project
 class KrakenOhlcHandler(OhlcHandler):
+
     def __init__(self, pair, interval='1m', since='12h'):
+        # Calling parent constructor
         super(KrakenOhlcHandler, self).__init__(pair)
 
         self.since = time.time() - int(since[:-1]) * 60 * 60
@@ -22,6 +25,7 @@ class KrakenOhlcHandler(OhlcHandler):
         root_url = 'https://api.kraken.com/0/public/OHLC'
         self.url = root_url + '?pair=' + self.pair + '&interval=' + self.interval + '&since=' + str(self.since)
 
+    # Function for getting actual price of coin for live prediction
     def get_dataset(self):
         raw_data = json.loads(requests.get(self.url).text)
 
@@ -43,6 +47,7 @@ class KrakenOhlcHandler(OhlcHandler):
         self.dataset = self._format_dataframe(self.dataset)
         self._add_statistic_indicators()
 
+    # Function for getting dataset into memory for specified number of hours and with specified interval, default is 5m
     def get_recent_OHLC(self):
         root_url = 'https://api.kraken.com/0/public/OHLC'
         url = root_url + '?pair=' + self.pair + '&interval=' + self.interval + '&since=' + str(time.time())

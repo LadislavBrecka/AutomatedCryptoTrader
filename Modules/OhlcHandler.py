@@ -8,6 +8,7 @@ import datetime as dt
 import matplotlib.dates as mdates
 
 
+# Parent class for all child APIs
 class OhlcHandler:
     def __init__(self, pair):
         self.pair = pair
@@ -261,137 +262,6 @@ class OhlcHandler:
                         d = d - one_minute
                         self.__insert_row(i, [d, np.nan, np.nan, np.nan, np.nan, np.nan])
 
+        # Not implemented
         elif self.interval == '60':
             pass
-
-    # USER CAN CHOOSE WHAT WILL BE PLOTED
-    # def plot_closed_price(self, data='All'):
-    #     # Graph stuff, axes renaming etc..
-    #     ax = plt.gca()
-    #     ax.set_ylabel("Price in USD")
-    #     ax.set_title("STOCK PRICE EVOLUTION")
-    #
-    #     if self.closed_price is None:
-    #         print("Cannot plot, closed price wasnt generated!")
-    #
-    #     else:
-    #         if data == 'All':
-    #             # self.closed_price.plot()
-    #             plt.plot(self.closed_price)
-    #
-    #         # if data is 'Train':
-    #         #     if self.train is None:
-    #         #         print("Train dataset is not created!\n")
-    #         #     else:
-    #         #         x = [dt.datetime.strptime(self.dates[i], '%Y-%m-%d').date() for i in range(len(self.train))]
-    #         #         plt.plot(x, self.train, color='red', label='Train Dataset')
-    #         #
-    #         # if data is 'Test':
-    #         #     if self.test is None:
-    #         #         print("Test dataset is not created!\n")
-    #         #     else:
-    #         #         x = [dt.datetime.strptime(self.dates[i], '%Y-%m-%d').date() for i in
-    #         #              range(len(self.train), len(self.closedADJ_price))]
-    #         #         plt.plot(x, self.test, color='blue', label='Test Dataset')
-    #         #
-    #         # if data is 'Combined':
-    #         #     if self.train is None or self.test is None:
-    #         #         print("Train and test dataset is not created!\n")
-    #         #     else:
-    #         #         x1 = [dt.datetime.strptime(self.dates[i], '%Y-%m-%d').date() for i in range(len(self.train))]
-    #         #         x2 = [dt.datetime.strptime(self.dates[i], '%Y-%m-%d').date() for i in
-    #         #               range(len(self.train), len(self.closedADJ_price))]
-    #         #         plt.plot(x1, self.train, color='red')
-    #         #         plt.plot(x2, self.test, color='blue')
-    #
-    #         maximum = max(self.closed_price)
-    #         minimum = min(self.closed_price)
-    #         difference = maximum - minimum
-    #         plt.ylim(minimum - difference / 10, maximum + difference / 10)
-    #         plt.show()
-
-
-    # def plot_to_tkinter(self, ideal_signals: tuple, predicted_signals: tuple, frames, ax: list, canvas: list, fig: list, toolbar):
-    #     if len(ax) == 0:
-    #         fig1 = plt.figure(figsize=(7, 3))
-    #         fig2 = plt.figure(figsize=(7, 3))
-    #         fig3 = plt.figure(figsize=(7, 3))
-    #         fig4 = plt.figure(figsize=(7, 3))
-    #
-    #         ax.append(fig1.add_subplot(1, 1, 1))
-    #         ax.append(fig2.add_subplot(1, 1, 1))
-    #         ax.append(fig3.add_subplot(1, 1, 1))
-    #         ax.append(fig4.add_subplot(1, 1, 1))
-    #
-    #         canvas.append(FigureCanvasTkAgg(fig1, frames[0]))
-    #         canvas.append(FigureCanvasTkAgg(fig2, frames[1]))
-    #         canvas.append(FigureCanvasTkAgg(fig3, frames[2]))
-    #         canvas.append(FigureCanvasTkAgg(fig4, frames[3]))
-    #
-    #         toolbar1 = tkagg.NavigationToolbar2Tk(canvas[0], frames[0])
-    #         toolbar2 = tkagg.NavigationToolbar2Tk(canvas[1], frames[1])
-    #         toolbar3 = tkagg.NavigationToolbar2Tk(canvas[2], frames[2])
-    #         toolbar4 = tkagg.NavigationToolbar2Tk(canvas[3], frames[3])
-    #
-    #         toolbar1.config(background='white')
-    #         toolbar2.config(background='white')
-    #         toolbar3.config(background='white')
-    #         toolbar4.config(background='white')
-    #
-    #         canvas[0].get_tk_widget().pack(side=tk.TOP)
-    #         canvas[1].get_tk_widget().pack(side=tk.BOTTOM)
-    #         canvas[2].get_tk_widget().pack(side=tk.TOP)
-    #         canvas[3].get_tk_widget().pack(side=tk.BOTTOM)
-    #
-    #         toolbar1.pack()
-    #         toolbar2.pack()
-    #         toolbar3.pack()
-    #         toolbar4.pack()
-    #     else:
-    #         for a in ax:
-    #             a.clear()
-    #
-    #     if len(predicted_signals[0]) == len(predicted_signals[1]):
-    #         if len(set(predicted_signals[0])) != 1:
-    #             ax[0].scatter(self.dataset.index, predicted_signals[0], color='green', label='Predicted buy', marker='X', alpha=1)
-    #         if len(set(predicted_signals[1])) != 1:
-    #             ax[0].scatter(self.dataset.index, predicted_signals[1], color='red', label='Predicted sell', marker='X', alpha=1)
-    #     else:
-    #         print("\nLength of arrays are not the same, cannot plot!\n")
-    #
-    #     if len(set(ideal_signals[0])) != 1:
-    #         ax[0].scatter(self.dataset.index, ideal_signals[0], color='green', label='Buy Signal', marker='^', alpha=1)
-    #     if len(set(ideal_signals[1])) != 1:
-    #         ax[0].scatter(self.dataset.index, ideal_signals[1], color='red', label='Sell Signal', marker='v', alpha=1)
-    #
-    #     ax[0].plot(self.dataset['Close'], 'b', label='Close')
-    #     ax[0].grid(True)
-    #     ax[0].legend(loc="lower left")
-    #
-    #     ax[1].plot(self.dataset['Macd'], 'b', label='Macd')  # row=1, col=0
-    #     ax[1].plot(self.dataset['Signal'], 'm', label='Signal')  # row=1, col=0
-    #     ax[1].plot(self.dataset['Momentum'], 'go', label='Momentum')  # row=1, col=0
-    #     ax[1].axhline(y=0, color='k')
-    #     ax[1].grid(True)
-    #     ax[1].legend(loc="lower right")
-    #
-    #     ind_list = list(self.dataset)
-    #     matching = [s for s in ind_list if "Ema" in s]
-    #     ax[2].plot(self.dataset[matching[0]], 'b', label=matching[0])  # row=0, col=0
-    #     ax[2].plot(self.dataset[matching[1]], 'm', label=matching[1])  # row=0, col=0
-    #     ax[2].grid(True)
-    #     ax[2].legend(loc="lower right")
-    #
-    #     ax[3].plot(self.dataset['Rsi'], 'b', label='Rsi')  # row=0, col=0
-    #     ax[3].axhline(y=30, color='r')
-    #     ax[3].axhline(y=70, color='r')
-    #     ax[3].grid(True)
-    #     ax[3].legend(loc="lower right")
-    #
-    #     canvas[0].draw()
-    #     canvas[1].draw()
-    #     canvas[2].draw()
-    #     canvas[3].draw()
-    #
-    #     return fig, ax, canvas, toolbar
-

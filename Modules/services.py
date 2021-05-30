@@ -3,6 +3,7 @@ import pandas as pd
 from Config import *
 
 
+# Class for normalizing data
 class Normalize:
 
     def __init__(self, dataset):
@@ -40,7 +41,7 @@ class Normalize:
         self.INPUT_RANGES.append(RSI_RANGE)
         self.INPUT_RANGES.append(GRADIENT_RANGE)
 
-    # Returning normalized [OPEN, HIGH, LOW, CLOSE, VOLUME, PRICE_DIFF, EMA_SHORT, EMA_LONG, EMA_DIFF, MACD, SIGNAL, MOMENTUM, RSI, GRADIENT]
+    # Returning normalized row [OPEN, HIGH, LOW, CLOSE, VOLUME, PRICE_DIFF, EMA_SHORT, EMA_LONG, EMA_DIFF, MACD, SIGNAL, MOMENTUM, RSI, GRADIENT]
     def get_normalized_row(self, row: list):
         result = []
         for row_item, item_range in zip(row, self.INPUT_RANGES):
@@ -53,10 +54,8 @@ class Normalize:
 
         return result
 
+    # Normalize whole dataset at once
     def get_normalized_dataset(self, dataset):
-        '''
-        Normalizing whole dataset once
-        '''
         temp_open = []
         temp_high = []
         temp_low = []
@@ -132,7 +131,7 @@ class Splitter:
 
         return train, test
 
-
+# Class for providing filter method for peaks finding
 class Filter:
 
     @staticmethod
@@ -148,7 +147,8 @@ class Filter:
         return output
 
 
-class MyLogger():
+# Custom logger, we can use some standard logger instead of print
+class MyLogger:
 
     @staticmethod
     def write(msg: str, file):

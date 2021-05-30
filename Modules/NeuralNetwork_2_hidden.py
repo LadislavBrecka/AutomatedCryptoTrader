@@ -26,6 +26,7 @@ class NeuralNetwork:
         # Set activation function
         self.activation_function = lambda x: special.expit(x)
 
+    # Training function, for given inputs and target
     def train(self, input_list: list, target_list: list):
 
         inputs = np.array(input_list, ndmin=2).T
@@ -50,13 +51,16 @@ class NeuralNetwork:
         else:
             output_errors = output_errors * HOLD_ERROR_PENALIZING
 
+        # Backpropagation of error
         hidden_errors2 = np.dot(self.who.T, output_errors)
         hidden_errors1 = np.dot(self.whh.T, hidden_errors2)
 
+        # Editing weights
         self.who += self.lr * np.dot((output_errors * final_outputs * (1.0 - final_outputs)), hidden_outputs2.T)
         self.whh += self.lr * np.dot((hidden_errors2 * hidden_outputs2 * (1.0 - hidden_outputs2)), hidden_outputs1.T)
         self.wih += self.lr * np.dot((hidden_errors1 * hidden_outputs1 * (1.0 - hidden_outputs1)), inputs.T)
 
+    # Function for querying output for given inputs
     def query(self, input_list: list) -> list:
 
         inputs = np.array(input_list, ndmin=2).T
@@ -72,6 +76,7 @@ class NeuralNetwork:
 
         return final_outputs
 
+    # Saving NN to file
     def save_to_file(self):
         MyLogger.write_console("Saving neural network to file!\n")
         try:
@@ -81,6 +86,7 @@ class NeuralNetwork:
         except Exception:
             raise ValueError("Something wrong occurred while saving neural network to file!")
 
+    # Loading NN from file
     def load_from_file(self):
         MyLogger.write_console("Loading neural network from file!")
         try:

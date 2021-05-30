@@ -7,16 +7,27 @@ from Modules.BinanceOhlcHandler import BinanceOhlcHandler
 from Modules.services import MyLogger
 
 
+# Wrapping whole training process to single function which will be called in user script
 def nn_train(main_dataset_file_name, load_nn, save_nn, test_split, validation_dataset_file_name=None):
+    """
+    Initializing training process
+    """
+    # Getting instance of neural network
     nn = nn_2_hidden.NeuralNetwork(INPUT_SIZE, HIDDEN_LAYER_1, HIDDEN_LAYER_2, OUTPUT_SIZE, LEARNING_RATE)
+    # If load_nn flag is set, then NN will be loaded from file located in /Data/Neurons/
     if load_nn:
         nn.load_from_file()
 
+    # Creating handler for Binance dataset
     main_dataset_handler_binance = BinanceOhlcHandler(BINANCE_PAIR)
+    # Initializing Binance dataset with saved data in /Data/Datasets/...
     main_dataset_handler_binance.load_from_csv(main_dataset_file_name)
+    # Creating instance of normalizer class for normalizing data
     main_normalizer = services.Normalize(main_dataset_handler_binance.dataset)
+    # Normalizing whole dataset at once for training
     main_norm_dataset = main_normalizer.get_normalized_dataset(main_dataset_handler_binance.dataset)
 
+    # If we want validation, do all previous steps one more time for validating dataset
     if validation_dataset_file_name is not None:
         validation_dataset_handler_binance = BinanceOhlcHandler(BINANCE_PAIR)
         validation_dataset_handler_binance.load_from_csv(validation_dataset_file_name)
@@ -24,15 +35,15 @@ def nn_train(main_dataset_file_name, load_nn, save_nn, test_split, validation_da
         validation_norm_dataset = validation_normalizer.get_normalized_dataset(validation_dataset_handler_binance.dataset)
         validation_log_file = open('../Outputs/validation_log.txt', 'w')
 
-    '''
+    """
     Finding and setting buy/sell signals, generating target values
-    '''
+    """
     ideal_signals = Teacher.generate_buy_sell_signal(main_dataset_handler_binance.dataset, FILTER_CONSTANT)
     targets = Teacher.get_target(len(main_dataset_handler_binance.dataset), ideal_signals)
 
-    '''
+    """
     Splitting dataset to train and test datasets
-    '''
+    """
     splitter = services.Splitter()
     train_dataset, test_dataset = splitter.split_test_train(main_norm_dataset, test_split)
 
@@ -73,24 +84,23 @@ def nn_train(main_dataset_file_name, load_nn, save_nn, test_split, validation_da
               "-----------------------------------------------------------------------------------------------------------------------------------"
         MyLogger.write(msg, testing_log_file)
         testing_log_file.close()
-        '''
-        Plotting and printing
-       '''
+
+        # Plotting results in graphs and print whole dataset to file in /Outputs/
         main_dataset_handler_binance.plot_candlestick(indicators=True, buy_sell=ideal_signals, answers=ans_list_main, norm=main_norm_dataset, filter_const=FILTER_CONSTANT)
         main_dataset_handler_binance.print_to_file('Outputs/testing_dataset.txt')
 
+    # If save_nn flag is set, then save NN to file in /Data/Neurons/
     if save_nn:
         nn.save_to_file()
 
 
+# Testing logic is in separated function for clean code
 def nn_test_validation(nn, dataset_handler_binance, test_norm_dataset, test_log_file, validation=False):
 
     train_dataset_len = len(dataset_handler_binance.dataset) - len(test_norm_dataset)
     testing_log_file = test_log_file
 
-    '''
-    Creating tuple for predicted buy/sell signals for plotting
-    '''
+    # Creating tuple for predicted signals
     if not validation:
         ans_buy_list = []
         ans_sell_list = []
@@ -106,6 +116,7 @@ def nn_test_validation(nn, dataset_handler_binance, test_norm_dataset, test_log_
     # Securing buy-sell-buy-sell pattern, no buy-buy or sell-sell is allowed
     flag = 1
 
+    # Initialize profit to 0
     profit = 0.0
 
     # Main test loop
