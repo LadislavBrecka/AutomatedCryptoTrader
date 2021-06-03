@@ -25,7 +25,7 @@ Dataset
 """
 BINANCE_PAIR = 'ETHEUR'             # for Binance handler
 COIN_NAME = 'ethereum'              # for CoinMarketCap handler, not used in project
-INTERVAL = '5m'
+INTERVAL = '5m'                     # no other interval is supported, do not change!
 
 """
 Teacher

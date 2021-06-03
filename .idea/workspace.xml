@@ -4,9 +4,63 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5f520c9c-5df7-45bf-9cde-f7150821fdd7" name="Default Changelist" comment="added commented market_buy/sell functionality">
+    <list default="true" id="5f520c9c-5df7-45bf-9cde-f7150821fdd7" name="Default Changelist" comment="edited market_buy/sell functionality">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/live_query_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/live_query_script.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config.py" beforeDir="false" afterPath="$PROJECT_DIR$/Config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/1.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/10.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/10.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/11.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/11.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/12.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/12.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/13.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/13.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/14.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/14.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/15.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/15.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/16.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/16.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/17.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/18.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/19.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/2.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/20.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/21.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/22.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/23.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/3.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/3.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/4.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/4.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/5.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/5.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/6.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/6.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/7.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/7.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/8.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/8.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Active/9.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Datasets/Active/9.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/10.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/11.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/12.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/13.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/14.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/15.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/16.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/17.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/18.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/19.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/2.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/20.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/21.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/22.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/23.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/3.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/4.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/5.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/6.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/7.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/8.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Archive/03.03-25.03_ETHEUR - Trained/9.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Download/1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Download/2.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Datasets/Download/3.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Neurons/l1.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Neurons/l1.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Neurons/l2.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Neurons/l2.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Neurons/l3.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Neurons/l3.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Outputs/testing_dataset.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Outputs/testing_dataset.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Outputs/testing_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Outputs/testing_log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -334,7 +388,9 @@
       <workItem from="1621954711872" duration="3768000" />
       <workItem from="1622287706864" duration="3599000" />
       <workItem from="1622373617221" duration="4701000" />
-      <workItem from="1622392196672" duration="2151000" />
+      <workItem from="1622392196672" duration="2718000" />
+      <workItem from="1622716637454" duration="162000" />
+      <workItem from="1622731490304" duration="1715000" />
     </task>
     <task id="LOCAL-00001" summary="Pridanie low pass filtra&#10;Pokusy o najdenie minima/maxima">
       <created>1610236393441</created>
@@ -595,7 +651,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622394027966</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="edited market_buy/sell functionality">
+      <created>1622405499654</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1622405499654</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -617,7 +680,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="min/max index cast na int z np.array" />
     <MESSAGE value="improved findinng of local min/max" />
     <MESSAGE value="new train_test split logic" />
     <MESSAGE value="first version of predicting on test data" />
@@ -642,7 +704,8 @@
     <MESSAGE value="code clean up" />
     <MESSAGE value="code clean up, commenting files, version 0.7" />
     <MESSAGE value="added commented market_buy/sell functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="added commented market_buy/sell functionality" />
+    <MESSAGE value="edited market_buy/sell functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="edited market_buy/sell functionality" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/AutomatedCryptoTrader$training_script.coverage" NAME="training_script Coverage Results" MODIFIED="1615396028698" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

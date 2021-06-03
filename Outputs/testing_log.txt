@@ -1,42 +1,81 @@
-1. Buying at time : 2021-03-25 00:15:00, for price 40.2309.
-2. Profit is -40.271130899999996
+1. Buying at time : 2021-04-07 01:00:00, for price 53.4783.
+2. Profit is -53.5317783
 
-1. Selling at time : 2021-03-25 05:10:00, for price 40.17959999999999.
-2. Profit is -0.13171050000000217
+1. Selling at time : 2021-04-07 01:10:00, for price 53.8101.
+2. Profit is 0.22451159999999934
 
-1. Buying at time : 2021-03-25 08:55:00, for price 40.0728.
-2. Profit is -40.2445833
+1. Buying at time : 2021-04-07 01:45:00, for price 53.1267.
+2. Profit is -52.9553151
 
-1. Selling at time : 2021-03-25 09:20:00, for price 40.5963.
-2. Profit is 0.3111203999999972
+1. Selling at time : 2021-04-07 02:45:00, for price 53.2506.
+2. Profit is 0.24203429999999862
 
-1. Buying at time : 2021-03-25 12:55:00, for price 40.5231.
-2. Profit is -40.2525027
+1. Buying at time : 2021-04-07 05:00:00, for price 53.1114.
+2. Profit is -52.9224771
 
-1. Selling at time : 2021-03-25 15:05:00, for price 40.894200000000005.
-2. Profit is 0.6008031000000041
+1. Selling at time : 2021-04-07 06:10:00, for price 53.1018.
+2. Profit is 0.1262210999999954
 
-1. Buying at time : 2021-03-25 16:15:00, for price 40.3251.
-2. Profit is -39.76462199999999
+1. Buying at time : 2021-04-07 07:20:00, for price 52.868399999999994.
+2. Profit is -52.7950473
 
-1. Selling at time : 2021-03-25 16:30:00, for price 40.742399999999996.
-2. Profit is 0.9370356000000079
+1. Selling at time : 2021-04-07 07:45:00, for price 53.1447.
+2. Profit is 0.29650800000000005
 
-1. Buying at time : 2021-03-25 17:05:00, for price 40.140899999999995.
-2. Profit is -39.24400529999998
+1. Buying at time : 2021-04-07 08:00:00, for price 52.5141.
+2. Profit is -52.2701061
 
-1. Selling at time : 2021-03-25 17:15:00, for price 40.788900000000005.
-2. Profit is 1.5041058000000218
+1. Selling at time : 2021-04-07 09:50:00, for price 52.33859999999999.
+2. Profit is 0.0161552999999929
 
-1. Buying at time : 2021-03-25 17:25:00, for price 40.1901.
-2. Profit is -38.72618429999998
+1. Buying at time : 2021-04-07 10:10:00, for price 51.3003.
+2. Profit is -51.33544500000001
 
-1. Selling at time : 2021-03-25 18:10:00, for price 40.884899999999995.
-2. Profit is 2.117830800000016
+1. Selling at time : 2021-04-07 10:50:00, for price 51.9942.
+2. Profit is 0.6067607999999922
 
-1. Buying at time : 2021-03-25 23:45:00, for price 40.4217.
-2. Profit is -38.34429089999999
+1. Buying at time : 2021-04-07 11:40:00, for price 51.2568.
+2. Profit is -50.701296000000006
+
+1. Selling at time : 2021-04-07 13:50:00, for price 50.2995.
+2. Profit is -0.4520955000000045
+
+1. Buying at time : 2021-04-07 15:45:00, for price 50.324999999999996.
+2. Profit is -50.8274205
+
+1. Selling at time : 2021-04-07 16:15:00, for price 50.6262.
+2. Profit is -0.25184670000000514
+
+1. Buying at time : 2021-04-07 16:35:00, for price 50.026199999999996.
+2. Profit is -50.3280729
+
+1. Selling at time : 2021-04-07 17:05:00, for price 50.4306.
+2. Profit is 0.0520964999999961
+
+1. Buying at time : 2021-04-07 18:20:00, for price 50.0712.
+2. Profit is -50.0691747
+
+1. Selling at time : 2021-04-07 19:05:00, for price 50.2752.
+2. Profit is 0.1557501000000003
+
+1. Buying at time : 2021-04-07 19:25:00, for price 49.7139.
+2. Profit is -49.607863800000004
+
+1. Selling at time : 2021-04-07 19:40:00, for price 50.1534.
+2. Profit is 0.4953827999999937
+
+1. Buying at time : 2021-04-07 20:00:00, for price 49.4811.
+2. Profit is -49.035198300000005
+
+1. Selling at time : 2021-04-07 20:35:00, for price 49.840199999999996.
+2. Profit is 0.7551614999999912
+
+1. Buying at time : 2021-04-07 21:25:00, for price 49.848.
+2. Profit is -49.1426865
+
+1. Selling at time : 2021-04-07 21:30:00, for price 50.2788.
+2. Profit is 1.0858346999999933
 
 -----------------------------------------------------------------------------------------------------------------------------------
-Final earning is -38.34429089999999 EUR. All fees are included, application was buying for price 10% of actual price of ETHEUR.
+Final earning is 1.0858346999999933 EUR. All fees are included, application was buying for price 10% of actual price of ETHEUR.
 -----------------------------------------------------------------------------------------------------------------------------------
