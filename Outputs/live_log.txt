@@ -1,68 +1,151 @@
 Now going live, lets see! Click Start for start :-)
-Next time of execution is 2021-05-25 18:30:00, waiting 200.03 seconds
+Next time of execution is 2021-06-25 11:40:00, waiting 187.68 seconds
 
----Execution start at 2021-05-25 18:29:59.003492 ---
+---Execution start at 2021-06-25 11:39:59.006049 ---
 Holding, profit is 0.0
----Execution end at 2021-05-25 18:29:59.681371 ---
+---Execution end at 2021-06-25 11:40:00.441109 ---
 
-Next time of execution is 2021-05-25 18:35:00, waiting 298.3 seconds
+Next time of execution is 2021-06-25 11:45:00, waiting 297.54 seconds
 
----Execution start at 2021-05-25 18:34:59.014958 ---
-Holding, profit is 0.0
----Execution end at 2021-05-25 18:34:59.811230 ---
+---Execution start at 2021-06-25 11:44:59.017830 ---
+1. Buying at time : 2021-06-25 11:40:00, for price 48.1734.
+2. Profit is -48.2216
 
-Next time of execution is 2021-05-25 18:40:00, waiting 298.18 seconds
+---Execution end at 2021-06-25 11:45:00.053621 ---
 
----Execution start at 2021-05-25 18:39:59.008261 ---
-Holding, profit is 0.0
----Execution end at 2021-05-25 18:39:59.851878 ---
+Next time of execution is 2021-06-25 11:50:00, waiting 297.93 seconds
 
-Next time of execution is 2021-05-25 18:45:00, waiting 298.14 seconds
+---Execution start at 2021-06-25 11:49:59.003698 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 11:49:59.775415 ---
 
----Execution start at 2021-05-25 18:44:59.012584 ---
-Holding, profit is 0.0
----Execution end at 2021-05-25 18:44:59.825798 ---
+Next time of execution is 2021-06-25 11:55:00, waiting 298.22 seconds
 
-Next time of execution is 2021-05-25 18:50:00, waiting 298.17 seconds
+---Execution start at 2021-06-25 11:54:59.012499 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 11:54:59.741039 ---
 
----Execution start at 2021-05-25 18:49:59.008974 ---
-Holding, profit is 0.0
----Execution end at 2021-05-25 18:49:59.803952 ---
+Next time of execution is 2021-06-25 12:00:00, waiting 298.23 seconds
 
-Next time of execution is 2021-05-25 18:55:00, waiting 298.19 seconds
+---Execution start at 2021-06-25 11:59:59.010177 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 11:59:59.796009 ---
 
----Execution start at 2021-05-25 18:54:59.005205 ---
-Holding, profit is 0.0
----Execution end at 2021-05-25 18:54:59.807686 ---
+Next time of execution is 2021-06-25 12:05:00, waiting 298.18 seconds
 
-Next time of execution is 2021-05-25 19:00:00, waiting 298.18 seconds
+---Execution start at 2021-06-25 12:04:59.016280 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 12:04:59.735387 ---
 
----Execution start at 2021-05-25 18:59:59.007850 ---
-Holding, profit is 0.0
----Execution end at 2021-05-25 18:59:59.988245 ---
+Next time of execution is 2021-06-25 12:10:00, waiting 298.25 seconds
 
-Next time of execution is 2021-05-25 19:05:00, waiting 298.0 seconds
+---Execution start at 2021-06-25 12:09:59.019963 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 12:09:59.737495 ---
 
----Execution start at 2021-05-25 19:04:59.010417 ---
-Holding, profit is 0.0
----Execution end at 2021-05-25 19:04:59.844572 ---
+Next time of execution is 2021-06-25 12:15:00, waiting 298.24 seconds
 
-Next time of execution is 2021-05-25 19:10:00, waiting 298.15 seconds
+---Execution start at 2021-06-25 12:14:59.001141 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 12:14:59.814941 ---
 
----Execution start at 2021-05-25 19:09:59.006144 ---
-Holding, profit is 0.0
----Execution end at 2021-05-25 19:09:59.838397 ---
+Next time of execution is 2021-06-25 12:20:00, waiting 298.17 seconds
 
-Next time of execution is 2021-05-25 19:15:00, waiting 298.16 seconds
+---Execution start at 2021-06-25 12:19:59.007794 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 12:19:59.821499 ---
 
----Execution start at 2021-05-25 19:14:59.002464 ---
-Holding, profit is 0.0
----Execution end at 2021-05-25 19:14:59.909259 ---
+Next time of execution is 2021-06-25 12:25:00, waiting 298.17 seconds
 
-Next time of execution is 2021-05-25 19:20:00, waiting 298.08 seconds
+---Execution start at 2021-06-25 12:24:59.008526 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 12:24:59.789639 ---
 
----Execution start at 2021-05-25 19:19:59.004658 ---
-Holding, profit is 0.0
----Execution end at 2021-05-25 19:19:59.828067 ---
+Next time of execution is 2021-06-25 12:30:00, waiting 298.19 seconds
 
-Next time of execution is 2021-05-25 19:25:00, waiting 298.16 seconds
+---Execution start at 2021-06-25 12:29:59.013516 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 12:29:59.718256 ---
+
+Next time of execution is 2021-06-25 12:35:00, waiting 298.27 seconds
+
+---Execution start at 2021-06-25 12:34:59.005354 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 12:34:59.849472 ---
+
+Next time of execution is 2021-06-25 12:40:00, waiting 298.13 seconds
+
+---Execution start at 2021-06-25 12:39:59.023478 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 12:40:00.662227 ---
+
+Next time of execution is 2021-06-25 12:45:00, waiting 297.33 seconds
+
+---Execution start at 2021-06-25 12:44:59.013696 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 12:44:59.791279 ---
+
+Next time of execution is 2021-06-25 12:50:00, waiting 298.2 seconds
+
+---Execution start at 2021-06-25 12:49:59.020422 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 12:49:59.770583 ---
+
+Next time of execution is 2021-06-25 12:55:00, waiting 298.22 seconds
+
+---Execution start at 2021-06-25 12:54:59.009602 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 12:54:59.782066 ---
+
+Next time of execution is 2021-06-25 13:00:00, waiting 298.21 seconds
+
+---Execution start at 2021-06-25 12:59:59.008252 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 12:59:59.741241 ---
+
+Next time of execution is 2021-06-25 13:05:00, waiting 298.25 seconds
+
+---Execution start at 2021-06-25 13:04:59.014537 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 13:04:59.790897 ---
+
+Next time of execution is 2021-06-25 13:10:00, waiting 298.2 seconds
+
+---Execution start at 2021-06-25 13:09:59.009539 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 13:09:59.789389 ---
+
+Next time of execution is 2021-06-25 13:15:00, waiting 298.19 seconds
+
+---Execution start at 2021-06-25 13:14:59.234746 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 13:15:00.363700 ---
+
+Next time of execution is 2021-06-25 13:20:00, waiting 297.62 seconds
+
+---Execution start at 2021-06-25 13:19:59.010801 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 13:19:59.743120 ---
+
+Next time of execution is 2021-06-25 13:25:00, waiting 298.24 seconds
+
+---Execution start at 2021-06-25 13:24:59.155275 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 13:24:59.922364 ---
+
+Next time of execution is 2021-06-25 13:30:00, waiting 298.06 seconds
+
+---Execution start at 2021-06-25 13:29:59.012334 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 13:29:59.740592 ---
+
+Next time of execution is 2021-06-25 13:35:00, waiting 298.24 seconds
+
+---Execution start at 2021-06-25 13:34:59.013150 ---
+Holding, profit is -48.2216
+---Execution end at 2021-06-25 13:34:59.804586 ---
+
+Next time of execution is 2021-06-25 13:40:00, waiting 298.19 seconds
+
+---Execution start at 2021-06-25 13:39:59.019246 ---
+Holding, profit is -48.2216

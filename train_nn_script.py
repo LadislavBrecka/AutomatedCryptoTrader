@@ -30,4 +30,8 @@ for i in range(2, files-1-val_i):
     nn_train(file_name, True, True, 0.0, validation_dataset_file_name=validation_file_name)
 
 file_name = "Data/Datasets/Active/{}.csv".format(str(files-val_i))
-nn_train(file_name, True, False, 1.0, validation_dataset_file_name=validation_file_name)
+percentage_diff = nn_train(file_name, True, False, 1.0, validation_dataset_file_name=validation_file_name)
+
+conf_mat = open("Outputs/conf_matrix.txt")
+conf_mat.write(percentage_diff)
+conf_mat.close()

@@ -16,8 +16,8 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.backends.backend_tkagg as tkagg
 import matplotlib.dates as mdates
 from matplotlib import style
-matplotlib.use("TkAgg")
 style.use('seaborn-pastel')
+matplotlib.use("TkAgg")
 
 
 # Function for returning nearest time of execution, rounded to 5 minutes
@@ -214,9 +214,11 @@ def plot_to_tkinter(ideal_signals: tuple, predicted_signals: tuple):
     for a in ax:
         a.clear()
         a.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
-        a.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
-        a.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
-        a.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
+
+    ax[0].set_ylabel('EUR [€]')
+    ax[1].set_ylabel('EUR [€]')
+    ax[2].set_ylabel('EUR [€]')
+    ax[3].set_ylabel('Percentage [%]')
 
     if len(predicted_signals[0]) == len(predicted_signals[1]):
         if len(set(predicted_signals[0])) != 1:

@@ -75,7 +75,27 @@ def nn_train(main_dataset_file_name, load_nn, save_nn, test_split, validation_da
     '''
     Querying test dataset for testing Feed Forward Neural Network
     '''
+    percentage_diff = 0.0
     if test_split > 0.0:
+
+        test_profit = 0.0
+        test_profit_prev = 0.0
+
+        for s in ideal_signals[1]:
+            if s is not np.nan:
+                test_sell_price = BUY_QUANTITY * s
+                fees = (BUY_QUANTITY * s) * FEE_PERCENTAGE
+                test_profit = test_profit + test_sell_price - fees
+
+        for b in ideal_signals[0]:
+            if b is not np.nan:
+                test_profit_prev = test_profit
+                test_buy_price = BUY_QUANTITY * b
+                fees = (BUY_QUANTITY * b) * FEE_PERCENTAGE
+                test_profit = test_profit - test_buy_price - fees
+
+        if (test_profit < test_profit_prev) and test_profit < 0.0:
+            test_profit = test_profit_prev
 
         testing_log_file = open('Outputs/testing_log.txt', 'w')
         profit, ans_list_main = nn_test_validation(nn, main_dataset_handler_binance, test_dataset, testing_log_file)
@@ -83,6 +103,10 @@ def nn_train(main_dataset_file_name, load_nn, save_nn, test_split, validation_da
               "Final earning is {} EUR. All fees are included, application was buying for price 10% of actual price of {}.\n".format(profit, main_dataset_handler_binance.pair) + \
               "-----------------------------------------------------------------------------------------------------------------------------------"
         MyLogger.write(msg, testing_log_file)
+
+        percentage_diff = 100.0 - ((profit * 100.0) / test_profit)
+
+        MyLogger.write("Testing profit is {}, (loss of {} %)\n".format(test_profit, percentage_diff), testing_log_file)
         testing_log_file.close()
 
         # Plotting results in graphs and print whole dataset to file in /Outputs/
@@ -92,6 +116,11 @@ def nn_train(main_dataset_file_name, load_nn, save_nn, test_split, validation_da
     # If save_nn flag is set, then save NN to file in /Data/Neurons/
     if save_nn:
         nn.save_to_file()
+
+    if test_split > 0.0:
+        return percentage_diff
+    else:
+        pass
 
 
 # Testing logic is in separated function for clean code
@@ -118,6 +147,7 @@ def nn_test_validation(nn, dataset_handler_binance, test_norm_dataset, test_log_
 
     # Initialize profit to 0
     profit = 0.0
+    profit_prev = 0.0
 
     # Main test loop
     for i in range(LOOK_BACK - 1, len(test_norm_dataset)):
@@ -132,6 +162,7 @@ def nn_test_validation(nn, dataset_handler_binance, test_norm_dataset, test_log_
 
         if ans[0] > NN_OUT_ANS_BUY_THRESHOLD:
             if flag != 0:
+                profit_prev = profit
                 buying_price = BUY_QUANTITY * dataset_handler_binance.dataset['Close'][train_dataset_len + i]
                 fees = (BUY_QUANTITY * dataset_handler_binance.dataset['Close'][train_dataset_len + i]) * FEE_PERCENTAGE
                 profit = profit - buying_price - fees
@@ -167,6 +198,9 @@ def nn_test_validation(nn, dataset_handler_binance, test_norm_dataset, test_log_
                 ans_list[0].append(np.nan)
                 ans_list[1].append(np.nan)
             pass
+
+    if (profit < profit_prev) and profit < 0.0:
+        profit = profit_prev
 
     if validation:
         return profit

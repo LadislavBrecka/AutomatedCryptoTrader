@@ -66,12 +66,16 @@ class OhlcHandler:
             ax[0, 0].plot(self.dataset[matching[1]], 'm', label=matching[1])  # row=0, col=0
             ax[0, 0].grid(True)
             ax[0, 0].legend(loc="lower right")
+            ax[0, 0].set_ylabel("EUR [€]")
+            ax[0, 0].set_xlabel("Time")
 
             ax[1, 0].plot(self.dataset['Rsi'], 'b', label='Rsi')  # row=0, col=0
             ax[1, 0].axhline(y=30, color='r')
             ax[1, 0].axhline(y=70, color='r')
             ax[1, 0].grid(True)
             ax[1, 0].legend(loc="lower right")
+            ax[1, 0].set_ylabel("Percentage [%]")
+            ax[1, 0].set_xlabel("Time")
 
             ax[2, 0].plot(self.dataset['Macd'], 'b', label='Macd')  # row=1, col=0
             ax[2, 0].plot(self.dataset['Signal'], 'm', label='Signal')  # row=1, col=0
@@ -79,16 +83,22 @@ class OhlcHandler:
             ax[2, 0].axhline(y=0, color='k')
             ax[2, 0].grid(True)
             ax[2, 0].legend(loc="lower right")
+            ax[2, 0].set_ylabel("EUR [€]")
+            ax[2, 0].set_xlabel("Time")
 
             input_data = self.dataset['Close']
             output = services.Filter.fft_filter(input_data, filter_const)
             ax[1, 1].plot(self.dataset.index, output, 'b', label='Filtered close price')  # row=1, col=1
             ax[1, 1].grid(True)
             ax[1, 1].legend(loc="lower right")
+            ax[1, 1].set_ylabel("EUR [€]")
+            ax[1, 1].set_xlabel("Time")
 
             ax[2, 1].plot(self.dataset['Gradient'], 'b', label='Gradient')  # row=1, col=1
             ax[2, 1].grid(True)
             ax[2, 1].legend(loc="lower right")
+            ax[2, 1].set_ylabel("[-]")
+            ax[2, 1].set_xlabel("Time")
 
             if buy_sell is not None:
                 if len(set(buy_sell[0])) != 1:
@@ -104,6 +114,8 @@ class OhlcHandler:
             ax[0, 1].plot(self.dataset['Close'], 'b', label='Close')  # row=1, col=1
             ax[0, 1].grid(True)
             ax[0, 1].legend(loc="lower right")
+            ax[0, 1].set_ylabel("EUR [€]")
+            ax[0, 1].set_xlabel("Time")
 
             if norm is not None:
                 ax[3, 0].plot(self.dataset.index, norm['Norm_Close'], color='b', label='Normalized Close price')
@@ -119,11 +131,17 @@ class OhlcHandler:
                 ax[4, 1].grid(True)
                 ax[4, 1].legend(loc="lower right")
 
+                ax[3, 0].set_ylabel("[-]")
+                ax[3, 0].set_xlabel("Time")
+                ax[3, 1].set_ylabel("[-]")
+                ax[3, 1].set_xlabel("Time")
+                ax[4, 0].set_ylabel("[-]")
+                ax[4, 0].set_xlabel("Time")
+                ax[4, 1].set_ylabel("[-]")
+                ax[4, 1].set_xlabel("Time")
+
             for row in ax:
                 for a in row:
-                    a.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
-                    a.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
-                    a.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
                     a.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M"))
 
         plot_df = self.dataset.iloc[:, :-1]
